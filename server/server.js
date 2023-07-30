@@ -9,7 +9,7 @@ const passport = require('./strategies/user.strategy');
 
 // Route includes
 const userRouter = require('./routes/user.router');
-const s3Router = require('./routes/s3.test.router');
+const s3ImageRouter = require('./routes/s3.image.router');
 
 // Body parser middleware
 app.use(bodyParser.json());
@@ -24,7 +24,7 @@ app.use(passport.session());
 
 /* Routes */
 app.use('/api/user', userRouter);
-app.use('/api/s3', s3Router);
+app.use('/api/image', s3ImageRouter);
 
 // Serve static files
 app.use(express.static('build'));

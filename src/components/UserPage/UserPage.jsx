@@ -1,6 +1,6 @@
 import React from 'react';
 import LogOutButton from '../LogOutButton/LogOutButton';
-import TestFileUpload from '../TestFileUpload/TestFileUpload';
+import ImageUpload from '../ImageUpload/ImageUpload';
 import {useSelector} from 'react-redux';
 
 function UserPage() {
@@ -10,7 +10,7 @@ function UserPage() {
     <div className="container">
       <h2>Welcome, {user.username}!</h2>
       <p>Your ID is: {user.id}</p>
-      <div><TestFileUpload /></div>
+      <div><ImageUpload /></div>
       <LogOutButton className="btn" />
     </div>
   );
