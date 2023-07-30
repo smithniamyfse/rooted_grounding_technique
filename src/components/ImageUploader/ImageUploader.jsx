@@ -1,19 +1,18 @@
 import axios from 'axios';
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
-function ImageUpload() {
+
+function ImageUploader() {
     const [file, setFile] = useState(null);
+    const dispatch = useDispatch();
 
     const onFormSubmit = async (e) => {
         e.preventDefault();
-        const formData = new FormData();
-        formData.append('image', file);
-        const response = await axios.post('/api/image/upload', formData, {
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        });
-        console.log(response.data.fileUrl);
+
+        // Instead of directly making an axios call here, let's dispatch an action to keep the component clean.
+        // The async request should be handled by the saga.
+        dispatch({ type: 'UPLOAD_IMAGE_REQUEST', payload: file });
     };
 
     const onFileChange = (e) => {
@@ -28,4 +27,4 @@ function ImageUpload() {
     );
 }
 
-export default ImageUpload;
+export default ImageUploader;
