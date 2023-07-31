@@ -12,7 +12,7 @@ function UserPage() {
   // This will run once after component load
   useEffect(()=>{
     dispatch({type: 'FETCH_USER_IMAGE'});
-  }, []);
+  }, [dispatch]);
 
   return (
     <div className="container">
@@ -20,9 +20,9 @@ function UserPage() {
       <p>Your ID is: {user.id}</p>
       <ImageUploader />
       {/* Mapping through the images array */}
-      {images.map((image, index) => (
+      {/* {images.map((image, index) => (
         <img src={image.image_url} alt={`user upload ${index}`} key={index} />
-      ))}
+      ))} */}
       <LogOutButton className="btn" />
     </div>
   );

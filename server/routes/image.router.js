@@ -50,10 +50,11 @@ router.post('/upload', rejectUnauthenticated, upload.single('image'), async (req
 });
 
 router.get('/:imageId', rejectUnauthenticated, async (req, res) => {
+    console.log('req.user: ', req.user); 
   const userId = req.user.id;
   const imageId = req.params.imageId;
   const key = `${userId}/${imageId}`;
-
+  console.log('CLOUDFRONT_DISTRIBUTION_ID: ', process.env.CLOUDFRONT_DISTRIBUTION_ID);
   const cfUrl = `https://${process.env.CLOUDFRONT_DISTRIBUTION_ID}.cloudfront.net/${key}`; 
 
   const options = {
