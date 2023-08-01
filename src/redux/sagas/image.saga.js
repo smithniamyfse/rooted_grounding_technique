@@ -3,7 +3,9 @@ import { put, takeLatest } from 'redux-saga/effects';
 
 function* uploadImage(action) {
     try {
-      const response = yield axios.post(`/api/image/upload`, action.payload);
+      const response = yield axios.post(`/api/image/upload`, action.payload, {
+        headers: { 'Content-Type': 'multipart/form-data' }
+      });
       yield put({ type: 'FETCH_USER_IMAGE' });
     } catch (error) {
       console.log('Error uploading image:', error);

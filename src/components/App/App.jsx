@@ -46,10 +46,7 @@ function App() {
             exact
             path="/about"
           >
-            {/* 
-            TODO: REMEMBER TO SWITCH BACK TO <AboutPage /> when LocationPage.jsx testing is complete.
-            <AboutPage /> */}
-            <LocationPage />
+            <AboutPage />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.

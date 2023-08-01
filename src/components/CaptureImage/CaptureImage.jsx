@@ -1,80 +1,267 @@
-import React, { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useRef, useEffect, useState } from "react";
+import './CaptureImage.css';
 
 function CaptureImage() {
   const videoRef = useRef(null);
-  const [streaming, setStreaming] = useState(false);
-  const width = 320;
-  let height = 0;
+  const photoRef = useRef(null);
+
+  const [hasPhoto, setHasPhoto] = useState(false);
+
+  const getVideo = () => {
+    navigator.mediaDevices.getUserMedia({
+      video: { width: 1920, height: 1080 },
+    })
+    .then(stream => {
+        let video = videoRef.current; 
+        video.srcObject = stream;
+        video.play();
+    })
+    .catch(err => {
+        console.error(err);
+    })
+  };
+
+  const takePhoto = () => {
+    const width = 414;
+    const height = width / (16/9);
+
+    let video = videoRef.current;
+    let photo = photoRef.current;
+
+    photo.width = width; 
+    photo.height = height;
+
+    let ctx = photo.getContext('2d');
+    ctx.drawImage(video, 0, 0, width, height);
+
+    setHasPhoto(true);
+  }
+
+  const closePhoto = () => {
+    let photo = photoRef.current;
+    let ctx = photo.getContext('2d');
+    
+    ctx.clearRect(0, 0, photo.width, photo.height);
+
+    setHasPhoto(false);
+
+  }
 
   useEffect(() => {
-    startup();
-  }, []);
-
-  const startup = () => {
-    navigator.mediaDevices
-      .getUserMedia({ video: true, audio: false })
-      .then((stream) => {
-        videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = (e) => {
-          videoRef.current.play().catch((err) => {
-            console.error("Play video error:", err);
-          });
-        };
-      })
-      .catch((err) => {
-        console.error("An error occurred: ", err);
-      });
-  
-    videoRef.current.addEventListener(
-      "canplay",
-      (ev) => {
-        if (!streaming) {
-          height = videoRef.current.videoHeight / (videoRef.current.videoWidth / width);
-          if (isNaN(height)) {
-            height = width / (4 / 3);
-          }
-          videoRef.current.setAttribute("width", width);
-          videoRef.current.setAttribute("height", height);
-          setStreaming(true);
-        }
-      },
-      false
-    );
-  };
-  
-
-  const takePicture = () => {
-    const canvas = document.createElement("canvas");
-    const context = canvas.getContext("2d");
-    if (width && height) {
-      canvas.width = width;
-      canvas.height = height;
-      context.drawImage(videoRef.current, 0, 0, width, height);
-
-      const imgUrl = canvas.toDataURL("image/png");
-
-      // You can now upload or save this image URL.
-      console.log(imgUrl);
-    }
-  };
+    getVideo();
+  }, [videoRef]);
 
   return (
-    <div>
-      <div>
-        <button onClick={takePicture}>Take a photo</button>
-        <video ref={videoRef}>Video stream not available.</video>
+    <section className="capture-image-container">
+      <div className="camera">
+        <video ref={videoRef}></video>
+        <button onClick={takePhoto}>SNAP!</button>
       </div>
-    </div>
+      <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
+        <canvas ref={photoRef}></canvas>
+        <button onClick={closePhoto}>CLOSE!</button>
+      </div>
+    </section>
   );
 }
 
 export default CaptureImage;
 
 
+
+
+
+// ** VERSION 5 **
+// import React, { useEffect, useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// function CaptureImage() {
+//   const videoRef = useRef(null);
+//   const [streaming, setStreaming] = useState(false);
+//   const [loading, setLoading] = useState(true);
+//   const imageUrls = useSelector((state) => state.image);
+//   const [capturedImage, setCapturedImage] = useState(null);
+//   const width = 320;
+//   let height = 0;
+
+//   const dispatch = useDispatch();
+//   let imageCapture;
+
+//   useEffect(() => {
+//     startup();
+//     return () => {
+//       if(videoRef.current && videoRef.current.srcObject){
+//         const tracks = videoRef.current.srcObject.getTracks();
+//         tracks.forEach(track => track.stop());
+//       }
+//     };
+//   }, []);
+
+//   const startup = async () => {
+//     setLoading(true);
+//     if(!videoRef.current) return;
+//     const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false });
+//     videoRef.current.srcObject = stream;
+//     videoRef.current.onloadedmetadata = (e) => {
+//       videoRef.current.play().catch((err) => {
+//         console.error("Play video error:", err);
+//       });
+//     };
+
+//     const track = stream.getVideoTracks()[0];
+//     imageCapture = new ImageCapture(track);
+
+//     videoRef.current.addEventListener(
+//       "canplay",
+//       (ev) => {
+//         if (!streaming) {
+//           height = videoRef.current.videoHeight / (videoRef.current.videoWidth / width);
+//           if (isNaN(height)) {
+//             height = width / (4 / 3);
+//           }
+//           videoRef.current.setAttribute("width", width);
+//           videoRef.current.setAttribute("height", height);
+//           setStreaming(true);
+//           setLoading(false);
+//         }
+//       },
+//       false
+//     );
+//   };
+
+//   const takePicture = async () => {
+//     if (!imageCapture) {
+//       console.log('Start camera first');
+//       return;
+//     }
+
+//     imageCapture.takePhoto().then(blob => {
+//       const imgUrl = URL.createObjectURL(blob);
+//       console.log("Image Data URL: ", imgUrl);
+//       setCapturedImage(imgUrl);
+//       const formData = new FormData();
+//       formData.append('image', blob);
+//       dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
+//     }).catch(error => console.error('Error capturing photo', error));
+//   };
+
+//   useEffect(() => {
+//     dispatch({ type: 'FETCH_USER_IMAGE' });
+//   }, [dispatch]);
+
+//   return (
+//     <div>
+//       <div>
+//         <button onClick={takePicture} disabled={loading || !streaming}>Take a photo</button>
+//         <video ref={videoRef}>Video stream not available.</video>
+//         {imageUrls.map((url, i) => (
+//           <img key={i} src={url} alt="Uploaded" />
+//         ))}
+//         {capturedImage && <img src={capturedImage} alt="Captured" />}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default CaptureImage;
+
+// ** VERSION 4 **
+// import React, { useEffect, useRef, useState } from "react";
+// import { useDispatch, useSelector } from "react-redux";
+
+// function CaptureImage() {
+//   const videoRef = useRef(null);
+//   const [streaming, setStreaming] = useState(false);
+//   const imageUrls = useSelector((state) => state.image);
+//   const [capturedImage, setCapturedImage] = useState(null); // state for the user's captured image
+//   const width = 320;
+//   let height = 0;
+
+//   const dispatch = useDispatch();
+
+//   useEffect(() => {
+//     startup();
+//   }, []);
+
+//   const startup = () => {
+//     navigator.mediaDevices
+//       .getUserMedia({ video: true, audio: false })
+//       .then((stream) => {
+//         videoRef.current.srcObject = stream;
+//         videoRef.current.onloadedmetadata = (e) => {
+//           videoRef.current.play().then(() => {
+//             console.log("Video is playing"); // Check if video is playing
+//           }).catch((err) => {
+//             console.error("Play video error:", err);
+//           });
+//         };
+//       })
+//       .catch((err) => {
+//         console.error("An error occurred: ", err);
+//       });
+
+//     videoRef.current.addEventListener(
+//       "canplay",
+//       (ev) => {
+//         if (!streaming) {
+//           height = videoRef.current.videoHeight / (videoRef.current.videoWidth / width);
+//           if (isNaN(height)) {
+//             height = width / (4 / 3);
+//           }
+//           videoRef.current.setAttribute("width", width);
+//           videoRef.current.setAttribute("height", height);
+//           setStreaming(true);
+//         }
+//       },
+//       false
+//     );
+//   };
+
+//   const takePicture = async () => { // make this function async
+//     console.log("Take picture button clicked"); // Check if the button click is working
+//     const canvas = document.createElement("canvas");
+//     const context = canvas.getContext("2d");
+//     if (width && height) {
+//       canvas.width = width;
+//       canvas.height = height;
+//       context.drawImage(videoRef.current, 0, 0, width, height);
+
+//       const imgUrl = canvas.toDataURL("image/png");
+//       console.log("Image Data URL: ", imgUrl); // Log the image data URL
+//       setCapturedImage(imgUrl); // set the imgUrl to state
+//       const blob = await fetch(imgUrl).then(r => r.blob());
+
+//       const formData = new FormData();
+//       formData.append('image', blob);
+
+//       dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
+//     }
+//   };
+
+//   useEffect(() => {
+//     dispatch({ type: 'FETCH_IMAGES' }); // Fetches all the images for the user
+//   }, [dispatch]);
+
+//   return (
+//     <div>
+//       <div>
+//         <button onClick={takePicture}>Take a photo</button>
+//         <video ref={videoRef}>Video stream not available.</video>
+//         {/* Render the user's captured image */}
+//         {/* Display the uploaded images */}
+//       {imageUrls.map((url, i) => (
+//         <img key={i} src={url} alt="Uploaded" />
+//       ))}
+//         {capturedImage && <img src={capturedImage} alt="Captured" />}
+//       </div>
+//     </div>
+//   );
+// }
+
+// export default CaptureImage;
+
 // ** VERSION 3 **
 // import React, { useEffect, useRef } from "react";
-
 
 // function CaptureImage() {
 //     const videoRef = useRef(null);
@@ -82,7 +269,7 @@ export default CaptureImage;
 //     useEffect(() => {
 //       getVideo();
 //     }, [videoRef]);
-  
+
 //     const getVideo = () => {
 //         navigator.mediaDevices
 //           .getUserMedia({ video: { width: 300 } })
@@ -91,7 +278,7 @@ export default CaptureImage;
 //             video.srcObject = stream;
 //             video.onloadedmetadata = function(e) {
 //               let playPromise = video.play();
-      
+
 //               if (playPromise !== undefined) {
 //                 playPromise
 //                   .then(() => {
@@ -110,27 +297,27 @@ export default CaptureImage;
 //             console.error("error:", err);
 //           });
 //       };
-      
+
 //       const takePhoto = () => {
 //         let photo = photoRef.current;
 //         let strip = stripRef.current;
 //         let video = videoRef.current;
 //         let ctx = photo.getContext("2d");
-    
+
 //         const width = 320;
 //         const height = 240;
 //         photo.width = width;
 //         photo.height = height;
-    
+
 //         const data = photo.toDataURL("image/jpeg");
-    
+
 //         const link = document.createElement("a");
 //         link.href = data;
 //         link.setAttribute("download", "myWebcam");
 //         link.innerHTML = `<img src='${data}' alt='thumbnail'/>`;
 //         strip.insertBefore(link, strip.firstChild);
 //       };
-  
+
 //     return (
 //       <div>
 //         <div>
@@ -142,7 +329,6 @@ export default CaptureImage;
 //   };
 
 // export default CaptureImage;
-
 
 // ** VERSION 2 - SCRAPPED react-camera-pro library **
 // import React, { useEffect, useRef, useState } from "react";
