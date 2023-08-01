@@ -9,12 +9,15 @@ function SeeFirstPage() {
   // useSelector for items
   const user = useSelector((store) => store.user);
   const forms = useSelector((store) => store.forms);
+  const triggerId = useSelector((store) => store.trigger.id); // retrieve triggerId from the store
 
   // useState to set item tags
-  const [labelSeeItem, setLabelSeeItem] = useState("");
+  const [newSeeItem, setNewSeeItem] = useState("");
 
   const handleSubmit = () => {
-    dispatch({ type: "ADD_SEE_ITEM", payload: { label: newSeeItem } });
+    console.log("Dispatching add see item action with payload:", { label: newSeeItem });
+    // Include triggerId in your payload. 
+    dispatch({ type: "ADD_SEE_ITEM", payload: { label: newSeeItem, triggerId: triggerId } });
 
     // clear input fields
     setNewSeeItem("");
@@ -26,11 +29,11 @@ function SeeFirstPage() {
         <h2>Welcome, {user.username}</h2>
         <div className="see-first-form-container">
           <form onSubmit={handleSubmit}>
-            <label htmlFor="see-label-1">
+            <label htmlFor="see-item-1">
               <input
-                value={labelSeeItem}
-                onChange={(event) => setLabelSeeItem(event.target.value)}
-                id="labelSeeItem"
+                value={newSeeItem}
+                onChange={(event) => setNewSeeItem(event.target.value)}
+                id="newSeeItem"
                 placeholder="List one item you see"
               />
             </label>
@@ -47,3 +50,4 @@ function SeeFirstPage() {
 } // end SeeFirstPage component
 
 export default SeeFirstPage;
+

@@ -9,6 +9,7 @@ const initialState = {
   };
   
   const formReducer = (state = initialState, action) => {
+    console.log("Inside form reducer with action:", action);
     switch (action.type) {
       case "FORM_SUBMIT_SUCCESS":
         return {
