@@ -1,0 +1,81 @@
+h1,
+p {
+  font-family: Lato;
+}
+
+.strip {
+  width: 100%;
+  max-height: 100px;
+}
+
+.strip img {
+  width: 50px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.webcam-video {
+  position: relative;
+  width: 320px;
+  height: 300px;
+  video {
+    display: none;
+    position: absolute;
+    top: 300px;
+  }
+  button {
+    display: none;
+    position: absolute;
+    z-index: 9;
+    bottom: 60px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    border: none;
+    background: rgba(255, 255, 255, 0.4);
+  }
+  canvas {
+    position: absolute;
+    left: 0;
+    bottom: 60px;
+  }
+  .photo-booth {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    overflow-x: auto;
+    .strip {
+      display: flex;
+    }
+  }
+}
+
+.scene {
+  display: block;
+  position: relative;
+  width: 400px;
+  height: 400px;
+  border: 5px solid black;
+  border-radius: 100%;
+  overflow: hidden;
+  transition: 1s;
+  .clouds {
+    position: absolute;
+    left: 0;
+    top: 50px;
+    width: 100%;
+  }
+  .mountains {
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 400px;
+  }
+}

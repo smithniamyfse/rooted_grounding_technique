@@ -17,6 +17,7 @@ import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
 import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
+import LocationPage from '../LocationPage/LocationPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 
@@ -45,7 +46,10 @@ function App() {
             exact
             path="/about"
           >
-            <AboutPage />
+            {/* 
+            TODO: REMEMBER TO SWITCH BACK TO <AboutPage /> when LocationPage.jsx testing is complete.
+            <AboutPage /> */}
+            <LocationPage />
           </Route>
 
           {/* For protected routes, the view could show one of several things on the same route.
