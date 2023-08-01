@@ -104,7 +104,7 @@ function CaptureImage() {
         video.srcObject = null;
       }
     };
-  }, []);
+  }, [dispatch]);
 
   return (
     <section className="capture-image-container">
