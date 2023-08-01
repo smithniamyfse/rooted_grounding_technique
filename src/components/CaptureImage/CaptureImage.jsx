@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import './CaptureImage.css';
+import "./CaptureImage.css";
 
 function CaptureImage() {
   const videoRef = useRef(null);
@@ -8,48 +8,62 @@ function CaptureImage() {
   const [hasPhoto, setHasPhoto] = useState(false);
 
   const getVideo = () => {
-    navigator.mediaDevices.getUserMedia({
-      video: { width: 1920, height: 1080 },
-    })
-    .then(stream => {
-        let video = videoRef.current; 
+    navigator.mediaDevices
+      .getUserMedia({
+        video: { width: 1920, height: 1080 },
+      })
+      .then((stream) => {
+        let video = videoRef.current;
         video.srcObject = stream;
-        video.play();
-    })
-    .catch(err => {
+        video.oncanplay = function () {
+          video.play().catch((err) => {
+            console.log("The video could not be played:", err);
+          });
+        };
+      })
+      .catch((err) => {
         console.error(err);
-    })
+      });
   };
 
   const takePhoto = () => {
     const width = 414;
-    const height = width / (16/9);
+    const height = width / (16 / 9);
 
     let video = videoRef.current;
     let photo = photoRef.current;
 
-    photo.width = width; 
+    photo.width = width;
     photo.height = height;
 
-    let ctx = photo.getContext('2d');
+    let ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
 
     setHasPhoto(true);
-  }
+  };
 
   const closePhoto = () => {
     let photo = photoRef.current;
-    let ctx = photo.getContext('2d');
-    
+    let ctx = photo.getContext("2d");
+
     ctx.clearRect(0, 0, photo.width, photo.height);
 
     setHasPhoto(false);
-
-  }
+  };
 
   useEffect(() => {
     getVideo();
-  }, [videoRef]);
+    return () => {
+      const video = videoRef.current;
+      if (video && video.srcObject) {
+        const tracks = video.srcObject.getTracks();
+        tracks.forEach((track) => {
+          track.stop();
+        });
+        video.srcObject = null;
+      }
+    };
+  }, []);
 
   return (
     <section className="capture-image-container">
@@ -70,6 +84,123 @@ export default CaptureImage;
 
 
 
+// ** VERSION 6 **
+// import React, { useRef, useEffect, useState } from "react";
+// import './CaptureImage.css';
+
+// function CaptureImage() {
+//   const videoRef = useRef(null);
+//   const photoRef = useRef(null);
+
+//   const [hasPhoto, setHasPhoto] = useState(false);
+
+// //   const getVideo = () => {
+// //     navigator.mediaDevices.getUserMedia({
+// //       video: { width: 1920, height: 1080 },
+// //     })
+// //     .then(stream => {
+// //         let video = videoRef.current;
+// //         video.srcObject = stream;
+// //         video.play();
+// //     })
+// //     .catch(err => {
+// //         console.error(err);
+// //     })
+// //   };
+
+// // const getVideo = () => {
+// //     navigator.mediaDevices.getUserMedia({
+// //       video: { width: 1920, height: 1080 },
+// //     })
+// //     .then(stream => {
+// //       let video = videoRef.current;
+// //       video.srcObject = stream;
+// //       video.play().catch(err => {
+// //         console.log("The video could not be played:", err);
+// //       });
+// //     })
+// //     .catch(err => {
+// //       console.error(err);
+// //     })
+// //   };
+
+// const getVideo = () => {
+//     navigator.mediaDevices.getUserMedia({
+//       video: { width: 1920, height: 1080 },
+//     })
+//     .then(stream => {
+//       let video = videoRef.current;
+//       video.srcObject = stream;
+//       video.oncanplay = function() {
+//         video.play().catch(err => {
+//           console.log("The video could not be played:", err);
+//         });
+//       };
+//     })
+//     .catch(err => {
+//       console.error(err);
+//     })
+//   };
+
+//   const takePhoto = () => {
+//     const width = 414;
+//     const height = width / (16/9);
+
+//     let video = videoRef.current;
+//     let photo = photoRef.current;
+
+//     photo.width = width;
+//     photo.height = height;
+
+//     let ctx = photo.getContext('2d');
+//     ctx.drawImage(video, 0, 0, width, height);
+
+//     setHasPhoto(true);
+//   }
+
+//   const closePhoto = () => {
+//     let photo = photoRef.current;
+//     let ctx = photo.getContext('2d');
+
+//     ctx.clearRect(0, 0, photo.width, photo.height);
+
+//     setHasPhoto(false);
+
+//   }
+
+// //   useEffect(() => {
+// //     getVideo();
+// //   }, [videoRef]);
+
+// useEffect(() => {
+//     getVideo();
+//     return () => {
+//       const video = videoRef.current;
+//       if (video && video.srcObject) {
+//         const tracks = video.srcObject.getTracks();
+//         tracks.forEach((track) => {
+//           track.stop();
+//         });
+//         video.srcObject = null;
+//       }
+//     };
+//   }, []);
+
+//   return (
+//     <section className="capture-image-container">
+//       <div className="camera">
+//         <video ref={videoRef}></video>
+//         <button onClick={takePhoto}>SNAP!</button>
+//       </div>
+//       <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
+//         <canvas ref={photoRef}></canvas>
+//         <button onClick={closePhoto}>CLOSE!</button>
+//       </div>
+//     </section>
+//   );
+// }
+
+// export default CaptureImage;
 
 // ** VERSION 5 **
 // import React, { useEffect, useRef, useState } from "react";
