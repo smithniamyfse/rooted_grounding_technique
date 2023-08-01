@@ -7,9 +7,9 @@ const {
 
 // Get all inputted items for each sense type
 router.get("/", rejectUnauthenticated, (req, res) => {
-  let sqlQuery = `SELECT * FROM "inputs";`;
+  let queryText = `SELECT * FROM "inputs";`;
   pool
-    .query(sqlQuery)
+    .query(queryText)
     .then((result) => {
       res.send(result.rows);
       console.log("Server request successful: ", result.rows);
@@ -20,26 +20,6 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// Create new trigger event for the logged-in user
-router.post("/triggers", rejectUnauthenticated, (req, res) => {
-    const userId = req.user.id; 
-    const { location, date, time, intensity_rating } = req.body;
-    const queryText = `
-      INSERT INTO "triggers" (location, date, time, intensity_rating, user_id)
-      VALUES ($1, $2, $3, $4, $5)
-      RETURNING id; // returning the id of the newly inserted trigger
-    `;
-    const queryParams = [location, date, time, intensity_rating, userId];
-    pool
-      .query(queryText, queryParams)
-      .then((results) => {
-        res.send({ triggerId: results.rows[0].id }); // send the triggerId back to the front end
-      })
-      .catch((error) => {
-        console.log(`Error making query ${queryText}`, error);
-        res.sendStatus(500);
-      });
-  });
   
 
 // Add see items for the logged-in user
