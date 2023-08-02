@@ -16,9 +16,9 @@ function SeeFirstPage() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Dispatching add see input action with payload:", { label: newSeeInput });
+    console.log("Dispatching add see input action with payload:", { seeInput: newSeeInput });
     // Include eventId in your payload. 
-    dispatch({ type: "ADD_SEE_INPUT", payload: { seeInput: newSeeInput, eventId: eventEntries.id } });
+    dispatch({ type: "ADD_SEE_ITEM", payload: { seeInput: newSeeInput, eventId: eventEntries.id } });
 
     // clear input fields
     setNewSeeInput("");
@@ -51,6 +51,7 @@ function SeeFirstPage() {
 }
 
 export default SeeFirstPage;
+
 
 
 

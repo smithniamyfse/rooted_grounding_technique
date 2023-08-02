@@ -5,32 +5,35 @@ const {
   rejectUnauthenticated,
 } = require("../modules/authentication-middleware");
 
-// Get all see inputs for a specific event entry
-router.get("/:entryId", rejectUnauthenticated, (req, res) => {
-  const entryId = req.params.entryId;
-  let queryText = `SELECT * FROM "see_inputs" WHERE user_event_id=$1;`;
+router.get("/", rejectUnauthenticated, (req, res) => {
+  const queryText = `SELECT * FROM "see_inputs" WHERE "user_event_id"=$1;`;
   pool
-    .query(queryText, [entryId])
+    .query(queryText, [req.user.id])
     .then((result) => {
       res.send(result.rows);
     })
     .catch((error) => {
-      console.log("Error in GETting of /api/see-inputs/:entryId: ", error);
+      console.log("Error in GETting request for see inputs: ", error);
       res.sendStatus(500);
     });
 });
 
-// Add a see input for a specific event entry
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const newSeeInput = req.body.seeInput;
-  const entryId = req.body.entryId;
+  const newSeeInput = req.body;
   const queryText = `
-    INSERT INTO "see_inputs" ("see_item_1", "user_event_id")
-    VALUES ($1, $2)
+    INSERT INTO "see_inputs" ("see_item_1", "see_item_2", "see_item_3", "see_item_4", "see_item_5", "user_event_id")
+    VALUES ($1, $2, $3, $4, $5, $6)
   `;
-  const queryParams = [newSeeInput, entryId];
+  const queryValues = [
+    newSeeInput.see_item_1,
+    newSeeInput.see_item_2,
+    newSeeInput.see_item_3,
+    newSeeInput.see_item_4,
+    newSeeInput.see_item_5,
+    newSeeInput.eventId, // Changed from entryId to match the field in the database.
+  ];
   pool
-    .query(queryText, queryParams)
+    .query(queryText, queryValues)
     .then(() => {
       res.sendStatus(201);
     })
@@ -41,3 +44,4 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 module.exports = router;
+
