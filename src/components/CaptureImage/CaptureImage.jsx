@@ -74,7 +74,10 @@ function CaptureImage() {
 
     const formData = new FormData();
     formData.append('image', selectedFile);
-    dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
+    const result = await dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
+    if (result.type === 'UPLOAD_IMAGE_SUCCESS') {
+        dispatch({ type: 'SET_CURRENT_EVENT_ID', payload: result.payload.eventId });
+    }
     setSelectedFile(null);
     setIsUploading(false); 
   };

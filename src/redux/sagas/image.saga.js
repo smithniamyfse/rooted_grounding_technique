@@ -7,11 +7,17 @@ function* uploadImage(action) {
     const response = yield axios.post("/api/image/upload", action.payload, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    // Dispatch action to add a new event entry
-    yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
+
+    // Retrieve the event ID from the response
+    const eventId = response.data.eventId;
+
+    // Dispatch the action to store the event ID in the client-side state
+    yield put({ type: "SET_CURRENT_EVENT_ID", payload: eventId });
+
+    // Dispatch action to fetch the updated user image
     yield put({ type: "FETCH_USER_IMAGE" });
   } catch (error) {
-    console.log("Error uploading image:", error);
+    console.log("Error uploading image: ", error);
   }
 }
 
@@ -30,3 +36,19 @@ function* imageSaga() {
 }
 
 export default imageSaga;
+
+/*
+function* uploadImage(action) {
+  try {
+    // Upload the image and retrieve metadata
+    const response = yield axios.post("/api/image/upload", action.payload, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
+    // Dispatch action to add a new event entry
+    yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
+    yield put({ type: "FETCH_USER_IMAGE" });
+  } catch (error) {
+    console.log("Error uploading image:", error);
+  }
+}
+*/

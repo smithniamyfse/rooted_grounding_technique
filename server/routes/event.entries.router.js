@@ -58,7 +58,33 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 // TODO: (If necessary) Update an event entry for the logged-in user
-// router.put("/:id", rejectUnauthenticated, (req, res) => { ... });
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+    const updatedEntry = req.body;
+    const userId = req.user.id;
+    const eventId = req.params.id;
+    const queryText = `
+    UPDATE "user_event_entries"
+    SET "location" = $1, "date" = $2, "time" = $3, "intensity_rating" =$4
+    WHERE "id" = $5 AND "user_id" = $6;
+    `;
+    const queryValues = [
+        updatedEntry.location,
+        updatedEntry.date,
+        updatedEntry.time,
+        updatedEntry.intensity_rating,
+        eventId,
+        userId,
+    ]
+    pool
+    .query(queryText, queryValues)
+    .then(() => {
+        res.sendStatus(200);
+    })
+    .catch((error) => {
+        console.log(`Error updating event entry with id=${eventId}: `, error);
+        res.sendStatus(500);
+    });
+});
 
 // TODO: (If necessary) Delete an event entry for the logged-in user
 // router.delete("/:id", rejectUnauthenticated, (req, res) => { ... });
