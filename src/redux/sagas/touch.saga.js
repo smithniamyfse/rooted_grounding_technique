@@ -1,4 +1,4 @@
-import { put, takeEvery } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
 function* fetchTouchInputs() {
@@ -20,8 +20,8 @@ function* addTouchInput(action) {
 }
 
 function* touchInputsSaga() {
-    yield takeEvery("FETCH_TOUCH_INPUTS", fetchTouchInputs);
-    yield takeEvery("ADD_TOUCH_INPUT", addTouchInput);
+    yield takeLatest("FETCH_TOUCH_INPUTS", fetchTouchInputs);
+    yield takeLatest("ADD_TOUCH_INPUT", addTouchInput);
 }
 
 export default touchInputsSaga;

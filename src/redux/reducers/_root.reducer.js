@@ -17,10 +17,10 @@ const rootReducer = combineReducers({
     user, // will have an id and username if someone is logged in
     image, // will have image uploading related states
     seeReducer, // seeReducer
-    hear: hearReducer,
+    // hear: hearReducer,
     touchReducer, // touchReducer
-    smell: smellReducer,
-    taste: tasteReducer,
+    // smell: smellReducer,
+    // taste: tasteReducer,
     eventEntries, // store event entries
   });
 

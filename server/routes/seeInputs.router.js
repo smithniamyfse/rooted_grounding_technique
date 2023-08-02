@@ -19,6 +19,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 });
 
 router.post("/", rejectUnauthenticated, (req, res) => {
+console.log("In seeInputs POSTing see items: ", req.body);  // Debug line
   const newSeeInput = req.body;
   const queryText = `
     INSERT INTO "see_inputs" ("see_item_1", "see_item_2", "see_item_3", "see_item_4", "see_item_5", "user_event_id")

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 
@@ -9,17 +9,25 @@ function SeeFirstPage() {
   // useSelector for items
   const user = useSelector((store) => store.user);
   const seeInputs = useSelector((store) => store.seeInputs);
-  const eventEntries = useSelector((store) => store.eventEntries);
+  const eventEntries = useSelector((store) => store.eventEntries[0]);
 
   // useState to set item tags
   const [newSeeInput, setNewSeeInput] = useState("");
+
+  // Dispatch action to fetch event entries when component mounts
+  useEffect(() => {
+    dispatch({ type: "FETCH_EVENT_ENTRIES" });
+  }, [dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log("Dispatching add see input action with payload:", { seeInput: newSeeInput });
     // Include eventId in your payload. 
-    dispatch({ type: "ADD_SEE_ITEM", payload: { seeInput: newSeeInput, eventId: eventEntries.id } });
-
+    if (eventEntries && eventEntries.id) {
+        dispatch({ type: "ADD_SEE_ITEM", payload: { seeInput: newSeeInput, eventId: eventEntries.id } });
+    } else {
+        console.log('No event entry selected.');
+    }
     // clear input fields
     setNewSeeInput("");
   };
@@ -51,6 +59,60 @@ function SeeFirstPage() {
 }
 
 export default SeeFirstPage;
+
+
+
+// import React, { useState } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+
+// function SeeFirstPage() {
+//   // useDispatch to send data to the store
+//   const dispatch = useDispatch();
+
+//   // useSelector for items
+//   const user = useSelector((store) => store.user);
+//   const seeInputs = useSelector((store) => store.seeInputs);
+//   const eventEntries = useSelector((store) => store.eventEntries);
+
+//   // useState to set item tags
+//   const [newSeeInput, setNewSeeInput] = useState("");
+
+//   const handleSubmit = (event) => {
+//     event.preventDefault();
+//     console.log({ seeInput: newSeeInput, eventId: eventEntries?.id }); // added optional chaining
+//     dispatch({ type: "ADD_SEE_ITEM", payload: { seeInput: newSeeInput, eventId: eventEntries?.id } }); // added optional chaining
+//     setNewSeeInput("");
+//   };
+
+//   return (
+//     <>
+//       <main className="see-first-page-container">
+//         <h2>Welcome, {user.username}</h2>
+//         <div className="see-first-form-container">
+//           <form onSubmit={handleSubmit}>
+//             <label htmlFor="see-item-1">
+//               <input
+//                 value={newSeeInput}
+//                 onChange={(event) => setNewSeeInput(event.target.value)}
+//                 id="newSeeInput"
+//                 placeholder="List one item you see"
+//               />
+//             </label>
+//             <br />
+//             <button type="submit">Submit What You See</button>
+//           </form>
+//         </div>
+//       </main>
+//       <footer className="see-footer-container">
+//         <LogOutButton className="btn" />
+//       </footer>
+//     </>
+//   );
+// }
+
+// export default SeeFirstPage;
+
 
 
 

@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { put, takeLatest } from 'redux-saga/effects';
+
 function* fetchEventEntries() {
     try {
       const response = yield axios.get("/api/event-entries");
@@ -30,15 +33,15 @@ function* fetchEventEntries() {
 function* eventEntriesSaga() {
   // 'FETCH_EVENT_ENTRIES': This will activate a GET REQUEST to /api/event-entries to fetch all the event-entries.
     // The event entries will then be stored in the state via a 'SET_EVENT_ENTRIES' action.
-  yield takeEvery("FETCH_EVENT_ENTRIES", fetchEventEntries);
+  yield takeLatest("FETCH_EVENT_ENTRIES", fetchEventEntries);
 
   // 'ADD_EVENT_ENTRY': This will activate a POST REQUEST to /api/event-entries to add a new event-entry.
     // The new event-entry will be added to the state via an 'ADD_EVENT_ENTRY' action.
-  yield takeEvery("ADD_EVENT_ENTRY", addEventEntry);
+  yield takeLatest("ADD_EVENT_ENTRY", addEventEntry);
 
   // 'REMOVE_EVENT_ENTRY': This will activate a DELETE REQUEST to /api/event-entries/:id to remove an entry.
     // The entry will be removed from the state via a 'REMOVE_EVENT_ENTRY' action.
-  yield takeEvery("REMOVE_EVENT_ENTRY", removeEventEntry);
+  yield takeLatest("REMOVE_EVENT_ENTRY", removeEventEntry);
 }
 
 export default eventEntriesSaga;

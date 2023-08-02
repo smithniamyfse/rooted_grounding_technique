@@ -4,10 +4,10 @@ import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
 import imageSaga from "./image.saga";
 import seeInputsSaga from "./see.saga";
-import hearInputsSaga from "./hearInputs.saga";
+// import hearInputsSaga from "./hearInputs.saga";
 import touchInputsSaga from "./touch.saga";
-import smellInputsSaga from "./smellInputs.saga";
-import tasteInputsSaga from "./tasteInputs.saga";
+// import smellInputsSaga from "./smellInputs.saga";
+// import tasteInputsSaga from "./tasteInputs.saga";
 import eventEntriesSaga from "./event.entries.saga";
 
 // rootSaga is the primary saga.
@@ -24,10 +24,10 @@ export default function* rootSaga() {
     userSaga(),
     imageSaga(), // image saga is now registered
     seeInputsSaga(), // see saga is now registered 
-    hearInputsSaga(),
+    // hearInputsSaga(),
     touchInputsSaga(), // touch saga is now registered 
-    smellInputsSaga(),
-    tasteInputsSaga(),
+    // smellInputsSaga(),
+    // tasteInputsSaga(),
     eventEntriesSaga(), // event entries saga is now registered
   ]);
 }
