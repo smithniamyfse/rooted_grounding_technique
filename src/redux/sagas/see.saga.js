@@ -10,7 +10,7 @@ function* fetchSeeItems() {
     }
 }
 
-function* addSeeItem(action) {
+function* addSeeData(action) {
     try {
         console.log("Dispatching add see item action with payload:", action.payload);
         yield axios.post("/api/see-inputs", action.payload);
@@ -22,7 +22,7 @@ function* addSeeItem(action) {
 
 function* seeInputsSaga() {
     yield takeLatest("FETCH_SEE_ITEMS", fetchSeeItems);
-    yield takeLatest("ADD_SEE_ITEM", addSeeItem);
+    yield takeLatest("ADD_SEE_DATA", addSeeData);
 }
 
 export default seeInputsSaga;
