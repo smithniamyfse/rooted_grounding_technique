@@ -18,13 +18,15 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
+// Add see inputs for a specific event entry
 router.post("/", rejectUnauthenticated, (req, res) => {
-    const { see_item_1, see_item_2, see_item_3, see_item_4, see_item_5, eventId } = req.body;  // Destructure the properties directly from req.body
+    // Destructure the properties directly from req.body
+    const { see_item_1, see_item_2, see_item_3, see_item_4, see_item_5, userId, eventId } = req.body;
     console.log("In seeInputs POSTing see items: ", req.body); 
 
     const queryText = `
-        INSERT INTO "see_inputs" ("see_item_1", "see_item_2", "see_item_3", "see_item_4", "see_item_5", "user_event_id")
-        VALUES ($1, $2, $3, $4, $5, $6)
+        INSERT INTO "see_inputs" ("see_item_1", "see_item_2", "see_item_3", "see_item_4", "see_item_5", "user_id", "user_event_id")
+        VALUES ($1, $2, $3, $4, $5, $6, $7)
     `;
     const queryValues = [
         see_item_1,
@@ -32,6 +34,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         see_item_3,
         see_item_4,
         see_item_5,
+        userId,
         eventId,
     ];
 
@@ -41,7 +44,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
             res.sendStatus(201);
         })
         .catch((error) => {
-            console.log(`Error making query ${queryText}`, error);
+            console.log(`Error making query see ${queryText}`, error);
             res.sendStatus(500);
         });
 });

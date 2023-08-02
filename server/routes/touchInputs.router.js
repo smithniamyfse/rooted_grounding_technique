@@ -20,26 +20,30 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // Add touch inputs for a specific event entry
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const newTouchInput = req.body;
-  const entryId = req.body.entryId;
+    // Destructure the properties directly from req.body
+    const { touch_item_1, touch_item_2, touch_item_3, touch_item_4, userId, eventId} = req.body;
+    console.log("In touchInputs POSTing touch items: ", req.body);
+
   const queryText = `
-        INSERT INTO "touch_inputs" ("touch_item_1", "touch_item_2", "touch_item_3", "touch_item_4", "user_event_id")
-        VALUES ($1, $2, $3, $4, $5)
+        INSERT INTO "touch_inputs" ("touch_item_1", "touch_item_2", "touch_item_3", "touch_item_4", "user_id", "user_event_id")
+        VALUES ($1, $2, $3, $4, $5, $6)
     `;
   const queryValues = [
-    newTouchInput.touch_item_1,
-    newTouchInput.touch_item_2,
-    newTouchInput.touch_item_3,
-    newTouchInput.touch_item_4,
-    entryId,
+    touch_item_1,
+    touch_item_2,
+    touch_item_3,
+    touch_item_4,
+    userId,
+    eventId,
   ];
+
   pool
     .query(queryText, queryValues)
     .then(() => {
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log(`Error making query ${queryText}`, error);
+      console.log(`Error making query touch ${queryText}`, error);
       res.sendStatus(500);
     });
 });

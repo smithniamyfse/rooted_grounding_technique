@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import { useDispatch } from 'react-redux';
+import { HashRouter as Router, Route, Link, useHistory } from 'react-router-dom';
 import "./CaptureImage.css";
 
 function CaptureImage() {
@@ -11,6 +12,8 @@ function CaptureImage() {
     const [isUploading, setIsUploading] = useState(false);
   
     const dispatch = useDispatch();
+
+    const history = useHistory();
 
     useEffect(() => {
         if (selectedFile && isUploading) {
@@ -109,6 +112,10 @@ function CaptureImage() {
     };
   }, [dispatch]);
 
+  const goToSee = () => {
+    history.push("/first-see")
+  };
+
   return (
     <section className="capture-image-container">
       <div className="camera">
@@ -118,6 +125,10 @@ function CaptureImage() {
       <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
         <canvas ref={photoRef}></canvas>
         <button onClick={closePhoto}>CLOSE!</button>
+      </div>
+      <br />
+      <div className="next-container">
+        <button onClick={goToSee}>Go To See</button>
       </div>
     </section>
   );
