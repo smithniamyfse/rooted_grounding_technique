@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { TextField, Box } from "@mui/material";
+import { HashRouter as Router, Route, Link, useHistory } from 'react-router-dom';
 
 function TouchPage() {
   // useDispatch to send data to the store
@@ -54,6 +55,10 @@ function TouchPage() {
     dispatch({ type: "FETCH_EVENT_ENTRIES" });
   }, [dispatch]);
 
+  const goToHear = () => {
+    history.push("/third-hear");
+  };
+
   return (
     <>
       <main className="touch-second-page-conatiner">
@@ -100,9 +105,11 @@ function TouchPage() {
                 onChange={handleInputChange}
               />
             </Box>
-            <button type="submit">Submit What You Hear</button>
+            <button type="submit">Submit What You Can Touch</button>
           </form>
         </div>
+        <br />
+        <button onClick={goToHear}>Go To Hear</button>
       </main>
       <footer className="touch-footer-container">
         <LogOutButton className="btn" />

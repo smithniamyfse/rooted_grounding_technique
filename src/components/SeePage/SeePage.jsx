@@ -2,10 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { TextField, Box } from "@mui/material";
+import { HashRouter as Router, Route, Link, useHistory } from 'react-router-dom';
 
 function SeePage() {
   // useDispatch to send data to the store
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   // useSelector for user and user's event entries
   const user = useSelector((store) => store.user);
@@ -50,6 +53,10 @@ function SeePage() {
     console.log("Call clearSeeInputs(): ", seeLog);
   };
 
+  const goToTouch = () => {
+    history.push("/second-touch");
+  };
+
   // Dispatch action to fetch event entries when component mounts
   useEffect(() => {
     dispatch({ type: "FETCH_EVENT_ENTRIES" });
@@ -80,6 +87,8 @@ function SeePage() {
             <button type="submit">Submit What You See</button>
           </form>
         </div>
+        <br />
+        <button onClick={goToTouch}>Go To Touch</button>
       </main>
       <footer className="see-footer-container">
         <LogOutButton className="btn" />

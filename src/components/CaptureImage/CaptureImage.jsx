@@ -126,6 +126,7 @@ function CaptureImage() {
         <canvas ref={photoRef}></canvas>
         <button onClick={closePhoto}>CLOSE!</button>
       </div>
+      <br />
       <div className="next-container">
         <button onClick={goToSee}>Go To See</button>
       </div>
