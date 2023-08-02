@@ -3,7 +3,7 @@ import errors from './errors.reducer';
 import user from './user.reducer';
 import image from './image.reducer';
 import inputs from './inputs.reducer';
-import triggers from './triggers.reducer';
+import eventEntries from './eventEntries.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   image, // will have image uploading related states
   inputs, // store input field data for each sense's form
-  triggers, // store trigger event
+  eventEntries, // store event entry data
 });
 
 export default rootReducer;

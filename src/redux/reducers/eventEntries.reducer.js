@@ -1,4 +1,4 @@
-const triggersReducer = (state = [], action) => {
+const eventEntriesReducer = (state = [], action) => {
     switch (action.type) {
         case 'SET_TRIGGERS':
             return action.payload;
@@ -11,4 +11,4 @@ const triggersReducer = (state = [], action) => {
     }
 };
 
-export default triggersReducer; 
+export default eventEntriesReducer; 
