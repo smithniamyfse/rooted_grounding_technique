@@ -20,7 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LocationPage from '../LocationPage/LocationPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
-import SeeFirstPage from '../SeeFirstPage/SeeFirstPage';
+import SeePage from '../SeePage/SeePage';
 
 import './App.css';
 
@@ -73,9 +73,9 @@ function App() {
           <ProtectedRoute
           // logged in shows SeeFirstPage
           exact
-          path="/first"
+          path="/first-see"
           >
-            <SeeFirstPage />
+            <SeePage />
           </ProtectedRoute>
 
 
