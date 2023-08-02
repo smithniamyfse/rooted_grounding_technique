@@ -8,8 +8,8 @@ const initialState = {
     error: null,
   };
   
-  const formReducer = (state = initialState, action) => {
-    console.log("Inside form reducer with action:", action);
+  const inputsReducer = (state = initialState, action) => {
+    console.log("Inside inputs reducer with action:", action);
     switch (action.type) {
       case "FORM_SUBMIT_SUCCESS":
         return {
@@ -56,5 +56,5 @@ const initialState = {
     }
   };
   
-  export default formReducer;
+  export default inputsReducer;
 

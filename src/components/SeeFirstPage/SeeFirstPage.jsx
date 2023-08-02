@@ -8,8 +8,8 @@ function SeeFirstPage() {
 
   // useSelector for items
   const user = useSelector((store) => store.user);
-  const forms = useSelector((store) => store.forms);
-  const triggerId = useSelector((store) => store.trigger.id); // retrieve triggerId from the store
+  const inputs = useSelector((store) => store.inputs);
+  const triggers = useSelector((store) => store.triggers);
 
   // useState to set item tags
   const [newSeeItem, setNewSeeItem] = useState("");
@@ -17,7 +17,7 @@ function SeeFirstPage() {
   const handleSubmit = () => {
     console.log("Dispatching add see item action with payload:", { label: newSeeItem });
     // Include triggerId in your payload. 
-    dispatch({ type: "ADD_SEE_ITEM", payload: { label: newSeeItem, triggerId: triggerId } });
+    dispatch({ type: "ADD_SEE_ITEM", payload: { seeInput: newSeeItem, triggerId: triggers.id } });
 
     // clear input fields
     setNewSeeItem("");

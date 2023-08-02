@@ -39,8 +39,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post("/", rejectUnauthenticated, (req, res) => {
     console.log('inside of /api/triggers req.body', req.body);
     const newTrigger = req.body;
-    const userId = req.user.id; 
-    // const { location, date, time, intensity_rating } = req.body;
+    const userId = req.user.id;
     const queryText = `
       INSERT INTO "triggers" (location, date, time, intensity_rating, user_id)
       VALUES ($1, $2, $3, $4, $5)
@@ -50,11 +49,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         newTrigger.date,
         newTrigger.time,
         newTrigger.intensity_rating,
-        newTrigger.user_id,
+        userId,  // Use userId directly here
     ]
-    // const queryParams = [location, date, time, intensity_rating, userId];
     pool
-      .query(queryText, queryValues, userId)
+      .query(queryText, queryValues)
       .then((results) => {
         res.send(201);
       })
@@ -62,7 +60,10 @@ router.post("/", rejectUnauthenticated, (req, res) => {
         console.log(`Error making query ${queryText}`, error);
         res.sendStatus(500);
       });
-  });
+});
+
+
+
 
 // Update a trigger for the logged-in user
 router.put("/:id", rejectUnauthenticated, (req, res) => {
