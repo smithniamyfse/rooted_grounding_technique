@@ -1,27 +1,28 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-function* fetchTouchInputs() {
+function* fetchTouchItems() {
     try {
-      const response = yield axios.get("/api/touch");
+      const response = yield axios.get("/api/touch-inputs");
       yield put({ type: "SET_TOUCH_DATA", payload: response.data });
     } catch (error) {
-      console.log("Error fetching touch inputs:", error);
+      console.log("Error in touch items GET request: ", error);
     }
 }
   
-function* addTouchInput(action) {
+function* addTouchData(action) {
     try {
-      const response = yield axios.post("/api/touch", action.payload);
-      yield put({ type: "ADD_TOUCH_INPUT", payload: response.data });
+        console.log("Dispatching add touch data with payload: ", action.payload);
+      yield axios.post("/api/touch-inputs", action.payload);
+      yield put({ type: "FETCH_TOUCH_ITEMS" });
     } catch (error) {
-      console.log("Error adding touch input:", error);
+      console.log("Error in adding touch data:", error);
     }
 }
 
 function* touchInputsSaga() {
-    yield takeLatest("FETCH_TOUCH_INPUTS", fetchTouchInputs);
-    yield takeLatest("ADD_TOUCH_INPUT", addTouchInput);
+    yield takeLatest("FETCH_TOUCH_ITEMS", fetchTouchItems);
+    yield takeLatest("ADD_TOUCH_DATA", addTouchData);
 }
 
 export default touchInputsSaga;

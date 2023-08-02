@@ -21,6 +21,7 @@ import LocationPage from '../LocationPage/LocationPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import SeePage from '../SeePage/SeePage';
+import TouchPage from '../TouchPage/TouchPage';
 
 import './App.css';
 
@@ -71,11 +72,19 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-          // logged in shows SeeFirstPage
+          // logged in shows SeePage
           exact
           path="/first-see"
           >
             <SeePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in shows TouchPage
+          exact
+          path="/second-touch"
+          >
+            <TouchPage />
           </ProtectedRoute>
 
 
