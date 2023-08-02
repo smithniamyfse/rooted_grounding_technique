@@ -20,6 +20,7 @@ import LandingPage from '../LandingPage/LandingPage';
 import LocationPage from '../LocationPage/LocationPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
+import SeeFirstPage from '../SeeFirstPage/SeeFirstPage';
 
 import './App.css';
 
@@ -68,6 +69,15 @@ function App() {
           >
             <InfoPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in shows SeeFirstPage
+          exact
+          path="/first"
+          >
+            <SeeFirstPage />
+          </ProtectedRoute>
+
 
           <Route
             exact
