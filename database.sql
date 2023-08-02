@@ -4,38 +4,69 @@
 -- You must use double quotes in every query that user is in:
 -- ex. SELECT * FROM "user";
 -- Otherwise you will have errors!
-
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
     "username" VARCHAR (80) UNIQUE NOT NULL,
     "password" VARCHAR (1000) NOT NULL
 );
 
-
--- Create the "triggers" table to store each triggering event. Each event is linked to a user.
-CREATE TABLE "triggers" (
+-- user_event_entries stores information about a user's location when a triggering event occurs.
+-- A single user can create multiple entries, and the data is linked by a unique id number.
+CREATE TABLE "user_event_entries" (
     "id" SERIAL PRIMARY KEY,
-    "location" VARCHAR(500),
+    "location"  VARCHAR(255), -- This might change to a different type if I have time to explore how to store geolocation data
     "date" DATE,
     "time" TIME,
-    "intensity_rating" INT,
+    "intensity_rating" INT CHECK(intensity_rating >= 0 AND intensity_rating <= 10),
     "user_id" INT,
     FOREIGN KEY ("user_id") REFERENCES "user" ("id")
 );
 
--- Create the "inputs" table to store inputs for each triggering event. Each input is linked to a trigger.
-CREATE TABLE "inputs" (
+CREATE TABLE "see_inputs" (
     "id" SERIAL PRIMARY KEY,
-    "see_input" VARCHAR(500),
-    "feel_input" VARCHAR(500),
-    "hear_input" VARCHAR(500),
-    "smell_input" VARCHAR(500),
-    "taste_input" VARCHAR(500),
-    "trigger_id" INT,
-    FOREIGN KEY ("trigger_id") REFERENCES "triggers" ("id")
+    "see_item_1" VARCHAR(100),
+    "see_item_2" VARCHAR(100),
+    "see_item_3" VARCHAR(100),
+    "see_item_4" VARCHAR(100),
+    "see_item_5" VARCHAR(100),
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
--- "user_images" table contains uploaded images 
+CREATE TABLE "feel_inputs" (
+    "id" SERIAL PRIMARY KEY,
+    "feel_item_1" VARCHAR(100),
+    "feel_item_2" VARCHAR(100),
+    "feel_item_3" VARCHAR(100),
+    "feel_item_4" VARCHAR(100),
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+);
+
+CREATE TABLE "hear_inputs" (
+    "id" SERIAL PRIMARY KEY,
+    "hear_item_1" VARCHAR(100),
+    "hear_item_2" VARCHAR(100),
+    "hear_item_3" VARCHAR(100),
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+);
+
+CREATE TABLE "smell_inputs" (
+    "id" SERIAL PRIMARY KEY,
+    "smell_item_1" VARCHAR(100),
+    "smell_item_2" VARCHAR(100),
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+);
+
+CREATE TABLE "taste_inputs" (
+    "id" SERIAL PRIMARY KEY,
+    "taste_item_1" VARCHAR(100),
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+);
+
 CREATE TABLE "user_images" (
     "id" SERIAL PRIMARY KEY,
     "image_url" VARCHAR (500) NOT NULL,
@@ -43,8 +74,6 @@ CREATE TABLE "user_images" (
     "upload_time" TIME DEFAULT CURRENT_TIME,
     "user_id" INT,
     FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
-    "trigger_id" INT,
-    FOREIGN KEY ("trigger_id") REFERENCES "triggers" ("id")
-    
+    "user_event_id" INT,
+    FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
-

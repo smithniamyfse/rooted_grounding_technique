@@ -15,12 +15,15 @@ function* fetchSeeItems() {
 function* addSeeItem(action) {
     try {
         console.log("Dispatching add see item action with payload:", action.payload);
-        const seeItemToAdd = yield axios.post("/api/inputs/see", action.payload);
+        yield axios.post("/api/inputs/see", action.payload);
         yield put({ type: "FETCH_SEE_ITEMS" });
+        yield put({ type: "ADD_SEE_DATA", payload: action.payload.seeInput });
     } catch (error) {
         console.log("Error in adding see item: ", error);
     }
 }
+
+
 
 
 function* submitForm(action) {

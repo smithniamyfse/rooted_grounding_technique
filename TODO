@@ -1,123 +1,123 @@
 
-## Previous .gitignore from giphy-api-activity
-    -- ?? Which one to use?
+// ## Previous .gitignore from giphy-api-activity
+//     -- ?? Which one to use?
 
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+// # See https://help.github.com/ignore-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
+// # dependencies
+// /node_modules
 
-# testing
-/coverage
+// # testing
+// /coverage
 
-# production
-/build
+// # production
+// /build
 
-# misc
-.DS_Store
-.env.local
-.env.development.local
-.env.test.local
-.env.production.local
-.env
+// # misc
+// .DS_Store
+// .env.local
+// .env.development.local
+// .env.test.local
+// .env.production.local
+// .env
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+// npm-debug.log*
+// yarn-debug.log*
+// yarn-error.log*
 
-.eslintcache
+// .eslintcache
 
-## Initial SQL Database Query
--- CREATE DATABASE: rooted_app
+// ## Initial SQL Database Query
+// -- CREATE DATABASE: rooted_app
 
--- USER is a reserved keyword with Postgres
--- You must use double quotes in every query that user is in:
--- ex. SELECT * FROM "user";
--- Otherwise you will have errors!
-CREATE TABLE "user" (
-    "id" SERIAL PRIMARY KEY,
-    "username" VARCHAR (80) UNIQUE NOT NULL,
-    "password" VARCHAR (1000) NOT NULL
-);
+// -- USER is a reserved keyword with Postgres
+// -- You must use double quotes in every query that user is in:
+// -- ex. SELECT * FROM "user";
+// -- Otherwise you will have errors!
+// CREATE TABLE "user" (
+//     "id" SERIAL PRIMARY KEY,
+//     "username" VARCHAR (80) UNIQUE NOT NULL,
+//     "password" VARCHAR (1000) NOT NULL
+// );
 
-CREATE TABLE "user_images" (
-    "id" SERIAL PRIMARY KEY,
-    "image_url" VARCHAR (500) NOT NULL,
-    "upload_date" DATE DEFAULT CURRENT_DATE,
-    "upload_time" TIME DEFAULT CURRENT_TIME,
-    "user_id" INT
-);
+// CREATE TABLE "user_images" (
+//     "id" SERIAL PRIMARY KEY,
+//     "image_url" VARCHAR (500) NOT NULL,
+//     "upload_date" DATE DEFAULT CURRENT_DATE,
+//     "upload_time" TIME DEFAULT CURRENT_TIME,
+//     "user_id" INT
+// );
 
--- JOIN user and user_images table on the user id
-SELECT 
-"user"."id", 
-"user_images"."user_id" AS "user_id"
-FROM "user"
-JOIN "user_images" ON "user"."id" = "user_images"."user_id";
-
-
-import React, { useRef, useEffect, useState } from "react";
-import { useDispatch } from 'react-redux';
-import "./CaptureImage.css";
-
-function CaptureImage() {
-  const videoRef = useRef(null);
-  const photoRef = useRef(null);
-
-  const [hasPhoto, setHasPhoto] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
-
-  const dispatch = useDispatch();
+// -- JOIN user and user_images table on the user id
+// SELECT 
+// "user"."id", 
+// "user_images"."user_id" AS "user_id"
+// FROM "user"
+// JOIN "user_images" ON "user"."id" = "user_images"."user_id";
 
 
-const getVideo = () => {
-    navigator.mediaDevices
-      .getUserMedia({
-        video: { width: 1920, height: 1080 },
-      })
-      .then((stream) => {
-        let video = videoRef.current;
-        if(video){
-          video.srcObject = stream;
-          video.oncanplay = function () {
-            video.play().catch((err) => {
-              console.log("The video could not be played:", err);
-            });
-          };
-        }
-        else {
-          console.error("Video element not ready");
-        }
-      })
-      .catch((err) => {
-        console.error(err);
-      });
-  };
+// import React, { useRef, useEffect, useState } from "react";
+// import { useDispatch } from 'react-redux';
+// import "./CaptureImage.css";
+
+// function CaptureImage() {
+//   const videoRef = useRef(null);
+//   const photoRef = useRef(null);
+
+//   const [hasPhoto, setHasPhoto] = useState(false);
+//   const [selectedFile, setSelectedFile] = useState(null);
+
+//   const dispatch = useDispatch();
+
+
+// const getVideo = () => {
+//     navigator.mediaDevices
+//       .getUserMedia({
+//         video: { width: 1920, height: 1080 },
+//       })
+//       .then((stream) => {
+//         let video = videoRef.current;
+//         if(video){
+//           video.srcObject = stream;
+//           video.oncanplay = function () {
+//             video.play().catch((err) => {
+//               console.log("The video could not be played:", err);
+//             });
+//           };
+//         }
+//         else {
+//           console.error("Video element not ready");
+//         }
+//       })
+//       .catch((err) => {
+//         console.error(err);
+//       });
+//   };
 
   
 
-  const takePhoto = () => {
-    return new Promise((resolve, reject) => {
-      const width = 414;
-      const height = width / (16 / 9);
+//   const takePhoto = () => {
+//     return new Promise((resolve, reject) => {
+//       const width = 414;
+//       const height = width / (16 / 9);
 
-      let video = videoRef.current;
-      let photo = photoRef.current;
+//       let video = videoRef.current;
+//       let photo = photoRef.current;
 
-      photo.width = width;
-      photo.height = height;
+//       photo.width = width;
+//       photo.height = height;
 
-      let ctx = photo.getContext("2d");
-      ctx.drawImage(video, 0, 0, width, height);
+//       let ctx = photo.getContext("2d");
+//       ctx.drawImage(video, 0, 0, width, height);
 
-      photo.toBlob((blob) => {
-        console.log("Blob size before upload: ", blob.size); // Log the size of the blob
-        setSelectedFile(blob);
-        setHasPhoto(true);
-        resolve();
-      }, 'image/png');
-    });
-  };
+//       photo.toBlob((blob) => {
+//         console.log("Blob size before upload: ", blob.size); // Log the size of the blob
+//         setSelectedFile(blob);
+//         setHasPhoto(true);
+//         resolve();
+//       }, 'image/png');
+//     });
+//   };
 
 //   const handleSubmit = () => {
 //     const formData = new FormData();
@@ -126,17 +126,17 @@ const getVideo = () => {
 //     setSelectedFile(null);
 //   };
 
-const handleSubmit = () => {
-    if (!selectedFile) {
-      console.error('No file selected for upload');
-      return;
-    }
+// const handleSubmit = () => {
+//     if (!selectedFile) {
+//       console.error('No file selected for upload');
+//       return;
+//     }
   
-    const formData = new FormData();
-    formData.append('image', selectedFile);
-    dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
-    setSelectedFile(null);
-  };
+//     const formData = new FormData();
+//     formData.append('image', selectedFile);
+//     dispatch({ type: 'UPLOAD_IMAGE', payload: formData });
+//     setSelectedFile(null);
+//   };
   
 
 /*
@@ -149,49 +149,49 @@ const handleSubmit = () => {
 //   };
   */
 
-  const handleSnap = async () => {
-    await takePhoto();
-    handleSubmit();
-  };
+//   const handleSnap = async () => {
+//     await takePhoto();
+//     handleSubmit();
+//   };
 
-  const closePhoto = () => {
-    let photo = photoRef.current;
-    let ctx = photo.getContext("2d");
+//   const closePhoto = () => {
+//     let photo = photoRef.current;
+//     let ctx = photo.getContext("2d");
 
-    ctx.clearRect(0, 0, photo.width, photo.height);
+//     ctx.clearRect(0, 0, photo.width, photo.height);
 
-    setHasPhoto(false);
-  };
+//     setHasPhoto(false);
+//   };
 
-  useEffect(() => {
-    getVideo();
-    return () => {
-      const video = videoRef.current;
-      if (video && video.srcObject) {
-        const tracks = video.srcObject.getTracks();
-        tracks.forEach((track) => {
-          track.stop();
-        });
-        video.srcObject = null;
-      }
-    };
-  }, []);
+//   useEffect(() => {
+//     getVideo();
+//     return () => {
+//       const video = videoRef.current;
+//       if (video && video.srcObject) {
+//         const tracks = video.srcObject.getTracks();
+//         tracks.forEach((track) => {
+//           track.stop();
+//         });
+//         video.srcObject = null;
+//       }
+//     };
+//   }, []);
 
-  return (
-    <section className="capture-image-container">
-      <div className="camera">
-        <video ref={videoRef}></video>
-        <button onClick={handleSnap}>SNAP!</button>
-      </div>
-      <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
-        <canvas ref={photoRef}></canvas>
-        <button onClick={closePhoto}>CLOSE!</button>
-      </div>
-    </section>
-  );
-}
+//   return (
+//     <section className="capture-image-container">
+//       <div className="camera">
+//         <video ref={videoRef}></video>
+//         <button onClick={handleSnap}>SNAP!</button>
+//       </div>
+//       <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
+//         <canvas ref={photoRef}></canvas>
+//         <button onClick={closePhoto}>CLOSE!</button>
+//       </div>
+//     </section>
+//   );
+// }
 
-export default CaptureImage;
+// export default CaptureImage;
 
 
 
@@ -908,24 +908,34 @@ export default CaptureImage;
 // export default CaptureImage;
 
 
-const express = require('express');
-const router = express.Router();
-const multer = require('multer');
-const multerS3 = require('multer-s3');
-const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
-const { rejectUnauthenticated } = require('../modules/authentication-middleware');
-const pool = require('../modules/pool');
-const fs = require('fs');
-const cfUtil = require('aws-cloudfront-sign');
-require('dotenv').config();
+// const express = require('express');
+// const router = express.Router();
+// const multer = require('multer');
+// const multerS3 = require('multer-s3');
+// const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
+// const { rejectUnauthenticated } = require('../modules/authentication-middleware');
+// const pool = require('../modules/pool');
+// const fs = require('fs');
+// const cfUtil = require('aws-cloudfront-sign');
+// require('dotenv').config();
 
-const s3Client = new S3Client({
-    region: process.env.S3_REGION,
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-    }
-});
+// const s3Client = new S3Client({
+//     region: process.env.S3_REGION,
+//     credentials: {
+//       accessKeyId: process.env.AWS_ACCESS_KEY,
+//       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+//     }
+// });
+
+// // const upload = multer({
+// //     storage: multerS3({
+// //       s3: s3Client,
+// //       bucket: process.env.S3_BUCKET_NAME,
+// //       key: function (req, file, cb) {
+// //         cb(null, `${req.user.id}/${file.originalname}`);
+// //       }
+// //     })
+// // });
 
 // const upload = multer({
 //     storage: multerS3({
@@ -933,64 +943,54 @@ const s3Client = new S3Client({
 //       bucket: process.env.S3_BUCKET_NAME,
 //       key: function (req, file, cb) {
 //         cb(null, `${req.user.id}/${file.originalname}`);
+//       },
+//     }),
+//   });
+  
+
+// const privateKeyString = fs.readFileSync(process.env.CLOUDFRONT_PRIVATE_KEY_PATH, 'utf8');
+
+
+// router.post('/upload', rejectUnauthenticated, (req, res, next) => {
+//     upload.single('image')(req, res, function (err) {
+//       if (err instanceof multer.MulterError) {
+//         // A Multer error occurred when uploading.
+//         console.error('Multer error: ', err);
+//         return res.status(500).json(err);
+//       } else if (err) {
+//         // An unknown error occurred when uploading.
+//         console.error('Unknown error: ', err);
+//         return res.status(500).json(err);
 //       }
-//     })
-// });
-
-const upload = multer({
-    storage: multerS3({
-      s3: s3Client,
-      bucket: process.env.S3_BUCKET_NAME,
-      key: function (req, file, cb) {
-        cb(null, `${req.user.id}/${file.originalname}`);
-      },
-    }),
-  });
-  
-
-const privateKeyString = fs.readFileSync(process.env.CLOUDFRONT_PRIVATE_KEY_PATH, 'utf8');
-
-
-router.post('/upload', rejectUnauthenticated, (req, res, next) => {
-    upload.single('image')(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        console.error('Multer error: ', err);
-        return res.status(500).json(err);
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        console.error('Unknown error: ', err);
-        return res.status(500).json(err);
-      }
       
-      // Everything went fine and multer is done with the file.
-      // Log the file and body for debugging:
-      console.log('Request file', req.file); 
-      console.log('Request body', req.body);
+//       // Everything went fine and multer is done with the file.
+//       // Log the file and body for debugging:
+//       console.log('Request file', req.file); 
+//       console.log('Request body', req.body);
       
-      // Continue to the next middleware:
-      next();
-    });
-  }, async (req, res) => {
-    try {
-      console.log(req.file);  // Add logging here
-      const imageUrl = req.file.location;
-      const userId = req.user.id;
+//       // Continue to the next middleware:
+//       next();
+//     });
+//   }, async (req, res) => {
+//     try {
+//       console.log(req.file);  // Add logging here
+//       const imageUrl = req.file.location;
+//       const userId = req.user.id;
   
-      const queryText = `
-      INSERT INTO "user_images" ("image_url", "user_id")
-      VALUES ($1, $2);
-      `;
-      const queryParams = [imageUrl, userId];
+//       const queryText = `
+//       INSERT INTO "user_images" ("image_url", "user_id")
+//       VALUES ($1, $2);
+//       `;
+//       const queryParams = [imageUrl, userId];
   
-      await pool.query(queryText, queryParams);
+//       await pool.query(queryText, queryParams);
   
-      res.json({fileUrl: imageUrl});
-    } catch (error) {
-      console.error(error);
-      res.sendStatus(500);
-    }
-  });
+//       res.json({fileUrl: imageUrl});
+//     } catch (error) {
+//       console.error(error);
+//       res.sendStatus(500);
+//     }
+//   });
 
 
 // router.post('/upload', rejectUnauthenticated, upload.single('image'), async (req, res) => {
@@ -1035,59 +1035,59 @@ router.post('/upload', rejectUnauthenticated, (req, res, next) => {
 //   }
 // });
 
-router.get('/:imageId', rejectUnauthenticated, async (req, res) => {
-    console.log('req.user: ', req.user); 
-  const userId = req.user.id;
-  const imageId = req.params.imageId;
-  const key = `${userId}/${imageId}`;
-  console.log('CLOUDFRONT_DISTRIBUTION_ID: ', process.env.CLOUDFRONT_DISTRIBUTION_ID);
-  const cfUrl = `https://${process.env.CLOUDFRONT_DISTRIBUTION_ID}.cloudfront.net/${key}`; 
+// router.get('/:imageId', rejectUnauthenticated, async (req, res) => {
+//     console.log('req.user: ', req.user); 
+//   const userId = req.user.id;
+//   const imageId = req.params.imageId;
+//   const key = `${userId}/${imageId}`;
+//   console.log('CLOUDFRONT_DISTRIBUTION_ID: ', process.env.CLOUDFRONT_DISTRIBUTION_ID);
+//   const cfUrl = `https://${process.env.CLOUDFRONT_DISTRIBUTION_ID}.cloudfront.net/${key}`; 
 
-  const options = {
-    keypairId: process.env.CLOUDFRONT_KEY_PAIR_ID,
-    privateKeyString,
-    expireTime: Date.now() + (60 * 60 * 1000) // URL expires in 1 hour
-  };
+//   const options = {
+//     keypairId: process.env.CLOUDFRONT_KEY_PAIR_ID,
+//     privateKeyString,
+//     expireTime: Date.now() + (60 * 60 * 1000) // URL expires in 1 hour
+//   };
 
-  try {
-    const signedUrl = cfUtil.getSignedUrl(cfUrl, options);
-    res.json({ url: signedUrl });
-  } catch (error) {
-    console.error('Error in GET /:imageId: ', error);
-    res.sendStatus(500);
-  }
-});
+//   try {
+//     const signedUrl = cfUtil.getSignedUrl(cfUrl, options);
+//     res.json({ url: signedUrl });
+//   } catch (error) {
+//     console.error('Error in GET /:imageId: ', error);
+//     res.sendStatus(500);
+//   }
+// });
 
-router.get('/', rejectUnauthenticated, async (req, res) => {
-  const userId = req.user.id;
+// router.get('/', rejectUnauthenticated, async (req, res) => {
+//   const userId = req.user.id;
 
-  const queryText = `
-    SELECT "image_url" FROM "user_images" WHERE "user_id" = $1;
-  `;
+//   const queryText = `
+//     SELECT "image_url" FROM "user_images" WHERE "user_id" = $1;
+//   `;
 
-  try {
-    const result = await pool.query(queryText, [userId]);
-    const signedUrls = result.rows.map(row => {
-      const key = row.image_url.split('.com/')[1];
-      const cfUrl = `https://${process.env.CLOUDFRONT_DISTRIBUTION_ID}.cloudfront.net/${key}`; 
+//   try {
+//     const result = await pool.query(queryText, [userId]);
+//     const signedUrls = result.rows.map(row => {
+//       const key = row.image_url.split('.com/')[1];
+//       const cfUrl = `https://${process.env.CLOUDFRONT_DISTRIBUTION_ID}.cloudfront.net/${key}`; 
 
-      const options = {
-        keypairId: process.env.CLOUDFRONT_KEY_PAIR_ID,
-        privateKeyString,
-        expireTime: Date.now() + (60 * 60 * 1000) // URL expires in 1 hour
-      };
+//       const options = {
+//         keypairId: process.env.CLOUDFRONT_KEY_PAIR_ID,
+//         privateKeyString,
+//         expireTime: Date.now() + (60 * 60 * 1000) // URL expires in 1 hour
+//       };
 
-      return cfUtil.getSignedUrl(cfUrl, options);
-    });
+//       return cfUtil.getSignedUrl(cfUrl, options);
+//     });
 
-    res.json(signedUrls);
-  } catch (error) {
-    console.error('Error in GET /:id: ', error);
-    res.sendStatus(500);
-  }
-});
+//     res.json(signedUrls);
+//   } catch (error) {
+//     console.error('Error in GET /:id: ', error);
+//     res.sendStatus(500);
+//   }
+// });
 
-module.exports = router;
+// module.exports = router;
 
 
 
@@ -1537,6 +1537,149 @@ module.exports = router;
 
 // module.exports = router;
 
+
+// -- -- CREATE DATABASE: rooted_app
+
+// -- -- USER is a reserved keyword with Postgres
+// -- -- You must use double quotes in every query that user is in:
+// -- -- ex. SELECT * FROM "user";
+// -- -- Otherwise you will have errors!
+
+// -- CREATE TABLE "user" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "username" VARCHAR (80) UNIQUE NOT NULL,
+// --     "password" VARCHAR (1000) NOT NULL
+// -- );
+
+
+// -- -- Create the "user_event_entries" table to store each information related to where the user was 
+// -- -- located when experiencing a triggering event. 
+// -- -- A user can have many entries and the data is linked through the user's unique id. 
+// -- CREATE TABLE "user_event_entries" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "location" VARCHAR(500),
+// --     "date" DATE,
+// --     "time" TIME,
+// --     "intensity_rating" INT,
+// --     "user_id" INT,
+// --     FOREIGN KEY ("user_id") REFERENCES "user" ("id")
+// -- );
+
+
+// -- CREATE TABLE "see_inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "see_item_1" VARCHAR(500),
+// --     "see_item_2" VARCHAR(500),
+// --     "see_item_3" VARCHAR(500),
+// --     "see_item_4" VARCHAR(500),
+// --     "see_item_5" VARCHAR(500),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+// -- CREATE TABLE "feel_inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "feel_item_1" VARCHAR(500),
+// --     "feel_item_2" VARCHAR(500),
+// --     "feel_item_3" VARCHAR(500),
+// --     "feel_item_4" VARCHAR(500),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+// -- CREATE TABLE "hear_inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "hear_item_1" VARCHAR(500),
+// --     "hear_item_2" VARCHAR(500),
+// --     "hear_item_3" VARCHAR(500),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+// -- CREATE TABLE "smell_inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "smell_item_1" VARCHAR(500),
+// --     "smell_item_2" VARCHAR(500),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+// -- CREATE TABLE "taste_inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "taste_item_1" VARCHAR(500),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+// -- CREATE TABLE "user_images" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "image_url" VARCHAR (500) NOT NULL,
+// --     "upload_date" DATE DEFAULT CURRENT_DATE,
+// --     "upload_time" TIME DEFAULT CURRENT_TIME,
+// --     "user_id" INT,
+// --     FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
+// --     "user_event_id" INT,
+// --     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
+// -- );
+
+
+
+
+
+// -- CREATE DATABASE: rooted_app
+
+// -- USER is a reserved keyword with Postgres
+// -- You must use double quotes in every query that user is in:
+// -- ex. SELECT * FROM "user";
+// -- Otherwise you will have errors!
+
+// -- CREATE TABLE "user" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "username" VARCHAR (80) UNIQUE NOT NULL,
+// --     "password" VARCHAR (1000) NOT NULL
+// -- );
+
+
+// -- -- Create the "triggers" table to store each triggering event. Each event is linked to a user.
+// -- CREATE TABLE "triggers" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "location" VARCHAR(500),
+// --     "date" DATE,
+// --     "time" TIME,
+// --     "intensity_rating" INT,
+// --     "user_id" INT,
+// --     FOREIGN KEY ("user_id") REFERENCES "user" ("id")
+// -- );
+
+// -- -- Create the "inputs" table to store inputs for each triggering event. Each input is linked to a trigger.
+// -- CREATE TABLE "inputs" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "see_input" VARCHAR(500),
+// --     "feel_input" VARCHAR(500),
+// --     "hear_input" VARCHAR(500),
+// --     "smell_input" VARCHAR(500),
+// --     "taste_input" VARCHAR(500),
+// --     "trigger_id" INT,
+// --     FOREIGN KEY ("trigger_id") REFERENCES "triggers" ("id")
+// -- );
+
+// -- -- "user_images" table contains uploaded images 
+// -- CREATE TABLE "user_images" (
+// --     "id" SERIAL PRIMARY KEY,
+// --     "image_url" VARCHAR (500) NOT NULL,
+// --     "upload_date" DATE DEFAULT CURRENT_DATE,
+// --     "upload_time" TIME DEFAULT CURRENT_TIME,
+// --     "user_id" INT,
+// --     FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
+// --     "trigger_id" INT,
+// --     FOREIGN KEY ("trigger_id") REFERENCES "triggers" ("id")
+    
+// -- );
 
 
 

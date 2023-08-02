@@ -29,8 +29,16 @@ function* removeTrigger(action) {
 }
 
 function* triggersSaga() {
+    // 'FETCH_TRIGGERS': This will activate a GET REQUEST to /api/triggers to fetch all the triggers. 
+        // The triggers will then be stored in the state via a 'SET_TRIGGERS' action. 
     yield takeEvery('FETCH_TRIGGERS', fetchTriggers);
+
+    // 'ADD_TRIGGER': This will activate a POST REQUEST to /api/triggers to add a new trigger.
+        // The new trigger will be added to the state via an 'ADD_TRIGGER' action. 
     yield takeEvery('ADD_TRIGGER', addTrigger);
+
+    // 'REMOVE_TRIGGER': This will activate a DELETE REQUEST to /api/triggers/:id to remove a trigger.
+        // The trigger will be removed from the state via a 'REMOVE_TRIGGER' action. 
     yield takeEvery('REMOVE_TRIGGER', removeTrigger);
 }
 
