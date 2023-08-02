@@ -19,23 +19,10 @@ function SeeFirstPage() {
     see_item_5: "",
   };
 
-  // useState to set item state
-  //   const [newSeeInput, setNewSeeInput] = useState({
-  //     see_item_1: "",
-  //     see_item_2: "",
-  //     see_item_3: "",
-  //     see_item_4: "",
-  //     see_item_5: "",
-  //   });
+
 
   const [seeLog, setSeeLog] = useState(initialSeeValues);
 
-  //   const handleInputChange = (event) => {
-  //     setNewSeeInput({
-  //       ...newSeeInput,
-  //       [event.target.name]: event.target.value,
-  //     });
-  //   };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -58,7 +45,8 @@ function SeeFirstPage() {
       console.log("No event entry selected.");
     }
     // Reset the form after submitting
-    setSeeLog(initialSeeValues);
+    // setSeeLog(initialSeeValues);
+    setSeeLog("");
   };
 
   // Dispatch action to fetch event entries when component mounts
@@ -66,23 +54,7 @@ function SeeFirstPage() {
     dispatch({ type: "FETCH_EVENT_ENTRIES" });
   }, [dispatch]);
 
-  //   const handleSubmit = (event) => {
-  //     event.preventDefault();
-  //     console.log("Dispatching add see input action with payload:", {
-  //       seeInput: newSeeInput,
-  //     });
-  //     // Include eventId in your payload.
-  //     if (eventEntries && eventEntries.id) {
-  //       dispatch({
-  //         type: "ADD_SEE_ITEM",
-  //         payload: { seeInput: newSeeInput, eventId: eventEntries.id },
-  //       });
-  //     } else {
-  //       console.log("No event entry selected.");
-  //     }
-  //     // clear input fields
-  //     setNewSeeInput("");
-  //   };
+
 
   return (
     <>
@@ -90,14 +62,51 @@ function SeeFirstPage() {
         <h2>Welcome, {user.username}</h2>
         <div className="see-first-form-container">
           <form onSubmit={addSeeLog}>
-            <label htmlFor="see-item-1">
+            <label htmlFor="see-item-1">Item 1:
               <input
                 type="text"
                 name="see_item_1"
                 onChange={handleInputChange}
                 id="see_item_1"
-                placeholder="List one item you see"
+                // placeholder="List one item you see"
               />
+            </label>
+            <br />
+            <label htmlFor="see-item-2">Item 2:
+                <input
+                type="text"
+                name="see_item_2"
+                onChange={handleInputChange}
+                id="see_item_2"
+                // placeholder="List second item"
+                />
+            </label>
+            <br />
+            <label htmlFor="see-item-3">Item 3:
+            <input
+            type="text"
+            name="see_item_3"
+            onChange={handleInputChange}
+            id="see_item_3"
+            />
+            </label>
+            <br />
+            <label htmlFor="see-item-4">Item 4:
+            <input
+            type="text"
+            name="see_item_4"
+            onChange={handleInputChange}
+            id="see_item_4"
+            />
+            </label>
+            <br />
+            <label htmlFor="see-item-5">Item 5:
+            <input
+            type="text"
+            name="see_item_5"
+            onChange={handleInputChange}
+            id="see_item_5"
+            />
             </label>
             <br />
             <button type="submit">Submit What You See</button>
