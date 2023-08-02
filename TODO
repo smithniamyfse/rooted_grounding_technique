@@ -1728,15 +1728,128 @@
 // }
 
 // // function* formSaga() {
+// // //     yield takeEvery('SUBMIT_FORM', submitForm);
+// // // }
+
+// // function* inputsSaga() {
+// //     yield takeLatest("FETCH_SEE_ITEMS", fetchSeeItems);
+// //     yield takeLatest("ADD_SEE_ITEM", addSeeItem);
 // //     yield takeEvery('SUBMIT_FORM', submitForm);
 // // }
 
-// function* inputsSaga() {
-//     yield takeLatest("FETCH_SEE_ITEMS", fetchSeeItems);
-//     yield takeLatest("ADD_SEE_ITEM", addSeeItem);
-//     yield takeEvery('SUBMIT_FORM', submitForm);
+// // export default inputsSaga;
+
+// import React, { useState, useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+
+// function SeeFirstPage() {
+//   // useDispatch to send data to the store
+//   const dispatch = useDispatch();
+
+//   // useSelector for items
+//   const user = useSelector((store) => store.user);
+//   const seeInputs = useSelector((store) => store.seeInputs);
+//   const eventEntries = useSelector((store) => store.eventEntries[0]);
+
+//   const initialSeeValues = {
+//     see_item_1: "",
+//     see_item_2: "",
+//     see_item_3: "",
+//     see_item_4: "",
+//     see_item_5: "",
+//   };
+
+//   // useState to set item state
+//   //   const [newSeeInput, setNewSeeInput] = useState({
+//   //     see_item_1: "",
+//   //     see_item_2: "",
+//   //     see_item_3: "",
+//   //     see_item_4: "",
+//   //     see_item_5: "",
+//   //   });
+
+//   const [seeLog, setSeeLog] = useState(initialSeeValues);
+
+//   //   const handleInputChange = (event) => {
+//   //     setNewSeeInput({
+//   //       ...newSeeInput,
+//   //       [event.target.name]: event.target.value,
+//   //     });
+//   //   };
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+
+//     setSeeLog((prevState) => ({
+//       ...prevState,
+//       [name]: value,
+//     }));
+//   };
+
+//   const addSeeLog = (event) => {
+//     event.preventDefault();
+//     // Include eventId in your payload.
+//     if (eventEntries && eventEntries.id) {
+//       dispatch({
+//         type: "ADD_SEE_DATA",
+//         payload: { ...seeLog, eventId: eventEntries.id },
+//       });
+//     } else {
+//       console.log("No event entry selected.");
+//     }
+//     // Reset the form after submitting
+//     setSeeLog(initialSeeValues);
+//   };
+
+//   // Dispatch action to fetch event entries when component mounts
+//   useEffect(() => {
+//     dispatch({ type: "FETCH_EVENT_ENTRIES" });
+//   }, [dispatch]);
+
+//   //   const handleSubmit = (event) => {
+//   //     event.preventDefault();
+//   //     console.log("Dispatching add see input action with payload:", {
+//   //       seeInput: newSeeInput,
+//   //     });
+//   //     // Include eventId in your payload.
+//   //     if (eventEntries && eventEntries.id) {
+//   //       dispatch({
+//   //         type: "ADD_SEE_ITEM",
+//   //         payload: { seeInput: newSeeInput, eventId: eventEntries.id },
+//   //       });
+//   //     } else {
+//   //       console.log("No event entry selected.");
+//   //     }
+//   //     // clear input fields
+//   //     setNewSeeInput("");
+//   //   };
+
+//   return (
+//     <>
+//       <main className="see-first-page-container">
+//         <h2>Welcome, {user.username}</h2>
+//         <div className="see-first-form-container">
+//           <form onSubmit={addSeeLog}>
+//             <label htmlFor="see-item-1">
+//               <input
+//                 type="text"
+//                 name="see_item_1"
+//                 onChange={handleInputChange}
+//                 id="see_item_1"
+//                 placeholder="List one item you see"
+//               />
+//             </label>
+//             <br />
+//             <button type="submit">Submit What You See</button>
+//           </form>
+//         </div>
+//       </main>
+//       <footer className="see-footer-container">
+//         <LogOutButton className="btn" />
+//       </footer>
+//     </>
+//   );
 // }
 
-// export default inputsSaga;
-
-
+// export default SeeFirstPage;

@@ -29,7 +29,9 @@ CREATE TABLE "see_inputs" (
     "see_item_3" VARCHAR(100),
     "see_item_4" VARCHAR(100),
     "see_item_5" VARCHAR(100),
+    "user_id" INT,
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
@@ -39,7 +41,9 @@ CREATE TABLE "touch_inputs" (
     "touch_item_2" VARCHAR(100),
     "touch_item_3" VARCHAR(100),
     "touch_item_4" VARCHAR(100),
+    "user_id" INT,
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
@@ -48,7 +52,9 @@ CREATE TABLE "hear_inputs" (
     "hear_item_1" VARCHAR(100),
     "hear_item_2" VARCHAR(100),
     "hear_item_3" VARCHAR(100),
+    "user_id" INT,
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
@@ -56,14 +62,18 @@ CREATE TABLE "smell_inputs" (
     "id" SERIAL PRIMARY KEY,
     "smell_item_1" VARCHAR(100),
     "smell_item_2" VARCHAR(100),
+    "user_id" INT,
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
 CREATE TABLE "taste_inputs" (
     "id" SERIAL PRIMARY KEY,
     "taste_item_1" VARCHAR(100),
+    "user_id" INT,
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
@@ -73,7 +83,8 @@ CREATE TABLE "user_images" (
     "upload_date" DATE DEFAULT CURRENT_DATE,
     "upload_time" TIME DEFAULT CURRENT_TIME,
     "user_id" INT,
-    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     "user_event_id" INT,
+    FOREIGN KEY ("user_id") REFERENCES "user" ("id"),
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
+
