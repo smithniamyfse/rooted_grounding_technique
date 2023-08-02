@@ -8,7 +8,7 @@ import hearInputsSaga from "./hearInputs.saga";
 import feelInputsSaga from "./feelInputs.saga";
 import smellInputsSaga from "./smellInputs.saga";
 import tasteInputsSaga from "./tasteInputs.saga";
-import eventEntriesSaga from "./eventEntries.saga";
+import eventEntriesSaga from "./event.entries.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.

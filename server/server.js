@@ -10,7 +10,6 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const imageRouter = require('./routes/image.router'); // Import the image router
-// const inputsRouter = require('./routes/inputs.router'); // Import the inputs router
 const seeInputsRouter = require('./routes/seeInputs.router');
 const eventEntriesRouter = require('./routes/event.entries.router'); // Import the event entries router
 
@@ -28,7 +27,6 @@ app.use(passport.session());
 /* Routes */
 app.use('/api/user', userRouter);
 app.use('/api/image', imageRouter); // Use the image router
-// app.use('/api/inputs', inputsRouter); // Use the form router
 app.use('/api/see-inputs', seeInputsRouter); // Use the see-inputs router
 app.use('/api/event-entries', eventEntriesRouter); // Use the triggers router
 
