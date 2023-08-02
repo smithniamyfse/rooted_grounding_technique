@@ -4,6 +4,8 @@ const imageReducer = (state = [], action) => {
       return [...state, action.payload];
     case "SET_USER_IMAGE":
       return action.payload;
+    case "SET_CURRENT_EVENT_ID":
+      return { ...state, currentEventId: action.payload };
     case "CLEAR_IMAGES":
       return [];
     default:

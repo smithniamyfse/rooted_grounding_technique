@@ -1,9 +1,14 @@
-import { all } from 'redux-saga/effects';
-import loginSaga from './login.saga';
-import registrationSaga from './registration.saga';
-import userSaga from './user.saga';
-import imageSaga from './image.saga';
-import formSaga from './form.saga';
+import { all } from "redux-saga/effects";
+import loginSaga from "./login.saga";
+import registrationSaga from "./registration.saga";
+import userSaga from "./user.saga";
+import imageSaga from "./image.saga";
+import seeInputsSaga from "./see.saga";
+// import hearInputsSaga from "./hearInputs.saga";
+import touchInputsSaga from "./touch.saga";
+// import smellInputsSaga from "./smellInputs.saga";
+// import tasteInputsSaga from "./tasteInputs.saga";
+import eventEntriesSaga from "./event.entries.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -18,6 +23,11 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     imageSaga(), // image saga is now registered
-    formSaga(), // form saga is now registered 
+    seeInputsSaga(), // see saga is now registered 
+    // hearInputsSaga(),
+    touchInputsSaga(), // touch saga is now registered 
+    // smellInputsSaga(),
+    // tasteInputsSaga(),
+    eventEntriesSaga(), // event entries saga is now registered
   ]);
 }
