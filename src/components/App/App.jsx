@@ -22,6 +22,7 @@ import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import SeePage from '../SeePage/SeePage';
 import TouchPage from '../TouchPage/TouchPage';
+import HearPage from '../HearPage/HearPage';
 
 import './App.css';
 
@@ -85,6 +86,15 @@ function App() {
           path="/second-touch"
           >
             <TouchPage />
+          </ProtectedRoute>
+
+
+          <ProtectedRoute
+          // logged in shows HearPage
+          exact
+          path="/third-hear"
+          >
+            <HearPage />
           </ProtectedRoute>
 
 

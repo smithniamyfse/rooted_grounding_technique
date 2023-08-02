@@ -20,9 +20,16 @@ router.get("/", rejectUnauthenticated, (req, res) => {
 
 // Add touch inputs for a specific event entry
 router.post("/", rejectUnauthenticated, (req, res) => {
-    // Destructure the properties directly from req.body
-    const { touch_item_1, touch_item_2, touch_item_3, touch_item_4, userId, eventId} = req.body;
-    console.log("In touchInputs POSTing touch items: ", req.body);
+  // Destructure the properties directly from req.body
+  const {
+    touch_item_1,
+    touch_item_2,
+    touch_item_3,
+    touch_item_4,
+    userId,
+    eventId,
+  } = req.body;
+  console.log("In touchInputs POSTing touch items: ", req.body);
 
   const queryText = `
         INSERT INTO "touch_inputs" ("touch_item_1", "touch_item_2", "touch_item_3", "touch_item_4", "user_id", "user_event_id")
