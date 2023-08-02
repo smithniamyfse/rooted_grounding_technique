@@ -10,7 +10,8 @@ const passport = require('./strategies/user.strategy');
 // Route includes
 const userRouter = require('./routes/user.router');
 const imageRouter = require('./routes/image.router'); // Import the image router
-const seeInputsRouter = require('./routes/seeInputs.router');
+const seeInputsRouter = require('./routes/seeInputs.router'); // Import the seeInputs router
+const touchInputsRouter = require('./routes/touchInputs.router'); // Import the touchInputs router
 const eventEntriesRouter = require('./routes/event.entries.router'); // Import the event entries router
 
 // Body parser middleware
@@ -28,6 +29,7 @@ app.use(passport.session());
 app.use('/api/user', userRouter);
 app.use('/api/image', imageRouter); // Use the image router
 app.use('/api/see-inputs', seeInputsRouter); // Use the see-inputs router
+app.use('/api/touch-inputs', touchInputsRouter); // Use the touch-inputs router
 app.use('/api/event-entries', eventEntriesRouter); // Use the triggers router
 
 

@@ -33,12 +33,12 @@ CREATE TABLE "see_inputs" (
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );
 
-CREATE TABLE "feel_inputs" (
+CREATE TABLE "touch_inputs" (
     "id" SERIAL PRIMARY KEY,
-    "feel_item_1" VARCHAR(100),
-    "feel_item_2" VARCHAR(100),
-    "feel_item_3" VARCHAR(100),
-    "feel_item_4" VARCHAR(100),
+    "touch_item_1" VARCHAR(100),
+    "touch_item_2" VARCHAR(100),
+    "touch_item_3" VARCHAR(100),
+    "touch_item_4" VARCHAR(100),
     "user_event_id" INT,
     FOREIGN KEY ("user_event_id") REFERENCES "user_event_entries" ("id")
 );

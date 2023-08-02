@@ -3,9 +3,9 @@ import loginSaga from "./login.saga";
 import registrationSaga from "./registration.saga";
 import userSaga from "./user.saga";
 import imageSaga from "./image.saga";
-import seeInputsSaga from "./seeInputs.saga";
+import seeInputsSaga from "./see.saga";
 import hearInputsSaga from "./hearInputs.saga";
-import feelInputsSaga from "./feelInputs.saga";
+import touchInputsSaga from "./touch.saga";
 import smellInputsSaga from "./smellInputs.saga";
 import tasteInputsSaga from "./tasteInputs.saga";
 import eventEntriesSaga from "./event.entries.saga";
@@ -23,9 +23,9 @@ export default function* rootSaga() {
     registrationSaga(),
     userSaga(),
     imageSaga(), // image saga is now registered
-    seeInputsSaga(),
+    seeInputsSaga(), // see saga is now registered 
     hearInputsSaga(),
-    feelInputsSaga(),
+    touchInputsSaga(), // touch saga is now registered 
     smellInputsSaga(),
     tasteInputsSaga(),
     eventEntriesSaga(), // event entries saga is now registered
