@@ -6,7 +6,7 @@ const {
 } = require("../modules/authentication-middleware");
 
 router.get("/", rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT * FROM "smell_inputs" WHERE "user_event_id"=$1;`;
+  const queryText = `SELECT * FROM "hear_inputs" WHERE "user_event_id"=$1;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => {

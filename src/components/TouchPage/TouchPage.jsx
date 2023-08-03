@@ -13,6 +13,8 @@ function TouchPage() {
   // useDispatch to send data to the store
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   // useSelector for user and user's event entries
   const user = useSelector((store) => store.user);
   const eventEntries = useSelector((store) => store.eventEntries[0]);

@@ -23,6 +23,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import SeePage from '../SeePage/SeePage';
 import TouchPage from '../TouchPage/TouchPage';
 import HearPage from '../HearPage/HearPage';
+import SmellPage from '../SmellPage/SmellPage';
 
 import './App.css';
 
@@ -95,6 +96,14 @@ function App() {
           path="/third-hear"
           >
             <HearPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+          // logged in shows SmellPage
+          exact
+          path="/fourth-smell"
+          >
+            <SmellPage />
           </ProtectedRoute>
 
 

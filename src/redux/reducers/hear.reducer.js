@@ -1,5 +1,5 @@
 const initialState = {
-  seeData: [],
+  hearData: [],
   error: null,
 };
 

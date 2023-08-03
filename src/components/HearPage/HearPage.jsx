@@ -45,7 +45,7 @@ function HearPage() {
     // Include eventId and userId
     if (eventEntries && eventEntries.id) {
       dispatch({
-        type: "ADD_SEE_DATA",
+        type: "ADD_HEAR_DATA",
         payload: { ...hearLog, userId: user.id, eventId: eventEntries.id },
       });
     } else {
