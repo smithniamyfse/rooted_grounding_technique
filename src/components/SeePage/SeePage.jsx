@@ -2,7 +2,12 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { TextField, Box } from "@mui/material";
-import { HashRouter as Router, Route, Link, useHistory } from 'react-router-dom';
+import {
+  HashRouter as Router,
+  Route,
+  Link,
+  useHistory,
+} from "react-router-dom";
 
 function SeePage() {
   // useDispatch to send data to the store
@@ -39,7 +44,7 @@ function SeePage() {
 
   const addSeeLog = (event) => {
     event.preventDefault();
-    // Include eventId
+    // Include eventId and userId
     if (eventEntries && eventEntries.id) {
       dispatch({
         type: "ADD_SEE_DATA",
@@ -67,22 +72,57 @@ function SeePage() {
       <main className="see-first-page-container">
         <h1>Welcome, {user.username}</h1>
         <h2>What 5 Things Can You See</h2>
-        <div className="see-first-form-container">
+        <div className="see-form-container">
           <form onSubmit={addSeeLog}>
             <Box mb={3}>
-              <TextField fullWidth label="Item 1" variant="outlined" name="see_item_1" value={seeLog.see_item_1} onChange={handleInputChange} />
+              <TextField
+                fullWidth
+                label="Item 1"
+                variant="outlined"
+                name="see_item_1"
+                value={seeLog.see_item_1}
+                onChange={handleInputChange}
+              />
             </Box>
             <Box mb={3}>
-              <TextField fullWidth label="Item 2" variant="outlined" name="see_item_2" value={seeLog.see_item_2} onChange={handleInputChange} />
+              <TextField
+                fullWidth
+                label="Item 2"
+                variant="outlined"
+                name="see_item_2"
+                value={seeLog.see_item_2}
+                onChange={handleInputChange}
+              />
             </Box>
             <Box mb={3}>
-              <TextField fullWidth label="Item 3" variant="outlined" name="see_item_3" value={seeLog.see_item_3} onChange={handleInputChange} />
+              <TextField
+                fullWidth
+                label="Item 3"
+                variant="outlined"
+                name="see_item_3"
+                value={seeLog.see_item_3}
+                onChange={handleInputChange}
+              />
             </Box>
             <Box mb={3}>
-              <TextField fullWidth label="Item 4" variant="outlined" name="see_item_4" value={seeLog.see_item_4} onChange={handleInputChange} />
+              <TextField
+                fullWidth
+                label="Item 4"
+                variant="outlined"
+                name="see_item_4"
+                value={seeLog.see_item_4}
+                onChange={handleInputChange}
+              />
             </Box>
             <Box mb={3}>
-              <TextField fullWidth label="Item 5" variant="outlined" name="see_item_5" value={seeLog.see_item_5} onChange={handleInputChange} />
+              <TextField
+                fullWidth
+                label="Item 5"
+                variant="outlined"
+                name="see_item_5"
+                value={seeLog.see_item_5}
+                onChange={handleInputChange}
+              />
             </Box>
             <button type="submit">Submit What You See</button>
           </form>
@@ -98,7 +138,6 @@ function SeePage() {
 }
 
 export default SeePage;
-
 
 // ** VERSION 3 **
 // items.map((item, index) => (
@@ -118,7 +157,6 @@ export default SeePage;
 // import LogOutButton from "../LogOutButton/LogOutButton";
 // import TextField from '@mui/material/TextField';
 // import Box from '@mui/material/Box';
-
 
 // function SeePage() {
 //   // useDispatch to send data to the store
@@ -184,7 +222,7 @@ export default SeePage;
 //           {seeLog.map((item, index) => (
 //   <Box mb={3} key={index}>
 //     <TextField
-//       fullWidth={true} 
+//       fullWidth={true}
 //       label={`Item ${index + 1}`}
 //       variant="outlined"
 //       name={item.id}
@@ -206,9 +244,6 @@ export default SeePage;
 // }
 
 // export default SeePage;
-
-
-
 
 // ** VERSION 2 **
 // import React, { useState, useEffect } from "react";
@@ -248,8 +283,6 @@ export default SeePage;
 
 //   };
 
-
-
 //   const addSeeLog = (event) => {
 //     event.preventDefault();
 //     // Include eventId in your payload.
@@ -285,7 +318,7 @@ export default SeePage;
 //                 name="see_item_1"
 //                 onChange={handleInputChange}
 //                 id="see_item_1"
-//                 value={seeLog.see_item_1} 
+//                 value={seeLog.see_item_1}
 //               />
 //             </label>
 //             <br />
@@ -343,7 +376,6 @@ export default SeePage;
 //     </>
 //   );
 // }
-
 
 // ** VERSION 1 **
 // export default SeePage;

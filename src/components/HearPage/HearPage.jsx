@@ -9,7 +9,7 @@ import {
   useHistory,
 } from "react-router-dom";
 
-function TouchPage() {
+function HearPage() {
   // useDispatch to send data to the store
   const dispatch = useDispatch();
 
@@ -19,42 +19,45 @@ function TouchPage() {
   const user = useSelector((store) => store.user);
   const eventEntries = useSelector((store) => store.eventEntries[0]);
 
-  const initialTouchValues = {
-    touch_item_1: "",
-    touch_item_2: "",
-    touch_item_3: "",
-    touch_item_4: "",
+  const initialHearValues = {
+    hear_item_1: "",
+    hear_item_2: "",
+    hear_item_3: "",
   };
 
-  const [touchLog, setTouchLog] = useState(initialTouchValues);
+  const [hearLog, setHearLog] = useState(initialHearValues);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
 
-    setTouchLog((prevState) => ({
+    setHearLog((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
 
-  const clearTouchInputs = () => {
-    setTouchLog(initialTouchValues);
+  const clearHearInputs = () => {
+    setHearLog(initialHearValues);
   };
 
-  const addTouchLog = (event) => {
+  const addHearLog = (event) => {
     event.preventDefault();
-    // Include eventId
+    // Include eventId and userId
     if (eventEntries && eventEntries.id) {
       dispatch({
-        type: "ADD_TOUCH_DATA",
-        payload: { ...touchLog, userId: user.id, eventId: eventEntries.id },
+        type: "ADD_HEAR_DATA",
+        payload: { ...hearLog, userId: user.id, eventId: eventEntries.id },
       });
     } else {
       console.log("No event entry selected.");
     }
-    // Call clearTouchInputs() and then log the state
-    clearTouchInputs();
-    console.log("Call clearTouchInputs(): ", touchLog);
+    // Call clearHearInputs() and then log the state
+    clearHearInputs();
+    console.log("Call clearHearInputs(): ", hearLog);
+  };
+
+  const goToSmell = () => {
+    history.push("/fourth-smell");
   };
 
   // Dispatch action to fetch event entries when component mounts
@@ -62,23 +65,19 @@ function TouchPage() {
     dispatch({ type: "FETCH_EVENT_ENTRIES" });
   }, [dispatch]);
 
-  const goToHear = () => {
-    history.push("/third-hear");
-  };
-
   return (
     <>
-      <main className="touch-second-page-container">
-        <h2>4 Things You Can Touch</h2>
-        <div className="touch-form-container">
-          <form onSubmit={addTouchLog}>
+      <main className="hear-third-page-container">
+        <h2>What 3 Things Can You Hear</h2>
+        <div className="hear-form-container">
+          <form onSubmit={addHearLog}>
             <Box mb={3}>
               <TextField
                 fullWidth
                 label="Item 1"
                 variant="outlined"
-                name="touch_item_1"
-                value={touchLog.touch_item_1}
+                name="hear_item_1"
+                value={hearLog.hear_item_1}
                 onChange={handleInputChange}
               />
             </Box>
@@ -87,8 +86,8 @@ function TouchPage() {
                 fullWidth
                 label="Item 2"
                 variant="outlined"
-                name="touch_item_2"
-                value={touchLog.touch_item_2}
+                name="hear_item_2"
+                value={hearLog.hear_item_2}
                 onChange={handleInputChange}
               />
             </Box>
@@ -97,32 +96,22 @@ function TouchPage() {
                 fullWidth
                 label="Item 3"
                 variant="outlined"
-                name="touch_item_3"
-                value={touchLog.touch_item_3}
+                name="hear_item_3"
+                value={hearLog.hear_item_3}
                 onChange={handleInputChange}
               />
             </Box>
-            <Box mb={3}>
-              <TextField
-                fullWidth
-                label="Item 4"
-                variant="outlined"
-                name="touch_item_4"
-                value={touchLog.touch_item_4}
-                onChange={handleInputChange}
-              />
-            </Box>
-            <button type="submit">Submit What You Can Touch</button>
+            <button type="submit">Submit What You Hear</button>
           </form>
         </div>
         <br />
-        <button onClick={goToHear}>Go To Hear</button>
+        <button onClick={goToSmell}>Go To Smell</button>
       </main>
-      <footer className="touch-footer-container">
+      <footer className="hear-footer-container">
         <LogOutButton className="btn" />
       </footer>
     </>
   );
 }
 
-export default TouchPage;
+export default HearPage;
