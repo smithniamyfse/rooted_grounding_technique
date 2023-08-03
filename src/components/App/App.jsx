@@ -20,6 +20,8 @@ import LandingPage from "../LandingPage/LandingPage";
 import LocationPage from "../LocationPage/LocationPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+
+// import each sensory step in the grounding process
 import SeePage from "../SeePage/SeePage";
 import TouchPage from "../TouchPage/TouchPage";
 import HearPage from "../HearPage/HearPage";
@@ -113,6 +115,7 @@ function App() {
           >
             <TastePage />
           </ProtectedRoute>
+          
 
           <Route exact path="/login">
             {user.id ? (
