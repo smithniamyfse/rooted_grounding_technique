@@ -69,7 +69,7 @@ function HearPage() {
     <>
       <main className="hear-third-page-container">
         <h2>What 3 Things Can You Hear</h2>
-        <div className="hear-third-page-container">
+        <div className="hear-form-container">
           <form onSubmit={addHearLog}>
             <Box mb={3}>
               <TextField

@@ -72,7 +72,7 @@ function SeePage() {
       <main className="see-first-page-container">
         <h1>Welcome, {user.username}</h1>
         <h2>What 5 Things Can You See</h2>
-        <div className="see-first-form-container">
+        <div className="see-form-container">
           <form onSubmit={addSeeLog}>
             <Box mb={3}>
               <TextField

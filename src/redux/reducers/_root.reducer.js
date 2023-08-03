@@ -5,6 +5,7 @@ import image from "./image.reducer";
 import seeReducer from "./see.reducer";
 import touchReducer from "./touch.reducer";
 import hearReducer from "./hear.reducer";
+import smellReducer from "./smell.reducer";
 import eventEntries from "./event.entries.reducer";
 
 // rootReducer is the primary reducer for our entire project
@@ -20,7 +21,7 @@ const rootReducer = combineReducers({
   seeReducer, // seeReducer
   hearReducer, // hearReducer
   touchReducer, // touchReducer
-  // smell: smellReducer,
+  smellReducer, // smellReducer
   // taste: tasteReducer,
   eventEntries, // store event entries
 });

@@ -6,7 +6,7 @@ import imageSaga from "./image.saga";
 import seeInputsSaga from "./see.saga";
 import hearInputsSaga from "./hear.saga";
 import touchInputsSaga from "./touch.saga";
-// import smellInputsSaga from "./smellInputs.saga";
+import smellInputsSaga from "./smell.saga";
 // import tasteInputsSaga from "./tasteInputs.saga";
 import eventEntriesSaga from "./event.entries.saga";
 
@@ -26,7 +26,7 @@ export default function* rootSaga() {
     seeInputsSaga(), // see saga is now registered
     hearInputsSaga(), // hear saga is now registered
     touchInputsSaga(), // touch saga is now registered
-    // smellInputsSaga(),
+    smellInputsSaga(), // smell saga is now registered 
     // tasteInputsSaga(),
     eventEntriesSaga(), // event entries saga is now registered
   ]);
