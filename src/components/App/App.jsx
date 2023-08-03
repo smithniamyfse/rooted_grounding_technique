@@ -1,39 +1,40 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import {
   HashRouter as Router,
   Redirect,
   Route,
   Switch,
-} from 'react-router-dom';
+} from "react-router-dom";
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from "react-redux";
 
-import Nav from '../Nav/Nav';
-import Footer from '../Footer/Footer';
+import Nav from "../Nav/Nav";
+import Footer from "../Footer/Footer";
 
-import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
-import AboutPage from '../AboutPage/AboutPage';
-import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
-import LandingPage from '../LandingPage/LandingPage';
-import LocationPage from '../LocationPage/LocationPage';
-import LoginPage from '../LoginPage/LoginPage';
-import RegisterPage from '../RegisterPage/RegisterPage';
-import SeePage from '../SeePage/SeePage';
-import TouchPage from '../TouchPage/TouchPage';
-import HearPage from '../HearPage/HearPage';
-import SmellPage from '../SmellPage/SmellPage';
+import AboutPage from "../AboutPage/AboutPage";
+import UserPage from "../UserPage/UserPage";
+import InfoPage from "../InfoPage/InfoPage";
+import LandingPage from "../LandingPage/LandingPage";
+import LocationPage from "../LocationPage/LocationPage";
+import LoginPage from "../LoginPage/LoginPage";
+import RegisterPage from "../RegisterPage/RegisterPage";
+import SeePage from "../SeePage/SeePage";
+import TouchPage from "../TouchPage/TouchPage";
+import HearPage from "../HearPage/HearPage";
+import SmellPage from "../SmellPage/SmellPage";
+import TastePage from "../TastePage/TastePage";
 
-import './App.css';
+import "./App.css";
 
 function App() {
   const dispatch = useDispatch();
 
-  const user = useSelector(store => store.user);
+  const user = useSelector((store) => store.user);
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_USER' });
+    dispatch({ type: "FETCH_USER" });
   }, [dispatch]);
 
   return (
@@ -74,79 +75,76 @@ function App() {
           </ProtectedRoute>
 
           <ProtectedRoute
-          // logged in shows SeePage
-          exact
-          path="/first-see"
+            // logged in shows SeePage
+            exact
+            path="/first-see"
           >
             <SeePage />
           </ProtectedRoute>
 
           <ProtectedRoute
-          // logged in shows TouchPage
-          exact
-          path="/second-touch"
+            // logged in shows TouchPage
+            exact
+            path="/second-touch"
           >
             <TouchPage />
           </ProtectedRoute>
 
-
           <ProtectedRoute
-          // logged in shows HearPage
-          exact
-          path="/third-hear"
+            // logged in shows HearPage
+            exact
+            path="/third-hear"
           >
             <HearPage />
           </ProtectedRoute>
 
           <ProtectedRoute
-          // logged in shows SmellPage
-          exact
-          path="/fourth-smell"
+            // logged in shows SmellPage
+            exact
+            path="/fourth-smell"
           >
             <SmellPage />
           </ProtectedRoute>
 
-
-          <Route
+          <ProtectedRoute
+            // logged in shows TastePage
             exact
-            path="/login"
+            path="/fifth-taste"
           >
-            {user.id ?
-              // If the user is already logged in, 
+            <TastePage />
+          </ProtectedRoute>
+
+          <Route exact path="/login">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the login page
               <LoginPage />
-            }
+            )}
           </Route>
 
-          <Route
-            exact
-            path="/registration"
-          >
-            {user.id ?
-              // If the user is already logged in, 
+          <Route exact path="/registration">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect them to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the registration page
               <RegisterPage />
-            }
+            )}
           </Route>
 
-          <Route
-            exact
-            path="/home"
-          >
-            {user.id ?
-              // If the user is already logged in, 
+          <Route exact path="/home">
+            {user.id ? (
+              // If the user is already logged in,
               // redirect them to the /user page
               <Redirect to="/user" />
-              :
+            ) : (
               // Otherwise, show the Landing page
               <LandingPage />
-            }
+            )}
           </Route>
 
           {/* If none of the other routes matched, we will show a 404. */}
