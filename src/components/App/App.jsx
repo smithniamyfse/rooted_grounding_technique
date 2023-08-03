@@ -20,6 +20,8 @@ import LandingPage from "../LandingPage/LandingPage";
 import LocationPage from "../LocationPage/LocationPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
+
+// import each sensory step in the grounding process
 import SeePage from "../SeePage/SeePage";
 import TouchPage from "../TouchPage/TouchPage";
 import HearPage from "../HearPage/HearPage";
@@ -59,11 +61,11 @@ function App() {
             If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
             Even though it seems like they are different pages, the user is always on localhost:3000/user */}
           <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
+            // logged in shows LocationPage else shows LoginPage
             exact
-            path="/user"
+            path="/location"
           >
-            <UserPage />
+            <LocationPage />
           </ProtectedRoute>
 
           <ProtectedRoute
@@ -112,6 +114,14 @@ function App() {
             path="/fifth-taste"
           >
             <TastePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path="/user"
+          >
+            <UserPage />
           </ProtectedRoute>
 
           <Route exact path="/login">
