@@ -14,7 +14,9 @@ const seeInputsRouter = require('./routes/seeInputs.router'); // Import the seeI
 const touchInputsRouter = require('./routes/touchInputs.router'); // Import the touchInputs router
 const hearInputsRouter = require('./routes/hearInputs.router'); // Import the hearInputs router
 const smellInputsRouter = require('./routes/smellInputs.router'); // Import the smellInputs router
+const tasteInputsRouter = require('./routes/tasteInputs.router'); // Import the tasteInputs router
 const eventEntriesRouter = require('./routes/event.entries.router'); // Import the event entries router
+
 
 
 // Body parser middleware
@@ -35,6 +37,7 @@ app.use('/api/see-inputs', seeInputsRouter); // Use the see-inputs router
 app.use('/api/touch-inputs', touchInputsRouter); // Use the touch-inputs router
 app.use('/api/hear-inputs', hearInputsRouter); // Use the hear-inputs router
 app.use('/api/smell-inputs', smellInputsRouter); // Use the smell-inputs router
+app.use('/api/taste-inputs', tasteInputsRouter); // Use the taste-inputs router
 app.use('/api/event-entries', eventEntriesRouter); // Use the triggers router
 
 

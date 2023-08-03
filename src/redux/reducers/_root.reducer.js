@@ -6,6 +6,7 @@ import seeReducer from "./see.reducer";
 import touchReducer from "./touch.reducer";
 import hearReducer from "./hear.reducer";
 import smellReducer from "./smell.reducer";
+import tasteReducer from "./taste.reducer";
 import eventEntries from "./event.entries.reducer";
 
 // rootReducer is the primary reducer for our entire project
@@ -18,11 +19,11 @@ const rootReducer = combineReducers({
   errors, // contains registrationMessage and loginMessage
   user, // will have an id and username if someone is logged in
   image, // will have image uploading related states
-  seeReducer, // seeReducer
-  hearReducer, // hearReducer
-  touchReducer, // touchReducer
-  smellReducer, // smellReducer
-  // taste: tasteReducer,
+  seeReducer,
+  hearReducer,
+  touchReducer,
+  smellReducer,
+  tasteReducer,
   eventEntries, // store event entries
 });
 
