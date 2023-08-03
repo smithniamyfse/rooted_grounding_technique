@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import {
   HashRouter as Router,
   Route,
@@ -34,9 +34,6 @@ function LocationPage() {
           <button onClick={goToSee}>Go To See</button>
         </div>
       </main>
-      <footer className="location-footer-container">
-        <LogOutButton className="btn" />
-      </footer>
     </>
   );
 }
