@@ -96,7 +96,7 @@ function SmellPage() {
         <br />
         <button onClick={goToTaste}>Go To Taste</button>
       </main>
-      <footer className="hear-footer-container">
+      <footer className="smell-footer-container">
         <LogOutButton className="btn" />
       </footer>
     </>

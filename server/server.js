@@ -13,7 +13,7 @@ const imageRouter = require('./routes/image.router'); // Import the image router
 const seeInputsRouter = require('./routes/seeInputs.router'); // Import the seeInputs router
 const touchInputsRouter = require('./routes/touchInputs.router'); // Import the touchInputs router
 const hearInputsRouter = require('./routes/hearInputs.router'); // Import the hearInputs router
-const smellInputsRouter = require('./routes/seeInputs.router'); // Import the smellInputs router
+const smellInputsRouter = require('./routes/smellInputs.router'); // Import the smellInputs router
 const eventEntriesRouter = require('./routes/event.entries.router'); // Import the event entries router
 
 
