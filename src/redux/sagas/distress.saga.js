@@ -1,23 +1,22 @@
 import axios from 'axios';
-import { put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { put, takeLatest } from 'redux-saga/effects';
 
 function* submitDistressValue(action) {
-    try {
-      yield axios.put(`/api/event-entries/distress-rating`, action.payload);
-      yield put({ type: "SUBMIT_DISTRESS_VALUE_SUCCESS" });
-    } catch (error) {
-      console.log("Error submitting distress value: ", error);
-      yield put({ type: "SUBMIT_DISTRESS_VALUE_FAIL", error });
-    }
+  try {
+    yield axios.put(`/api/event-entries/distress-rating`, action.payload);
+    yield put({ type: "SUBMIT_DISTRESS_VALUE_SUCCESS" });
+  } catch (error) {
+    console.log("Error submitting distress value: ", error);
+    yield put({ type: "SUBMIT_DISTRESS_VALUE_FAIL", error });
   }
-  
+}
 
 function* distressSaga() {
-    yield takeLatest("SUBMIT_DISTRESS_VALUE", submitDistressValue);
-
+  yield takeLatest("SUBMIT_DISTRESS_VALUE", submitDistressValue);
 }
 
 export default distressSaga;
+
 
 
 

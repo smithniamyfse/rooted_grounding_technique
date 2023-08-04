@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import LocationPage from "../LocationPage/LocationPage";
+import CaptureLocationPage from "../CaptureLocationPage/CaptureLocationPage";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -12,9 +12,9 @@ function UserPage() {
       <div className="container">
         <h2>Welcome, {user.username}!</h2>
         <p>Your ID is: {user.id}</p>
-        <LocationPage />
+        <CaptureLocationPage />
       </div>
-      <footer className="location-footer-container">
+      <footer className="user-page-footer-container">
         <LogOutButton className="btn" />
       </footer>
     </>

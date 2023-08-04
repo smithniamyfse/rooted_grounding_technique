@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Location from "../Location/Location";
 import LogOutButton from "../LogOutButton/LogOutButton";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
@@ -57,9 +58,11 @@ const marks = [
 // }
 
 function DistressRating() {
-    const distressValue =
-      useSelector((store) => store.distress.distressValue) || 0;
-    const currentEventId = useSelector((store) => store.currentEventId); // get currentEventId from the store
+    const distressValue = useSelector((store) => store.distress.distressValue) || 0;
+    const currentEventId = useSelector((store) => store.currentEventId);
+
+    console.log(`Current distress value from Redux state: ${distressValue}`);
+console.log(`Current event ID from Redux state: ${currentEventId}`);
   
     function preventHorizontalKeyboardNavigation(event) {
       if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
@@ -67,29 +70,18 @@ function DistressRating() {
       }
     }
   
-    console.log(`Current distress value from Redux state: ${distressValue}`);
-    console.log(`Current event ID from Redux state: ${currentEventId}`);
-  
     const dispatch = useDispatch();
     const history = useHistory();
   
     const handleChange = (event, newValue) => {
-      console.log(`Slider value changed: ${newValue}`);
-      dispatch({
-        type: "SET_DISTRESS_VALUE",
-        payload: newValue,
-      });
+      dispatch({ type: "SET_DISTRESS_VALUE", payload: newValue });
     };
   
     const submitDistressRating = (event) => {
       event.preventDefault();
-      console.log(`Submitting distress rating: ${distressValue}`);
       dispatch({
         type: "SUBMIT_DISTRESS_VALUE",
-        payload: {
-          value: distressValue,
-          eventId: currentEventId,
-        },
+        payload: { value: distressValue, eventId: currentEventId },
       });
     };
   
@@ -132,6 +124,10 @@ function DistressRating() {
             <br />
             <button type="submit">Submit Your Distress Rating</button>
           </form>
+        </div>
+        <br />
+        <div className="location-input-container">
+            <Location />
         </div>
         <br />
         <button onClick={goToUserProfile}>Go To User Profile</button>
