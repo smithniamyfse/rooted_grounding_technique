@@ -87,7 +87,7 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     newEntry.location,
     newEntry.date,
     newEntry.time,
-    newEntry.intensity_rating,
+    newEntry.distress_rating,
     userId,
   ];
   pool
@@ -130,22 +130,41 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// // This function calculates the top three triggers for a user
+// const getTopThreeTriggers = async (userId) => {
+//   const locationQuery = `
+//     SELECT location, COUNT(*) as count, AVG(distress_rating) as avg_distress
+//     FROM user_event_entries 
+//     WHERE user_id = $1
+//     GROUP BY location
+//   `;
+//   const locationResult = await pool.query(locationQuery, [userId]);
+//   const allTriggers = [...locationResult.rows];
+//   allTriggers.forEach(trigger => {
+//     trigger.score = parseFloat((trigger.count * trigger.avg_distress).toFixed(2));
+//   });
+//   allTriggers.sort(function(a, b){return b.score - a.score});
+//   return allTriggers.slice(0, 3).reverse();
+// };
+
 // This function calculates the top three triggers for a user
 const getTopThreeTriggers = async (userId) => {
-  const locationQuery = `
-    SELECT location, COUNT(*) as count, AVG(distress_rating) as avg_distress
-    FROM user_event_entries 
-    WHERE user_id = $1
-    GROUP BY location
-  `;
-  const locationResult = await pool.query(locationQuery, [userId]);
-  const allTriggers = [...locationResult.rows];
-  allTriggers.forEach(trigger => {
-    trigger.score = trigger.count * trigger.avg_distress;
-  });
-  allTriggers.sort((a, b) => b.score - a.score);
-  return allTriggers.slice(0, 3);
-};
+    const locationQuery = `
+      SELECT location, COUNT(*) as count, AVG(distress_rating) as avg_distress
+      FROM user_event_entries 
+      WHERE user_id = $1
+      GROUP BY location
+    `;
+    const locationResult = await pool.query(locationQuery, [userId]);
+    const allTriggers = [...locationResult.rows];
+    allTriggers.forEach(trigger => {
+      trigger.score = parseFloat((Number(trigger.count) * trigger.avg_distress).toFixed(2));
+    });
+    allTriggers.sort(function(a, b){return b.score - a.score});
+    return allTriggers.slice(0, 3);
+  };
+  
+
 
 const getTopSeeItems = async (userId) => {
   const result = await pool.query(SEE_ITEMS_QUERY, [userId]);
@@ -157,4 +176,4 @@ const getTopSeeItems = async (userId) => {
   return allSeeItems.slice(0, 3);
 };
 
-module.exports = router;
+module.exports = router; 

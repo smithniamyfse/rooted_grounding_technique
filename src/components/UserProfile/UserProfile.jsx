@@ -9,8 +9,8 @@ function UserProfile() {
   const seeItems = useSelector((state) => state.seeItems) || [];
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_TOP_TRIGGERS' });
-    dispatch({ type: 'FETCH_SEE_ITEMS' });
+    dispatch({ type: "FETCH_TOP_TRIGGERS" });
+    dispatch({ type: "FETCH_SEE_ITEMS" });
   }, [dispatch]);
 
   return (
@@ -29,19 +29,17 @@ function UserProfile() {
               </tr>
             </thead>
             <tbody>
-              {topTriggers.map((trigger, index) => (
-                <tr key={index}>
-                  <td>{trigger.location}</td>
-                  <td>
-                    {typeof trigger.avg_distress === "number"
-// var rounded = Math.round(n * 100) / 100;
-// ? trigger.avg_distress.toFixed(3)
-                      ? trigger.avg_distress.toFixed(3)
-                      : trigger.avg_distress}
-                  </td>
-                  {/* <td>{trigger.score}</td> */}
-                </tr>
-              ))}
+              {[...topTriggers]
+                .sort(
+                  (a, b) =>
+                    parseFloat(b.avg_distress) - parseFloat(a.avg_distress)
+                )
+                .map((trigger, index) => (
+                  <tr key={index}>
+                    <td>{trigger.location}</td>
+                    <td>{parseFloat(trigger.avg_distress).toFixed(2)}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </section>
@@ -55,18 +53,16 @@ function UserProfile() {
                 {/* <th>Average Distress</th> */}
               </tr>
             </thead>
+            {/* <tbody> */}
             <tbody>
-              {seeItems.map((item, index) => (
-                <tr key={index}>
-                  <td>{item.item}</td>
-                  <td>{item.count}</td>
-                  {/* <td>
-                    {typeof item.avg_distress === "number"
-                      ? item.avg_distress.toFixed(1)
-                      : item.avg_distress}
-                  </td> */}
-                </tr>
-              ))}
+              {seeItems
+                .sort((a, b) => parseFloat(b.count) - parseFloat(a.count))
+                .map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.item}</td>
+                    <td>{item.count}</td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </section>
@@ -80,5 +76,25 @@ function UserProfile() {
 
 export default UserProfile;
 
+// {/* <tbody>
+//   {topTriggers.map((trigger, index) => (
+//     <tr key={index}>
+//       <td>{trigger.location}</td>
+//       <td>{parseFloat(trigger.avg_distress).toFixed(2)}</td>
+//     </tr>
+//   ))}
+// </tbody> */}
 
-
+// {/* <tbody>
+//   {topTriggers.map((trigger, index) => (
+//     <tr key={index}>
+//       <td>{trigger.location}</td>
+//       <td>
+//         {typeof trigger.avg_distress === "number"
+//           ? trigger.avg_distress.toFixed(3)
+//           : trigger.avg_distress}
+//       </td>
+//       {/* <td>{trigger.score}</td> */}
+// {/* </tr>
+//   ))}
+// </tbody> */}
