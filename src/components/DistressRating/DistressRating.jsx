@@ -1,16 +1,10 @@
-
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  HashRouter as Router,
-  Route,
-  Link,
-  useHistory,
-} from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 
-  const marks = [
+const marks = [
     {
       value: 0,
       label: "0",
@@ -63,7 +57,11 @@ import Slider from "@mui/material/Slider";
 
 function DistressRating() {
   const distressValue = useSelector((store) => store.distress.distressValue) || 0;
-  const eventId = useSelector((store) => store.distress.eventId);
+  const eventId = useSelector((store) => store.eventEntries[0]?.id);
+
+
+  console.log(`Current distress value from Redux state: ${distressValue}`);
+  console.log(`Current event ID from Redux state: ${eventId}`);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -72,28 +70,24 @@ function DistressRating() {
     console.log(`Slider value changed: ${newValue}`);
     dispatch({
       type: "SET_DISTRESS_VALUE",
-      payload: {
-        value: newValue,
-        eventId: eventId,
-      },
+      payload: newValue,
     });
   };
-  
+
   const submitDistressRating = (event) => {
     event.preventDefault();
     console.log(`Submitting distress rating: ${distressValue}`);
     dispatch({
-      type: "SUBMIT_DISTRESS_VALUE",
-      payload: {
-        value: distressValue,
-        eventId: eventId,
-      },
-    });
+        type: "SUBMIT_DISTRESS_VALUE",
+        payload: {
+          value: distressValue,
+          eventId: eventId,
+        },
+      });      
     history.push("/user-profile");
   };
-  
-  return (
 
+  return (
     <main className="distress-rating-container">
       <form onSubmit={submitDistressRating}>
         <Stack
@@ -102,9 +96,7 @@ function DistressRating() {
           direction="row"
         >
           <Slider
-            sx={{ width: "10px" }}
             aria-label="DistressRating"
-            orientation="vertical"
             value={distressValue}
             onChange={handleChange}
             valueLabelDisplay="on"
@@ -123,6 +115,9 @@ function DistressRating() {
 }
 
 export default DistressRating;
+
+
+
 
 
 // ** VERSION 3 **

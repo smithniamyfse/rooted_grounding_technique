@@ -16,11 +16,11 @@ const UPDATE_DISTRESS_QUERY = `
   SET "distress_rating" = $1
   WHERE "user_id" = $2 AND "id" = $3;
 `;
-const UPDATE_ENTRY_QUERY = `
-  UPDATE "user_event_entries"
-  SET "location" = $1, "date" = $2, "time" = $3, "intensity_rating" =$4
-  WHERE "id" = $5 AND "user_id" = $6;
-`;
+// const UPDATE_ENTRY_QUERY = `
+//   UPDATE "user_event_entries"
+//   SET "location" = $1, "date" = $2, "time" = $3, "intensity_rating" =$4
+//   WHERE "id" = $5 AND "user_id" = $6;
+// `;
 
 // Get all event entries for a particular user
 router.get("/", rejectUnauthenticated, (req, res) => {
@@ -70,68 +70,59 @@ router.post("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// Distress value update route (changed from POST to PUT as it's more appropriate for updating data)
-router.put("/distress-rating/:id", rejectUnauthenticated, (req, res) => {
-    console.log("Received request to update distress rating");
+router.put('/distress-rating', rejectUnauthenticated, (req, res) => {
+    console.log('Received request to update distress rating');
     const distressValue = req.body.value;
-    const id = req.params.id;
-  
+    const eventId = req.body.eventId;    
     console.log(`Distress value from request: ${distressValue}`);
-    console.log(`Event ID from request: ${id}`);
+    console.log(`Event ID from request: ${eventId}`);
   
-    if (isNaN(id) || distressValue === undefined || typeof distressValue !== "number") {
-      console.error("Invalid data received.");
+    if (!distressValue || !eventId) {
+      console.log('Invalid data received.');
       res.sendStatus(400);
       return;
     }
   
-    const userId = req.user.id;
-    if (userId && distressValue !== undefined && id) {
-      console.log(`Updating distress rating for user ${userId} and event ${id}`);
-      pool.query(UPDATE_DISTRESS_QUERY, [distressValue, userId, id])
-        .then(() => {
-          console.log("Successfully updated distress rating");
-          res.sendStatus(200);
-        })
-        .catch((error) => {
-          console.error(`Error making distress rating query ${UPDATE_DISTRESS_QUERY}`, error);
-          res.sendStatus(500);
-        });
-    } else {
-      console.error("Invalid data provided");
-      res.sendStatus(400);
-    }
+    const queryText = 'UPDATE "user_event_entries" SET "distress_rating" = $1 WHERE "id" = $2;';
+    pool
+      .query(queryText, [distressValue, eventId])
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log('Error completing UPDATE distress_rating query', err);
+        res.sendStatus(500);
+      });
   });
   
+  
+
+module.exports = router;
 
 // TODO: (If necessary) Update an event entry for the logged-in user
-router.put("/:id", rejectUnauthenticated, (req, res) => {
-  const updatedEntry = req.body;
-  const userId = req.user.id;
-  const eventId = req.params.id;
-  const queryValues = [
-    updatedEntry.location,
-    updatedEntry.date,
-    updatedEntry.time,
-    updatedEntry.intensity_rating,
-    eventId,
-    userId,
-  ];
-  pool
-    .query(UPDATE_ENTRY_QUERY, queryValues)
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch((error) => {
-      console.error(`Error updating event entry with id=${eventId}: `, error);
-      res.sendStatus(500);
-    });
-});
+// router.put("/:id", rejectUnauthenticated, (req, res) => {
+//   const updatedEntry = req.body;
+//   const userId = req.user.id;
+//   const eventId = req.params.id;
+//   const queryValues = [
+//     updatedEntry.location,
+//     updatedEntry.date,
+//     updatedEntry.time,
+//     updatedEntry.intensity_rating,
+//     eventId,
+//     userId,
+//   ];
+//   pool
+//     .query(UPDATE_ENTRY_QUERY, queryValues)
+//     .then(() => {
+//       res.sendStatus(200);
+//     })
+//     .catch((error) => {
+//       console.error(`Error updating event entry with id=${eventId}: `, error);
+//       res.sendStatus(500);
+//     });
+// });
 
 // TODO: (If necessary) Delete an event entry for the logged-in user
 // router.delete("/:id", rejectUnauthenticated, (req, res) => { ... });
-
-module.exports = router;
 
 // Save distress rating for a specific event entry
 // router.post("/distress-rating/:id", rejectUnauthenticated, (req, res) => {

@@ -1,14 +1,15 @@
-
-  
-  const distressReducer = (state = {}, action) => {
+const distressReducer = (state = {}, action) => {
     switch (action.type) {
       case 'SET_DISTRESS_VALUE':
-        return { ...state, distressValue: action.payload.value, eventId: action.payload.eventId };
+        console.log('Setting distress value in Redux state:', action.payload);
+        return {
+          ...state,
+          distressValue: action.payload,
+        };
       default:
         return state;
     }
   };
-  
   
   export default distressReducer;
   
