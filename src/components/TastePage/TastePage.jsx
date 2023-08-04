@@ -69,7 +69,7 @@ function TastePage() {
   return (
     <>
       <main className="taste-fifth-page-container">
-        <h2>1 Thing You Can You Taste</h2>
+        <h2>1 thing you can TASTE</h2>
         <div className="taste-form-container">
           <form onSubmit={addTasteLog}>
             <Box mb={3}>

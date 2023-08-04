@@ -70,7 +70,7 @@ function SmellPage() {
   return (
     <>
       <main className="smell-fourth-page-container">
-        <h2>What 2 Things Can You Smell</h2>
+        <h2>2 things you can SMELL</h2>
         <div className="smell-form-container">
           <form onSubmit={addSmellLog}>
             <Box mb={3}>

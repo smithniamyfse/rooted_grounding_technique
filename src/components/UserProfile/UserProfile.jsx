@@ -19,13 +19,13 @@ function UserProfile() {
         <h1>Hello, {user.username}, your skies are clearing up.</h1>
 
         <section className="top-triggers-container">
-          <h1>Your Top Triggers:</h1>
+          <h1>Your Top 3 Triggers Locations:</h1>
           <table>
             <thead>
               <tr>
                 <th>Location</th>
                 <th>Average Distress</th>
-                <th>Score</th>
+                {/* <th>Score</th> */}
               </tr>
             </thead>
             <tbody>
@@ -34,23 +34,25 @@ function UserProfile() {
                   <td>{trigger.location}</td>
                   <td>
                     {typeof trigger.avg_distress === "number"
-                      ? trigger.avg_distress.toFixed(1)
+// var rounded = Math.round(n * 100) / 100;
+// ? trigger.avg_distress.toFixed(3)
+                      ? trigger.avg_distress.toFixed(3)
                       : trigger.avg_distress}
                   </td>
-                  <td>{trigger.score}</td>
+                  {/* <td>{trigger.score}</td> */}
                 </tr>
               ))}
             </tbody>
           </table>
         </section>
         <section className="see-items-container">
-          <h1>Your Most Common See Items:</h1>
+          <h1>3 Items You're Most Likely to See:</h1>
           <table>
             <thead>
               <tr>
                 <th>Item</th>
                 <th>Count</th>
-                <th>Average Distress</th>
+                {/* <th>Average Distress</th> */}
               </tr>
             </thead>
             <tbody>
@@ -58,11 +60,11 @@ function UserProfile() {
                 <tr key={index}>
                   <td>{item.item}</td>
                   <td>{item.count}</td>
-                  <td>
+                  {/* <td>
                     {typeof item.avg_distress === "number"
                       ? item.avg_distress.toFixed(1)
                       : item.avg_distress}
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

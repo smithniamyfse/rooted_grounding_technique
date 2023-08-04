@@ -71,7 +71,7 @@ function HearPage() {
   return (
     <>
       <main className="hear-third-page-container">
-        <h2>What 3 Things Can You Hear</h2>
+        <h2>3 things you can HEAR</h2>
         <div className="hear-form-container">
           <form onSubmit={addHearLog}>
             <Box mb={3}>

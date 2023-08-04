@@ -75,7 +75,8 @@ function SeePage() {
     <>
       <main className="see-first-page-container">
         <h1>Welcome, {user.username}</h1>
-        <h2>What 5 Things Can You See</h2>
+        <h1>Take 2 deep breaths...</h1>
+        <h2>5 things can you SEE</h2>
         <div className="see-form-container">
           <form onSubmit={addSeeLog}>
             <Box mb={3}>

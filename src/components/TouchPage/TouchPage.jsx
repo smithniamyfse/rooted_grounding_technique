@@ -72,7 +72,7 @@ function TouchPage() {
   return (
     <>
       <main className="touch-second-page-container">
-        <h2>4 Things You Can Touch</h2>
+        <h2>4 things you can TOUCH</h2>
         <div className="touch-form-container">
           <form onSubmit={addTouchLog}>
             <Box mb={3}>
