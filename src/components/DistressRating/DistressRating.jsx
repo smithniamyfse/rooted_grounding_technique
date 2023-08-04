@@ -1,64 +1,65 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
+import LogOutButton from "../LogOutButton/LogOutButton";
 import Stack from "@mui/material/Stack";
 import Slider from "@mui/material/Slider";
 
 const marks = [
-    {
-      value: 0,
-      label: "0",
-    },
-    {
-      value: 1,
-      label: "1",
-    },
-    {
-      value: 2,
-      label: "2",
-    },
-    {
-      value: 3,
-      label: "3",
-    },
-    {
-      value: 4,
-      label: "4",
-    },
-    {
-      value: 5,
-      label: "5",
-    },
-    {
-      value: 6,
-      label: "6",
-    },
-    {
-      value: 7,
-      label: "7",
-    },
-    {
-      value: 8,
-      label: "8",
-    },
-    {
-      value: 9,
-      label: "9",
-    },
-    {
-      value: 10,
-      label: "10",
-    },
-  ];
+  {
+    value: 0,
+    label: "0",
+  },
+  {
+    value: 1,
+    label: "1",
+  },
+  {
+    value: 2,
+    label: "2",
+  },
+  {
+    value: 3,
+    label: "3",
+  },
+  {
+    value: 4,
+    label: "4",
+  },
+  {
+    value: 5,
+    label: "5",
+  },
+  {
+    value: 6,
+    label: "6",
+  },
+  {
+    value: 7,
+    label: "7",
+  },
+  {
+    value: 8,
+    label: "8",
+  },
+  {
+    value: 9,
+    label: "9",
+  },
+  {
+    value: 10,
+    label: "10",
+  },
+];
 
-  function valuetext(value) {
-    return `${value}`;
-  }
+function valuetext(value) {
+  return `${value}`;
+}
 
 function DistressRating() {
-  const distressValue = useSelector((store) => store.distress.distressValue) || 0;
+  const distressValue =
+    useSelector((store) => store.distress.distressValue) || 0;
   const eventId = useSelector((store) => store.eventEntries[0]?.id);
-
 
   console.log(`Current distress value from Redux state: ${distressValue}`);
   console.log(`Current event ID from Redux state: ${eventId}`);
@@ -78,47 +79,191 @@ function DistressRating() {
     event.preventDefault();
     console.log(`Submitting distress rating: ${distressValue}`);
     dispatch({
-        type: "SUBMIT_DISTRESS_VALUE",
-        payload: {
-          value: distressValue,
-          eventId: eventId,
-        },
-      });      
+      type: "SUBMIT_DISTRESS_VALUE",
+      payload: {
+        value: distressValue,
+        eventId: eventId,
+      },
+    });
+  };
+
+  const goToUserProfile = () => {
     history.push("/user-profile");
   };
 
   return (
-    <main className="distress-rating-container">
-      <form onSubmit={submitDistressRating}>
-        <Stack
-          sx={{ height: 300, display: "flex", justifyContent: "center" }}
-          spacing={1}
-          direction="row"
-        >
-          <Slider
-            aria-label="DistressRating"
-            value={distressValue}
-            onChange={handleChange}
-            valueLabelDisplay="on"
-            defaultValue={0}
-            step={1}
-            min={0}
-            max={10}
-            marks={marks}
-          />
-        </Stack>
+    <>
+      <main className="distress-rating-container">
+        <h2>On a scale of 0 - 10, rate your level of distress</h2>
+        <div className="distress-slider-form-container">
+          <form onSubmit={submitDistressRating}>
+            <Stack
+              sx={{ height: 300, display: "flex", justifyContent: "center" }}
+              spacing={1}
+              direction="row"
+            >
+              <Slider
+                sx={{ width: "80%", height: "10px" }}
+                aria-label="DistressRating"
+                value={distressValue}
+                onChange={handleChange}
+                valueLabelDisplay="on"
+                defaultValue={0}
+                step={1}
+                min={0}
+                max={10}
+                marks={marks}
+              />
+            </Stack>
+            <br />
+            <button type="submit">Submit Your Distress Rating</button>
+          </form>
+        </div>
         <br />
-        <button type="submit">Go To Your Profile</button>
-      </form>
-    </main>
+        <button onClick={goToUserProfile}>Go To User Profile</button>
+      </main>
+      <footer className="taste-footer-container">
+        <LogOutButton className="btn" />
+      </footer>
+    </>
   );
 }
 
 export default DistressRating;
 
+// ** VERSION FUCKING WORKS 4 **
+// import React from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import { useHistory } from "react-router-dom";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+// import Stack from "@mui/material/Stack";
+// import Slider from "@mui/material/Slider";
 
+// const marks = [
+//   {
+//     value: 0,
+//     label: "0",
+//   },
+//   {
+//     value: 1,
+//     label: "1",
+//   },
+//   {
+//     value: 2,
+//     label: "2",
+//   },
+//   {
+//     value: 3,
+//     label: "3",
+//   },
+//   {
+//     value: 4,
+//     label: "4",
+//   },
+//   {
+//     value: 5,
+//     label: "5",
+//   },
+//   {
+//     value: 6,
+//     label: "6",
+//   },
+//   {
+//     value: 7,
+//     label: "7",
+//   },
+//   {
+//     value: 8,
+//     label: "8",
+//   },
+//   {
+//     value: 9,
+//     label: "9",
+//   },
+//   {
+//     value: 10,
+//     label: "10",
+//   },
+// ];
 
+// function valuetext(value) {
+//   return `${value}`;
+// }
 
+// function DistressRating() {
+//   const distressValue =
+//     useSelector((store) => store.distress.distressValue) || 0;
+//   const eventId = useSelector((store) => store.eventEntries[0]?.id);
+
+//   console.log(`Current distress value from Redux state: ${distressValue}`);
+//   console.log(`Current event ID from Redux state: ${eventId}`);
+
+//   const dispatch = useDispatch();
+//   const history = useHistory();
+
+//   const handleChange = (event, newValue) => {
+//     console.log(`Slider value changed: ${newValue}`);
+//     dispatch({
+//       type: "SET_DISTRESS_VALUE",
+//       payload: newValue,
+//     });
+//   };
+
+//   const submitDistressRating = (event) => {
+//     event.preventDefault();
+//     console.log(`Submitting distress rating: ${distressValue}`);
+//     dispatch({
+//       type: "SUBMIT_DISTRESS_VALUE",
+//       payload: {
+//         value: distressValue,
+//         eventId: eventId,
+//       },
+//     });
+//   };
+
+//   const goToUserProfile = () => {
+//     history.push("/user-profile");
+//   };
+
+//   return (
+//     <>
+//       <main className="distress-rating-container">
+//         <h2>On a scale of 0 - 10, rate your level of distress</h2>
+//         <div className="distress-slider-form-container">
+//           <form onSubmit={submitDistressRating}>
+//             <Stack
+//               sx={{ height: 300, display: "flex", justifyContent: "center" }}
+//               spacing={1}
+//               direction="row"
+//             >
+//               <Slider
+//                 sx={{ width: "80%", height: "10px" }}
+//                 aria-label="DistressRating"
+//                 value={distressValue}
+//                 onChange={handleChange}
+//                 valueLabelDisplay="on"
+//                 defaultValue={0}
+//                 step={1}
+//                 min={0}
+//                 max={10}
+//                 marks={marks}
+//               />
+//             </Stack>
+//             <br />
+//             <button type="submit">Submit Your Distress Rating</button>
+//           </form>
+//         </div>
+//         <br />
+//         <button onClick={goToUserProfile}>Go To User Profile</button>
+//       </main>
+//       <footer className="taste-footer-container">
+//         <LogOutButton className="btn" />
+//       </footer>
+//     </>
+//   );
+// }
+
+// export default DistressRating;
 
 // ** VERSION 3 **
 // import React from "react";
