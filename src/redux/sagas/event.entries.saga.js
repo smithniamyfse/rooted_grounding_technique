@@ -11,26 +11,16 @@ function* fetchEventEntries() {
 }
 
 function* addEventEntry(action) {
-    try {
-      const response = yield axios.post("/api/event-entries", action.payload);
-      yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
-  
-      // Assuming that the server response contains the new entry's id, dispatch an action to set the current event id
-      yield put({ type: "SET_CURRENT_EVENT_ID", payload: response.data.id });
-    } catch (error) {
-      console.log("Error adding event entry:", error);
-    }
-  }
-  
+  try {
+    const response = yield axios.post("/api/event-entries", action.payload);
+    yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
 
-// function* addEventEntry(action) {
-//   try {
-//     const response = yield axios.post("/api/event-entries", action.payload);
-//     yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
-//   } catch (error) {
-//     console.log("Error adding event entry:", error);
-//   }
-// }
+    // Assuming that the server response contains the new entry's id, dispatch an action to set the current event id
+    yield put({ type: "SET_CURRENT_EVENT_ID", payload: response.data.id });
+  } catch (error) {
+    console.log("Error adding event entry:", error);
+  }
+}
 
 function* updateEventEntry(action) {
   try {
@@ -51,22 +41,33 @@ function* removeEventEntry(action) {
   }
 }
 
+function* fetchTopTriggers() {
+  try {
+    const response = yield axios.get("/api/event-entries/top-triggers");
+    console.log("Data from saga:", response.data);
+    yield put({ type: "SET_TOP_TRIGGERS", payload: response.data });
+  } catch (error) {
+    console.log("Error fetching top triggers:", error);
+  }
+}
+
+function* fetchSeeItems() {
+    try {
+      const response = yield axios.get("/api/event-entries/top-see-items");
+      yield put({ type: "SET_SEE_ITEMS", payload: response.data });
+    } catch (error) {
+      console.log("Error fetching see items:", error);
+    }
+  }
+  
+
 function* eventEntriesSaga() {
-  // 'FETCH_EVENT_ENTRIES': This will activate a GET REQUEST to /api/event-entries to fetch all the event-entries.
-  // The event entries will then be stored in the state via a 'SET_EVENT_ENTRIES' action.
   yield takeLatest("FETCH_EVENT_ENTRIES", fetchEventEntries);
-
-  // 'ADD_EVENT_ENTRY': This will activate a POST REQUEST to /api/event-entries to add a new event-entry.
-  // The new event-entry will be added to the state via an 'ADD_EVENT_ENTRY' action.
   yield takeLatest("ADD_EVENT_ENTRY", addEventEntry);
-
-  // 'UPDATE_EVENT_ENTRY': This will activate a PUT REQUEST to /api/event-entries/:id to update an existing event-entry.
-  // The updated event-entry data will be reflected in the state via an 'UPDATE_EVENT_ENTRY_SUCCESS' action.
   yield takeLatest("UPDATE_EVENT_ENTRY", updateEventEntry);
-
-  // 'REMOVE_EVENT_ENTRY': This will activate a DELETE REQUEST to /api/event-entries/:id to remove an entry.
-  // The entry will be removed from the state via a 'REMOVE_EVENT_ENTRY' action.
   yield takeLatest("REMOVE_EVENT_ENTRY", removeEventEntry);
+  yield takeLatest("FETCH_TOP_TRIGGERS", fetchTopTriggers);
+  yield takeLatest("FETCH_SEE_ITEMS", fetchSeeItems);
 }
 
 export default eventEntriesSaga;
