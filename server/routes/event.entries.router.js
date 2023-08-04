@@ -6,11 +6,15 @@ const {
 } = require("../modules/authentication-middleware");
 
 const ALL_ENTRIES_QUERY = `SELECT * FROM "user_event_entries" WHERE "user_id"=$1;`;
+
 const SPECIFIC_ENTRY_QUERY = `SELECT * FROM "user_event_entries" WHERE "id"=$1 AND "user_id"=$2;`;
+
 const INSERT_ENTRY_QUERY = `
   INSERT INTO "user_event_entries" ("location", "date", "time", "intensity_rating", "user_id")
   VALUES ($1, $2, $3, $4, $5)
+  RETURNING "id";
 `;
+
 const UPDATE_DISTRESS_QUERY = `
   UPDATE "user_event_entries"
   SET "distress_rating" = $1
@@ -50,25 +54,48 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
 
 // Create new event entry for the logged-in user
 router.post("/", rejectUnauthenticated, (req, res) => {
-  const newEntry = req.body;
-  const userId = req.user.id;
-  const queryValues = [
-    newEntry.location,
-    newEntry.date,
-    newEntry.time,
-    newEntry.intensity_rating,
-    userId,
-  ];
-  pool
-    .query(INSERT_ENTRY_QUERY, queryValues)
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.error(`Error making query ${INSERT_ENTRY_QUERY}`, error);
-      res.sendStatus(500);
-    });
-});
+    const newEntry = req.body;
+    const userId = req.user.id;
+    const queryValues = [
+      newEntry.location,
+      newEntry.date,
+      newEntry.time,
+      newEntry.intensity_rating,
+      userId,
+    ];
+    pool
+      .query(INSERT_ENTRY_QUERY, queryValues)
+      .then((result) => {
+        // Send the id of the new entry in the response
+        res.status(201).json({ id: result.rows[0].id });
+      })
+      .catch((error) => {
+        console.error(`Error making query ${INSERT_ENTRY_QUERY}`, error);
+        res.sendStatus(500);
+      });
+  });
+
+// // Create new event entry for the logged-in user
+// router.post("/", rejectUnauthenticated, (req, res) => {
+//   const newEntry = req.body;
+//   const userId = req.user.id;
+//   const queryValues = [
+//     newEntry.location,
+//     newEntry.date,
+//     newEntry.time,
+//     newEntry.intensity_rating,
+//     userId,
+//   ];
+//   pool
+//     .query(INSERT_ENTRY_QUERY, queryValues)
+//     .then(() => {
+//       res.sendStatus(201);
+//     })
+//     .catch((error) => {
+//       console.error(`Error making query ${INSERT_ENTRY_QUERY}`, error);
+//       res.sendStatus(500);
+//     });
+// });
 
 router.put('/distress-rating', rejectUnauthenticated, (req, res) => {
     console.log('Received request to update distress rating');
