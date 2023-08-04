@@ -8,6 +8,7 @@ import hearInputsSaga from "./hear.saga";
 import touchInputsSaga from "./touch.saga";
 import smellInputsSaga from "./smell.saga";
 import tasteInputsSaga from "./taste.saga";
+import distressRatingSaga from "./distress.saga";
 import eventEntriesSaga from "./event.entries.saga";
 
 // rootSaga is the primary saga.
@@ -27,7 +28,8 @@ export default function* rootSaga() {
     hearInputsSaga(), // hear saga is now registered
     touchInputsSaga(), // touch saga is now registered
     smellInputsSaga(), // smell saga is now registered 
-    tasteInputsSaga(), // taste saga is now registered 
+    tasteInputsSaga(), // taste saga is now registered
+    distressRatingSaga(), // distress rating saga is now registered
     eventEntriesSaga(), // event entries saga is now registered
   ]);
 }

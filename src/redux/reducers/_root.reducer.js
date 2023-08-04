@@ -7,6 +7,7 @@ import touchReducer from "./touch.reducer";
 import hearReducer from "./hear.reducer";
 import smellReducer from "./smell.reducer";
 import tasteReducer from "./taste.reducer";
+import distress from "./distress.reducer";
 import eventEntries from "./event.entries.reducer";
 
 // rootReducer is the primary reducer for our entire project
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
   touchReducer,
   smellReducer,
   tasteReducer,
+  distress,
   eventEntries, // store event entries
 });
 

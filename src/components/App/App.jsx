@@ -17,16 +17,23 @@ import AboutPage from "../AboutPage/AboutPage";
 import UserPage from "../UserPage/UserPage";
 import InfoPage from "../InfoPage/InfoPage";
 import LandingPage from "../LandingPage/LandingPage";
-import LocationPage from "../LocationPage/LocationPage";
+// import LocationPage from "../LocationPage/LocationPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
-// import each sensory step in the grounding process
+// Import each sensory step in the grounding process
 import SeePage from "../SeePage/SeePage";
 import TouchPage from "../TouchPage/TouchPage";
 import HearPage from "../HearPage/HearPage";
 import SmellPage from "../SmellPage/SmellPage";
 import TastePage from "../TastePage/TastePage";
+
+// Import distress rating component to help users assess their level of distress
+import DistressRating from "../DistressRating/DistressRating";
+
+// Import user profile page which provides the user an overview of their events and top 3 triggers
+import UserProfile from "../UserProfile/UserProfile";
+
 
 import "./App.css";
 
@@ -114,6 +121,22 @@ function App() {
             path="/fifth-taste"
           >
             <TastePage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows DistressRating 
+            exact
+            path="/distress-rating"
+          >
+            <DistressRating />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserProfile 
+            exact
+            path="/user-profile"
+          >
+            <UserProfile />
           </ProtectedRoute>
           
 

@@ -17,7 +17,7 @@ CREATE TABLE "user_event_entries" (
     "location"  VARCHAR(255), -- This might change to a different type if I have time to explore how to store geolocation data
     "date" DATE,
     "time" TIME,
-    "intensity_rating" INT CHECK(intensity_rating >= 0 AND intensity_rating <= 10),
+    "distress_rating" INT CHECK(distress_rating >= 0 AND distress_rating <= 10),
     "user_id" INT,
     FOREIGN KEY ("user_id") REFERENCES "user" ("id")
 );

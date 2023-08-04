@@ -54,8 +54,8 @@ function TastePage() {
     console.log("Call clearTasteInputs(): ", tasteLog);
   };
 
-  const goToUserPage = () => {
-    history.push("/user");
+  const goToDistressRating = () => {
+    history.push("/distress-rating");
   };
 
   // Dispatch action to fetch event entries and component mounts
@@ -83,7 +83,7 @@ function TastePage() {
           </form>
         </div>
         <br />
-        <button onClick={goToUserPage}>Go To User Page</button>
+        <button onClick={goToDistressRating}>Go To Distress Rating</button>
       </main>
       <footer className="taste-footer-container">
         <LogOutButton className="btn" />
