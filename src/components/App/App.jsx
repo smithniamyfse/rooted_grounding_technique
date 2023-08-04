@@ -31,6 +31,9 @@ import TastePage from "../TastePage/TastePage";
 // Import distress rating component to help users assess their level of distress
 import DistressRating from "../DistressRating/DistressRating";
 
+// Import user profile page which provides the user an overview of their events and top 3 triggers
+import UserProfile from "../UserProfile/UserProfile";
+
 
 import "./App.css";
 
@@ -126,6 +129,14 @@ function App() {
             path="/distress-rating"
           >
             <DistressRating />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserProfile 
+            exact
+            path="/user-profile"
+          >
+            <UserProfile />
           </ProtectedRoute>
           
 

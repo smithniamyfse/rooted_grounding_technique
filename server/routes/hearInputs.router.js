@@ -18,7 +18,7 @@ router.get("/", rejectUnauthenticated, (req, res) => {
     });
 });
 
-// Add hear inputs for a specific event entry
+// Save hear inputs for a specific event entry
 router.post("/", rejectUnauthenticated, (req, res) => {
   // Destructure the properties directly from req.body
   const { hear_item_1, hear_item_2, hear_item_3, userId, eventId } = req.body;
