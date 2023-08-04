@@ -52,9 +52,9 @@ const marks = [
   },
 ];
 
-function valuetext(value) {
-  return `${value}`;
-}
+// function valuetext(value) {
+//   return `${value}`;
+// }
 
 function DistressRating() {
   const distressValue =
@@ -98,12 +98,13 @@ function DistressRating() {
         <div className="distress-slider-form-container">
           <form onSubmit={submitDistressRating}>
             <Stack
-              sx={{ height: 300, display: "flex", justifyContent: "center" }}
+              sx={{ height: 350, display: "flex", justifyContent: "center" }}
               spacing={1}
               direction="row"
             >
               <Slider
-                sx={{ width: "80%", height: "10px" }}
+                sx={{ width: "15px" }}
+                orientation="vertical"
                 aria-label="DistressRating"
                 value={distressValue}
                 onChange={handleChange}
