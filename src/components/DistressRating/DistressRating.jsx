@@ -61,6 +61,12 @@ function DistressRating() {
     useSelector((store) => store.distress.distressValue) || 0;
   const eventId = useSelector((store) => store.eventEntries[0]?.id);
 
+  function preventHorizontalKeyboardNavigation(event) {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+      event.preventDefault();
+    }
+  }
+
   console.log(`Current distress value from Redux state: ${distressValue}`);
   console.log(`Current event ID from Redux state: ${eventId}`);
 
@@ -103,12 +109,19 @@ function DistressRating() {
               direction="row"
             >
               <Slider
-                sx={{ width: "15px" }}
+               sx={{
+                width: "15px",
+                '& input[type="range"]': {
+                  WebkitAppearance: 'slider-vertical',
+                },
+              }}
+                // sx={{ width: "15px" }}
                 orientation="vertical"
                 aria-label="DistressRating"
                 value={distressValue}
                 onChange={handleChange}
                 valueLabelDisplay="on"
+                onKeyDown={preventHorizontalKeyboardNavigation}
                 defaultValue={0}
                 step={1}
                 min={0}
