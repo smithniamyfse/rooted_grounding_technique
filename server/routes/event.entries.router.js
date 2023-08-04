@@ -104,12 +104,12 @@ router.put('/distress-rating', rejectUnauthenticated, (req, res) => {
     console.log(`Distress value from request: ${distressValue}`);
     console.log(`Event ID from request: ${eventId}`);
   
-    if (!distressValue || !eventId) {
-      console.log('Invalid data received.');
-      res.sendStatus(400);
-      return;
-    }
-  
+    if (distressValue === undefined || !eventId) {
+        console.log('Invalid data received.');
+        res.sendStatus(400);
+        return;
+      }
+      
     const queryText = 'UPDATE "user_event_entries" SET "distress_rating" = $1 WHERE "id" = $2;';
     pool
       .query(queryText, [distressValue, eventId])
@@ -120,6 +120,29 @@ router.put('/distress-rating', rejectUnauthenticated, (req, res) => {
       });
   });
   
+  router.put('/:id', rejectUnauthenticated, (req, res) => {
+    const queryText = `UPDATE "user_event_entries" SET "location" = $1 WHERE "id" = $2 AND "user_id" = $3;`;
+    pool
+      .query(queryText, [req.body.location, req.params.id, req.user.id])
+      .then(() => res.sendStatus(200))
+      .catch((err) => {
+        console.log('Error completing UPDATE location query', err);
+        res.sendStatus(500);
+      });
+  });
+  
+//   router.get("/distress-rating/:id", rejectUnauthenticated, (req, res) => {
+//     const queryText = `SELECT "distress_rating" FROM "user_event_entries" WHERE "id" = $1 AND "user_id" = $2;`;
+//     pool
+//       .query(queryText, [req.params.id, req.user.id])
+//       .then((result) => {
+//         res.send(result.rows[0]);
+//       })
+//       .catch((err) => {
+//         console.log("Error completing SELECT distress_rating query", err);
+//         res.sendStatus(500);
+//       });
+//   });
   
 
 module.exports = router;

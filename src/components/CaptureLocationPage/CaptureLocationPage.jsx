@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import CaptureImage from "../CaptureImage/CaptureImage";
 
-function LocationPage() {
+function CaptureLocationPage() {
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -26,7 +26,7 @@ function LocationPage() {
 
   return (
     <>
-      <main className="location-page-container">
+      <main className="capture-location-page-container">
         <h1>Welcome, {user.username}!</h1>
         <CaptureImage />
         <br />
@@ -38,4 +38,4 @@ function LocationPage() {
   );
 }
 
-export default LocationPage;
+export default CaptureLocationPage;

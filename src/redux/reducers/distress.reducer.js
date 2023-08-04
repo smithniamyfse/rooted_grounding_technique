@@ -1,4 +1,4 @@
-const distressReducer = (state = {}, action) => {
+const distressReducer = (state = { distressValue: 0 }, action) => {
     switch (action.type) {
       case 'SET_DISTRESS_VALUE':
         console.log('Setting distress value in Redux state:', action.payload);
@@ -11,7 +11,8 @@ const distressReducer = (state = {}, action) => {
     }
   };
   
-  export default distressReducer;
+export default distressReducer;
+
   
   
   
