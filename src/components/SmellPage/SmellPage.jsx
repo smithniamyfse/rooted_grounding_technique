@@ -17,7 +17,10 @@ function SmellPage() {
 
   // useSelector for user and user's event entries
   const user = useSelector((store) => store.user);
-  const eventEntries = useSelector((store) => store.eventEntries[0]);
+  const currentEventId = useSelector((store) => store.currentEventId); // get currentEventId from the store
+  const eventEntry = useSelector((store) =>
+    store.eventEntries.find((entry) => entry.id === currentEventId)
+  ); // find the entry that matches currentEventId
 
   const initialSmellValues = {
     smell_item_1: "",
@@ -41,11 +44,11 @@ function SmellPage() {
 
   const addSmellLog = (event) => {
     event.preventDefault();
-    // Include eventId and userId
-    if (eventEntries && eventEntries.id) {
+    // Include current entry eventId
+    if (eventEntry && eventEntry.id) {
       dispatch({
         type: "ADD_SMELL_DATA",
-        payload: { ...smellLog, userId: user.id, eventId: eventEntries.id },
+        payload: { ...smellLog, userId: user.id, eventId: eventEntry.id },
       });
     } else {
       console.log("No event entry selected.");

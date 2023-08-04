@@ -17,7 +17,10 @@ function SeePage() {
 
   // useSelector for user and user's event entries
   const user = useSelector((store) => store.user);
-  const eventEntries = useSelector((store) => store.eventEntries[0]);
+  const currentEventId = useSelector((store) => store.currentEventId); // get currentEventId from the store
+  const eventEntry = useSelector((store) =>
+    store.eventEntries.find((entry) => entry.id === currentEventId)
+  ); // find the entry that matches currentEventId
 
   const initialSeeValues = {
     see_item_1: "",
@@ -44,15 +47,16 @@ function SeePage() {
 
   const addSeeLog = (event) => {
     event.preventDefault();
-    // Include eventId and userId
-    if (eventEntries && eventEntries.id) {
+    // Include current entry eventId
+    if (eventEntry && eventEntry.id) {
       dispatch({
         type: "ADD_SEE_DATA",
-        payload: { ...seeLog, userId: user.id, eventId: eventEntries.id },
+        payload: { ...seeLog, userId: user.id, eventId: eventEntry.id },
       });
     } else {
       console.log("No event entry selected.");
     }
+
     // Call clearSeeInputs() and then log the state
     clearSeeInputs();
     console.log("Call clearSeeInputs(): ", seeLog);
@@ -138,6 +142,149 @@ function SeePage() {
 }
 
 export default SeePage;
+
+// ** VERSION 4 **
+// import React, { useState, useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+// import LogOutButton from "../LogOutButton/LogOutButton";
+// import { TextField, Box } from "@mui/material";
+// import {
+//   HashRouter as Router,
+//   Route,
+//   Link,
+//   useHistory,
+// } from "react-router-dom";
+
+// function SeePage() {
+//   // useDispatch to send data to the store
+//   const dispatch = useDispatch();
+
+//   const history = useHistory();
+
+//   // useSelector for user and user's event entries
+//   const user = useSelector((store) => store.user);
+// //   const eventEntries = useSelector((store) => store.eventEntries[0]);
+// const eventEntries = useSelector((store) => store.eventEntries[store.eventEntries.length - 1]);
+
+//   const initialSeeValues = {
+//     see_item_1: "",
+//     see_item_2: "",
+//     see_item_3: "",
+//     see_item_4: "",
+//     see_item_5: "",
+//   };
+
+//   const [seeLog, setSeeLog] = useState(initialSeeValues);
+
+//   const handleInputChange = (event) => {
+//     const { name, value } = event.target;
+
+//     setSeeLog((prevState) => ({
+//       ...prevState,
+//       [name]: value,
+//     }));
+//   };
+
+//   const clearSeeInputs = () => {
+//     setSeeLog(initialSeeValues);
+//   };
+
+//   const addSeeLog = (event) => {
+//     event.preventDefault();
+//     // Include eventId and userId
+//     if (eventEntries && eventEntries.id) {
+//       dispatch({
+//         type: "ADD_SEE_DATA",
+//         payload: { ...seeLog, userId: user.id, eventId: eventEntries.id },
+//       });
+//     } else {
+//       console.log("No event entry selected.");
+//     }
+//     // Call clearSeeInputs() and then log the state
+//     clearSeeInputs();
+//     console.log("Call clearSeeInputs(): ", seeLog);
+//   };
+
+//   const goToTouch = () => {
+//     history.push("/second-touch");
+//   };
+
+//   // Dispatch action to fetch event entries when component mounts
+//   useEffect(() => {
+//     dispatch({ type: "FETCH_EVENT_ENTRIES" });
+//   }, [dispatch]);
+
+//   return (
+//     <>
+//       <main className="see-first-page-container">
+//         <h1>Welcome, {user.username}</h1>
+//         <h2>What 5 Things Can You See</h2>
+//         <div className="see-form-container">
+//           <form onSubmit={addSeeLog}>
+//             <Box mb={3}>
+//               <TextField
+//                 fullWidth
+//                 label="Item 1"
+//                 variant="outlined"
+//                 name="see_item_1"
+//                 value={seeLog.see_item_1}
+//                 onChange={handleInputChange}
+//               />
+//             </Box>
+//             <Box mb={3}>
+//               <TextField
+//                 fullWidth
+//                 label="Item 2"
+//                 variant="outlined"
+//                 name="see_item_2"
+//                 value={seeLog.see_item_2}
+//                 onChange={handleInputChange}
+//               />
+//             </Box>
+//             <Box mb={3}>
+//               <TextField
+//                 fullWidth
+//                 label="Item 3"
+//                 variant="outlined"
+//                 name="see_item_3"
+//                 value={seeLog.see_item_3}
+//                 onChange={handleInputChange}
+//               />
+//             </Box>
+//             <Box mb={3}>
+//               <TextField
+//                 fullWidth
+//                 label="Item 4"
+//                 variant="outlined"
+//                 name="see_item_4"
+//                 value={seeLog.see_item_4}
+//                 onChange={handleInputChange}
+//               />
+//             </Box>
+//             <Box mb={3}>
+//               <TextField
+//                 fullWidth
+//                 label="Item 5"
+//                 variant="outlined"
+//                 name="see_item_5"
+//                 value={seeLog.see_item_5}
+//                 onChange={handleInputChange}
+//               />
+//             </Box>
+//             <button type="submit">Submit What You See</button>
+//           </form>
+//         </div>
+//         <br />
+//         <button onClick={goToTouch}>Go To Touch</button>
+//       </main>
+//       <footer className="see-footer-container">
+//         <LogOutButton className="btn" />
+//       </footer>
+//     </>
+//   );
+// }
+
+// export default SeePage;
 
 // ** VERSION 3 **
 // items.map((item, index) => (

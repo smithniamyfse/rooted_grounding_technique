@@ -57,45 +57,45 @@ const marks = [
 // }
 
 function DistressRating() {
-  const distressValue =
-    useSelector((store) => store.distress.distressValue) || 0;
-  const eventId = useSelector((store) => store.eventEntries[0]?.id);
-
-  function preventHorizontalKeyboardNavigation(event) {
-    if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-      event.preventDefault();
+    const distressValue =
+      useSelector((store) => store.distress.distressValue) || 0;
+    const currentEventId = useSelector((store) => store.currentEventId); // get currentEventId from the store
+  
+    function preventHorizontalKeyboardNavigation(event) {
+      if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+        event.preventDefault();
+      }
     }
-  }
-
-  console.log(`Current distress value from Redux state: ${distressValue}`);
-  console.log(`Current event ID from Redux state: ${eventId}`);
-
-  const dispatch = useDispatch();
-  const history = useHistory();
-
-  const handleChange = (event, newValue) => {
-    console.log(`Slider value changed: ${newValue}`);
-    dispatch({
-      type: "SET_DISTRESS_VALUE",
-      payload: newValue,
-    });
-  };
-
-  const submitDistressRating = (event) => {
-    event.preventDefault();
-    console.log(`Submitting distress rating: ${distressValue}`);
-    dispatch({
-      type: "SUBMIT_DISTRESS_VALUE",
-      payload: {
-        value: distressValue,
-        eventId: eventId,
-      },
-    });
-  };
-
-  const goToUserProfile = () => {
-    history.push("/user-profile");
-  };
+  
+    console.log(`Current distress value from Redux state: ${distressValue}`);
+    console.log(`Current event ID from Redux state: ${currentEventId}`);
+  
+    const dispatch = useDispatch();
+    const history = useHistory();
+  
+    const handleChange = (event, newValue) => {
+      console.log(`Slider value changed: ${newValue}`);
+      dispatch({
+        type: "SET_DISTRESS_VALUE",
+        payload: newValue,
+      });
+    };
+  
+    const submitDistressRating = (event) => {
+      event.preventDefault();
+      console.log(`Submitting distress rating: ${distressValue}`);
+      dispatch({
+        type: "SUBMIT_DISTRESS_VALUE",
+        payload: {
+          value: distressValue,
+          eventId: currentEventId,
+        },
+      });
+    };
+  
+    const goToUserProfile = () => {
+      history.push("/user-profile");
+    };
 
   return (
     <>
