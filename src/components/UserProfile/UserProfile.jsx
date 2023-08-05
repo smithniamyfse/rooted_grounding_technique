@@ -53,7 +53,6 @@ function UserProfile() {
                 {/* <th>Average Distress</th> */}
               </tr>
             </thead>
-            {/* <tbody> */}
             <tbody>
               {seeItems
                 .sort((a, b) => parseFloat(b.count) - parseFloat(a.count))

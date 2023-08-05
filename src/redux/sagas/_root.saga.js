@@ -11,6 +11,7 @@ import tasteInputsSaga from "./taste.saga";
 import distressRatingSaga from "./distress.saga";
 import locationSaga from "./location.saga";
 import eventEntriesSaga from "./event.entries.saga";
+import viewAllEntriesSaga from "./view.all.saga";
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     distressRatingSaga(), // distress rating saga is now registered
     locationSaga(), // location saga is now registered
     eventEntriesSaga(), // event entries saga is now registered
+    viewAllEntriesSaga(), // view all entries saga is now registered 
   ]);
 }

@@ -130,22 +130,6 @@ router.put('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// // This function calculates the top three triggers for a user
-// const getTopThreeTriggers = async (userId) => {
-//   const locationQuery = `
-//     SELECT location, COUNT(*) as count, AVG(distress_rating) as avg_distress
-//     FROM user_event_entries 
-//     WHERE user_id = $1
-//     GROUP BY location
-//   `;
-//   const locationResult = await pool.query(locationQuery, [userId]);
-//   const allTriggers = [...locationResult.rows];
-//   allTriggers.forEach(trigger => {
-//     trigger.score = parseFloat((trigger.count * trigger.avg_distress).toFixed(2));
-//   });
-//   allTriggers.sort(function(a, b){return b.score - a.score});
-//   return allTriggers.slice(0, 3).reverse();
-// };
 
 // This function calculates the top three triggers for a user
 const getTopThreeTriggers = async (userId) => {

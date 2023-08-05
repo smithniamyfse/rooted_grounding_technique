@@ -34,6 +34,9 @@ import DistressRating from "../DistressRating/DistressRating";
 // Import user profile page which provides the user an overview of their events and top 3 triggers
 import UserProfile from "../UserProfile/UserProfile";
 
+// Import view all page which provides the user with all of their past event entries
+import ViewAllPage from '../ViewAllPage/ViewAllPage';
+
 
 import "./App.css";
 
@@ -137,6 +140,14 @@ function App() {
             path="/user-profile"
           >
             <UserProfile />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows ViewAllPage 
+            exact
+            path="/view-all"
+          >
+            <ViewAllPage />
           </ProtectedRoute>
           
 
