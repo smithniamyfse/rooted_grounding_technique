@@ -14,7 +14,8 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
         FROM "user_event_entries"
         LEFT JOIN "user_images"
         ON "user_event_entries"."id" = "user_images"."user_event_id"
-        WHERE "user_event_entries"."user_id" = $1;
+        WHERE "user_event_entries"."user_id" = $1
+        ORDER BY "user_event_entries"."date" DESC
         `;
         const result = await pool.query(queryText, [req.user.id]);
         res.send(result.rows);
@@ -24,4 +25,6 @@ router.get('/', rejectUnauthenticated, async (req, res) => {
     }
 });
 
+
+    
 module.exports = router; 

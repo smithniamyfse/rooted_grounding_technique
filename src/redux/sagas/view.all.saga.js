@@ -7,6 +7,7 @@ import { put, takeLatest } from "redux-saga/effects";
 function* fetchViewAllEntries() {
     try {
         const response = yield axios.get('/api/view-all');
+        console.log('In fetchViewAllEntries, GET Server response: ', response.data);
         yield put({ type: 'SET_VIEW_ALL_ENTRIES', payload: response.data });
     } catch (error) {
         console.log('Error GETting view all entries in saga: ', error);
