@@ -12,8 +12,8 @@ function* fetchEventEntries() {
 
 function* createNewEvent() {
   try {
-    const response = yield axios.post("/api/event_entries/new");
-    yield put({ type: "SET_CURRENT_EVENT_ID", payload: response.data.id });
+    const result = yield axios.post("/api/event-entries/new");
+    yield put({ type: "SET_CURRENT_EVENT_ID", payload: result.data.id });
   } catch (error) {
     console.error("Error creating new event:", error);
   }
@@ -70,8 +70,8 @@ function* fetchSeeItems() {
 }
 
 function* eventEntriesSaga() {
-  yield takeLatest("FETCH_EVENT_ENTRIES", fetchEventEntries);
   yield takeLatest("CREATE_NEW_EVENT", createNewEvent);
+  yield takeLatest("FETCH_EVENT_ENTRIES", fetchEventEntries);
   yield takeLatest("ADD_EVENT_ENTRY", addEventEntry);
   yield takeLatest("UPDATE_EVENT_ENTRY", updateEventEntry);
   yield takeLatest("REMOVE_EVENT_ENTRY", removeEventEntry);

@@ -37,7 +37,8 @@ const rootReducer = combineReducers({
   eventEntries: eventEntriesReducer, // use the eventEntriesReducer
   currentEventId: currentEventIdReducer, // use the currentEventIdReducer
   seeItems: seeItemsReducer, // use the seeItemsReducer and make it accessible as 'seeItems' in the state
-  viewAllEntries: viewAllReducer, // use the viewAllReducer and make it accessible as 'viewAllEntries' in the state
+//   viewAllEntries: viewAllReducer, // use the viewAllReducer and make it accessible as 'viewAllEntries' in the state
+viewAllReducer,
 });
 
 export default rootReducer;
