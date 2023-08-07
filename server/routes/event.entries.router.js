@@ -100,22 +100,7 @@ router.get("/:id", rejectUnauthenticated, (req, res) => {
   });
 });
 
-router.put("/:id", rejectUnauthenticated, (req, res) => {
-    const queryText =
-      'UPDATE "user_event_entries" SET "location" = $1 WHERE "id" = $2 AND "user_id" = $3;';
-    pool.query(queryText, [
-      req.body.location,
-      req.params.id,
-      req.user.id,
-    ])
-    .then(() => {
-      res.sendStatus(200);
-    })
-    .catch(err => {
-      console.log("Error completing UPDATE location query", err);
-      res.sendStatus(500);
-    });
-  });
+
   
 
 router.put("/distress-rating", rejectUnauthenticated, async (req, res) => {
@@ -135,6 +120,23 @@ router.put("/distress-rating", rejectUnauthenticated, async (req, res) => {
     res.sendStatus(500);
   }
 });
+
+router.put("/:id", rejectUnauthenticated, (req, res) => {
+    const queryText =
+      'UPDATE "user_event_entries" SET "location" = $1 WHERE "id" = $2 AND "user_id" = $3;';
+    pool.query(queryText, [
+      req.body.location,
+      req.params.id,
+      req.user.id,
+    ])
+    .then(() => {
+      res.sendStatus(200);
+    })
+    .catch(err => {
+      console.log("Error completing UPDATE location query", err);
+      res.sendStatus(500);
+    });
+  });
 
 // This function calculates the top three triggers for a user
 const getTopThreeTriggers = async (userId) => {

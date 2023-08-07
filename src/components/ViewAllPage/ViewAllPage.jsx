@@ -4,22 +4,20 @@ import { useSelector, useDispatch } from "react-redux";
 import EventEntryCard from "../EventEntryCard/EventEntryCard";
 
 function ViewAllPage() {
-    const dispatch = useDispatch();
-    const user = useSelector((store) => store.user);
-    const viewAllEntries = useSelector((store) => store.viewAllEntries);
-    // const entry = useSelector((store) => store.selectedEntry);
+  const dispatch = useDispatch();
+  const user = useSelector((store) => store.user);
+  const viewAllEntries = useSelector((store) => store.viewAllEntries);
+  // const entry = useSelector((store) => store.selectedEntry);
 
-    // const [editMode, setEditMode] = useState(false);
-    // const [updatedDateTime, setUpdatedDateTime] = useState({});
+  // const [editMode, setEditMode] = useState(false);
+  // const [updatedDateTime, setUpdatedDateTime] = useState({});
 
+  useEffect(() => {
+    dispatch({ type: "FETCH_VIEW_ALL_ENTRIES" });
+  }, [dispatch]);
 
-    useEffect(() => {
-        dispatch({ type: 'FETCH_VIEW_ALL_ENTRIES' });
-    }, [dispatch]);
-
-
-    
-{/* <div className="filter-section">
+  {
+    /* <div className="filter-section">
     <label>
         Location:
         <input type="text" onChange={handleLocationFilterChange} />
@@ -53,14 +51,16 @@ function ViewAllPage() {
         <input type="text" onChange={handleSenseItemFilterChange} />
     </label>
     <button onClick={applyFilters}>Filter</button>
-</div> */}
-return (
-        <div>
-            {viewAllEntries && viewAllEntries.map(entry => (
-                <EventEntryCard key={entry.id} entry={entry} />
-            ))}
-        </div>
-    );
+</div> */
+  }
+  return (
+    <div>
+      {viewAllEntries &&
+        viewAllEntries.map((entry) => (
+          <EventEntryCard key={entry.id} entry={entry} />
+        ))}
+    </div>
+  );
 }
 
 export default ViewAllPage;

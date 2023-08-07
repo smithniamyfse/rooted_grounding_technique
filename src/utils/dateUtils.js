@@ -1,4 +1,9 @@
 function convertDateAndTime(dateStr, timeStr) {
+    // Check for undefined values
+    if (!dateStr || !timeStr) {
+        return [null, null];
+    }
+
     // Convert date format
     let dateObj = new Date(dateStr);
     let formattedDate = (dateObj.getMonth() + 1).toString().padStart(2, '0') + 

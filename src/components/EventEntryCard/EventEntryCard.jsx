@@ -11,12 +11,17 @@ const EventEntryCard = ({ entry }) => {
     setEditMode(true);
   };
 
-  const handleSaveClick = () => {
+//   const handleSaveClick = () => {
+//     dispatch({ type: "UPDATE_DATE_TIME", payload: updatedEntry });
+//     dispatch({ type: "FETCH_UPDATED_ENTRY", payload: updatedEntry.id });
+//     setEditMode(false);
+//   };
+
+const handleSaveClick = () => {
     dispatch({ type: "UPDATE_DATE_TIME", payload: updatedEntry });
-    dispatch({ type: "FETCH_UPDATED_ENTRY", payload: updatedEntry.id });
     setEditMode(false);
   };
-
+  
   const handleInputChange = (event) => {
     setUpdatedEntry({
       ...updatedEntry,
@@ -26,7 +31,8 @@ const EventEntryCard = ({ entry }) => {
 
   const handleDeleteClick = () => {
     dispatch({ type: "DELETE_ENTRY", payload: entry.id });
-  };
+};
+
 
   return (
     <div className="card">

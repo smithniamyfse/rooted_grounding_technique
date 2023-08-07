@@ -1,9 +1,16 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import LogOutButton from "../LogOutButton/LogOutButton";
+import {
+    HashRouter as Router,
+    Route,
+    Link,
+    useHistory,
+  } from "react-router-dom";
 
 function UserProfile() {
   const dispatch = useDispatch();
+  const history = useHistory();
   const user = useSelector((store) => store.user);
   const topTriggers = useSelector((state) => state.topTriggers) || [];
   const seeItems = useSelector((state) => state.seeItems) || [];
@@ -12,6 +19,10 @@ function UserProfile() {
     dispatch({ type: "FETCH_TOP_TRIGGERS" });
     dispatch({ type: "FETCH_SEE_ITEMS" });
   }, [dispatch]);
+
+  const goToViewAll = () => {
+    history.push("/view-all");
+  };
 
   return (
     <>
@@ -66,7 +77,10 @@ function UserProfile() {
           </table>
         </section>
       </main>
-      <footer className="location-footer-container">
+      <br />
+        <button onClick={goToViewAll}>View All</button>
+        <br />
+      <footer className="user-profile-footer-container">
         <LogOutButton className="btn" />
       </footer>
     </>
@@ -75,25 +89,3 @@ function UserProfile() {
 
 export default UserProfile;
 
-// {/* <tbody>
-//   {topTriggers.map((trigger, index) => (
-//     <tr key={index}>
-//       <td>{trigger.location}</td>
-//       <td>{parseFloat(trigger.avg_distress).toFixed(2)}</td>
-//     </tr>
-//   ))}
-// </tbody> */}
-
-// {/* <tbody>
-//   {topTriggers.map((trigger, index) => (
-//     <tr key={index}>
-//       <td>{trigger.location}</td>
-//       <td>
-//         {typeof trigger.avg_distress === "number"
-//           ? trigger.avg_distress.toFixed(3)
-//           : trigger.avg_distress}
-//       </td>
-//       {/* <td>{trigger.score}</td> */}
-// {/* </tr>
-//   ))}
-// </tbody> */}
