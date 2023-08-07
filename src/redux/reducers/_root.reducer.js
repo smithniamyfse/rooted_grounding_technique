@@ -10,7 +10,7 @@ import tasteReducer from "./taste.reducer";
 import distress from "./distress.reducer";
 import topTriggersReducer from "./toptriggers.reducer";
 import seeItemsReducer from "./seeitems.reducer";
-import viewAllReducer from "./view.all.reducer";
+import { viewAllReducer, selectedEntry } from "./view.all.reducer";
 import {
   eventEntriesReducer,
   currentEventIdReducer,
@@ -37,8 +37,8 @@ const rootReducer = combineReducers({
   eventEntries: eventEntriesReducer, // use the eventEntriesReducer
   currentEventId: currentEventIdReducer, // use the currentEventIdReducer
   seeItems: seeItemsReducer, // use the seeItemsReducer and make it accessible as 'seeItems' in the state
-//   viewAllEntries: viewAllReducer, // use the viewAllReducer and make it accessible as 'viewAllEntries' in the state
-viewAllReducer,
+  viewAllEntries: viewAllReducer,
+  selectedEntry: selectedEntry,
 });
 
 export default rootReducer;

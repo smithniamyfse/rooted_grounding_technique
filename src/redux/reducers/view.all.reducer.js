@@ -9,4 +9,13 @@ const viewAllReducer = (state = [], action) => {
   }
 };
 
-export default viewAllReducer;
+const selectedEntry = (state = {}, action) => {
+    switch (action.type) {
+      case "SET_EVENT_DETAILS":
+        return action.payload;
+      default:
+        return state;
+    }
+  };
+
+export { viewAllReducer, selectedEntry };
