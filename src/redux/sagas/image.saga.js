@@ -36,19 +36,3 @@ function* imageSaga() {
 }
 
 export default imageSaga;
-
-/*
-function* uploadImage(action) {
-  try {
-    // Upload the image and retrieve metadata
-    const response = yield axios.post("/api/image/upload", action.payload, {
-      headers: { "Content-Type": "multipart/form-data" },
-    });
-    // Dispatch action to add a new event entry
-    yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
-    yield put({ type: "FETCH_USER_IMAGE" });
-  } catch (error) {
-    console.log("Error uploading image:", error);
-  }
-}
-*/

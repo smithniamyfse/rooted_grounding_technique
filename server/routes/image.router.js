@@ -19,15 +19,6 @@ const s3Client = new S3Client({
   },
 });
 
-// const upload = multer({
-//     storage: multerS3({
-//       s3: s3Client,
-//       bucket: process.env.S3_BUCKET_NAME,
-//       key: function (req, file, cb) {
-//         cb(null, `${req.user.id}/${file.originalname}`);
-//       },
-//     }),
-//   });
 
 const upload = multer({
   storage: multerS3({
@@ -170,111 +161,6 @@ router.get("/", rejectUnauthenticated, async (req, res) => {
   }
 });
 
+
+
 module.exports = router;
-
-
-
-/*
-router.post(
-  "/upload",
-  rejectUnauthenticated,
-  (req, res, next) => {
-    upload.single("image")(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        console.error("Multer error: ", err);
-        return res.status(500).json(err);
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        console.error("Unknown error: ", err);
-        return res.status(500).json(err);
-      }
-
-      // Everything went fine and multer is done with the file.
-      // Log the file and body for debugging:
-      console.log("Request file", req.file);
-      console.log("Request body", req.body);
-
-      // Continue to the next middleware:
-      next();
-    });
-  },
-  async (req, res) => {
-    try {
-      console.log(req.file); 
-      const imageUrl = req.file.location;
-      const userId = req.user.id;
-
-      const queryText = `
-      INSERT INTO "user_images" ("image_url", "user_id")
-      VALUES ($1, $2);
-      `;
-      const queryParams = [imageUrl, userId];
-
-      await pool.query(queryText, queryParams);
-
-      res.json({ fileUrl: imageUrl });
-    } catch (error) {
-      console.error(error);
-      res.sendStatus(500);
-    }
-  }
-);
-*/
-
-/*
-router.post(
-  "/upload",
-  rejectUnauthenticated,
-  (req, res, next) => {
-    upload.single("image")(req, res, function (err) {
-      if (err instanceof multer.MulterError) {
-        // A Multer error occurred when uploading.
-        console.error("Multer error: ", err);
-        return res.status(500).json(err);
-      } else if (err) {
-        // An unknown error occurred when uploading.
-        console.error("Unknown error: ", err);
-        return res.status(500).json(err);
-      }
-
-      // Everything went fine and multer is done with the file.
-      // Log the file and body for debugging:
-      console.log("Request file", req.file);
-      console.log("Request body", req.body);
-
-      // Continue to the next middleware:
-      next();
-    });
-  },
-  async (req, res) => {
-    try {
-      console.log("In image POSTing new image file: ", req.file); 
-      const imageUrl = req.file.location;
-      const userId = req.user.id;
-
-      // Query to insert the image into user_images
-      const queryTextImage = `
-      INSERT INTO "user_images" ("image_url", "user_id")
-      VALUES ($1, $2)
-      RETURNING "id";
-      `;
-      const queryParamsImage = [imageUrl, userId];
-      await pool.query(queryTextImage, queryParamsImage);
-
-      // Query to insert a new entry into user_event_entries
-      const queryTextEvent = `
-      INSERT INTO "user_event_entries" ("image_url", "user_id")
-      VALUES ($1, $2);
-      `;
-      const queryParamsEvent = [imageUrl, userId];
-      await pool.query(queryTextEvent, queryParamsEvent)
-
-      res.json({ fileUrl: imageUrl });
-    } catch (error) {
-      console.error(error);
-      res.sendStatus(500);
-    }
-  }
-);
-*/
