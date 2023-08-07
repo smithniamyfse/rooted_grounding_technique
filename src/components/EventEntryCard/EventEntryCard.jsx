@@ -1,54 +1,73 @@
-import React from "react";
-import convertDateAndTime from '../../utils/dateUtils';
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import convertDateAndTime from "../../utils/dateUtils";
 
+const EventEntryCard = ({ entry }) => {
+  const dispatch = useDispatch();
+  const [editMode, setEditMode] = useState(false);
+  const [updatedEntry, setUpdatedEntry] = useState(entry);
 
-function EventEntryCard({ entry }) {
-    return (
-        <div>
-            <img src={entry.image_url} alt="Event" />
-            <p>{entry.location}</p>
-            <p>{convertDateAndTime(entry.date, entry.time)[0]}</p>
-            <p>{convertDateAndTime(entry.date, entry.time)[1]}</p>
-        </div>
-    );
-}
+  const handleEditClick = () => {
+    setEditMode(true);
+  };
+
+  const handleSaveClick = () => {
+    dispatch({ type: "UPDATE_DATE_TIME", payload: updatedEntry });
+    dispatch({ type: "FETCH_UPDATED_ENTRY", payload: updatedEntry.id });
+    setEditMode(false);
+  };
+
+  const handleInputChange = (event) => {
+    setUpdatedEntry({
+      ...updatedEntry,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleDeleteClick = () => {
+    dispatch({ type: "DELETE_ENTRY", payload: entry.id });
+  };
+
+  return (
+    <div className="card">
+      <img src={entry.image_url} alt="Event" />
+      <div>{entry.location}</div>
+      <div>
+        {editMode ? (
+          <input
+            type="date"
+            name="date"
+            value={updatedEntry.date}
+            onChange={handleInputChange}
+          />
+        ) : (
+          <div>{convertDateAndTime(entry.date, entry.time)[0]}</div>
+        )}
+      </div>
+      <div>
+        {editMode ? (
+          <input
+            type="time"
+            name="time"
+            value={updatedEntry.time}
+            onChange={handleInputChange}
+          />
+        ) : (
+          <div>{convertDateAndTime(entry.date, entry.time)[1]}</div>
+        )}
+      </div>
+      <div>
+        {editMode ? (
+          <button onClick={handleSaveClick}>Save</button>
+        ) : (
+          <button onClick={handleEditClick}>Edit</button>
+        )}
+      </div>
+      <div>
+        <button onClick={handleDeleteClick}>Delete</button>
+      </div>
+    </div>
+  );
+};
 
 export default EventEntryCard;
-
-// ** VERSION 2 - DOES WORK BUT NEEDED DATE AND TIME READABILITY **
-// import React from "react";
-
-// function EventEntryCard({ entry }) {
-//     return (
-//         <div>
-//             <img src={entry.image_url} alt="Event" />
-//             <p>{entry.location}</p>
-//             <p>{entry.date}</p>
-//             <p>{entry.time}</p>
-//         </div>
-//     );
-// }
-
-// export default EventEntryCard;
-
-
-// ** VERSION 1 - DOESN'T WORK **
-// import React, { useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-
-// function EventEntryCard() {
-//     // const viewAllEntries = useSelector((store) => store.viewAllEntries);
-//     const viewAllEntries = useSelector((store) => store.viewAllEntries);
-
-//     return (
-//         <div>
-//             <img src={image_url} alt="Event" />
-//             <p>{location}</p>
-//             <p>{date}</p>
-//             <p>{time}</p>
-//         </div>
-//     );
-// }
-
-// export default EventEntryCard;
-

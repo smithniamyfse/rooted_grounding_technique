@@ -14,33 +14,32 @@ function* fetchViewAllEntries() {
   }
 }
 
-function* fetchEntryDetails(action) {
-  console.log(
-    "Fetch entry details dispatched with the following action: ",
-    action
-  );
-  try {
-    const response = yield axios.get(`/api/view-all/${action.payload}`);
-    // If the entry data is sent within an array (even if it's a single item array - one entry),
-    // the first item of the array needs to be accessed `response.data[0]`
-    yield put({ type: "SET_ENTRY_DETAILS", payload: response.data[0] });
-  } catch (error) {
-    console.log("Error fetching details of an entry: ", error);
-  }
+
+function* fetchUpdatedEntry(action) {
+    console.log(
+      "Fetch updated entry dispatched with the following action: ",
+      action
+    );
+    try {
+      const response = yield axios.get(`/api/view-all/${action.payload}`);
+      yield put({ type: "SET_ENTRY_DETAILS", payload: response.data[0] });
+    } catch (error) {
+      console.log("Error fetching updated entry: ", error);
+    }
 }
 
 function* updateDateTime(action) {
-  try {
-    yield axios.put("/api/view-all", action.payload);
-    yield put({ type: "FETCH_ENTRY_DETAILS", payload: action.payload.id });
-  } catch (error) {
-    console.log("Error updating date and time of specific entry: ", error);
-  }
+    try {
+      yield axios.put("/api/view-all", action.payload);
+      yield put({ type: "FETCH_UPDATED_ENTRY", payload: action.payload.id });
+    } catch (error) {
+      console.log("Error updating date and time of specific entry: ", error);
+    }
 }
 
 function* deleteEntry(action) {
     try {
-        yield axios.delete(`/api/-view-all${action.payload}`);
+        yield axios.delete(`/api/view-all/${action.payload}`);
         yield put({ type: "FETCH_VIEW_ALL_ENTRIES" }) // Fetch the updated list of entries
     } catch (error) {
         console.log("Error with deleting entry: ", error);
@@ -50,7 +49,7 @@ function* deleteEntry(action) {
 // Listen for specific actions and trigger corresponding sagas
 function* viewAllEntriesSaga() {
   yield takeLatest("FETCH_VIEW_ALL_ENTRIES", fetchViewAllEntries);
-  yield takeLatest("FETCH_ENTRY_DETAILS", fetchEntryDetails);
+  yield takeLatest("FETCH_UPDATED_ENTRY", fetchUpdatedEntry);
   yield takeLatest("UPDATE_DATE_TIME", updateDateTime);
   yield takeLatest("DELETE_ENTRY", deleteEntry); 
 }

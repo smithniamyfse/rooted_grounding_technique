@@ -11,7 +11,7 @@ const viewAllReducer = (state = [], action) => {
 
 const selectedEntry = (state = {}, action) => {
     switch (action.type) {
-      case "SET_EVENT_DETAILS":
+      case "SET_ENTRY_DETAILS":
         return action.payload;
       default:
         return state;
