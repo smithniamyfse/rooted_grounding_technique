@@ -14,9 +14,11 @@ function convertDateAndTime(dateStr, timeStr) {
     let [hour, minute] = timeStr.split(":");
     let suffix = "AM";
     hour = parseInt(hour, 10);
-    if (hour > 12) {
-        hour -= 12;
+    if (hour >= 12) {  
+        if (hour > 12) hour -= 12;
         suffix = "PM";
+    } else if (hour === 0) {
+        hour = 12;
     }
     let formattedTime = hour + ":" + minute + suffix;
 
