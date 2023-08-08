@@ -37,6 +37,9 @@ import UserProfile from "../UserProfile/UserProfile";
 // Import view all page which provides the user with all of their past event entries
 import ViewAllPage from '../ViewAllPage/ViewAllPage';
 
+// Import see page point for users who input 5 see values via an image map
+import SeePagePoint from "../SeePagePointToText/SeePagePointToText";
+
 
 import "./App.css";
 
@@ -92,6 +95,15 @@ function App() {
             path="/first-see"
           >
             <SeePage />
+          </ProtectedRoute>
+
+
+          <ProtectedRoute
+            // logged in shows SeePage
+            exact
+            path="/first-see-point"
+          >
+            <SeePagePoint />
           </ProtectedRoute>
 
           <ProtectedRoute
