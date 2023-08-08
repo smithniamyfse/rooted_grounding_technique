@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -24,9 +23,12 @@ function PointToTextImage() {
   const [seeLog, setSeeLog] = useState(initialSeeValues);
 
   const handleImageClick = (event) => {
-    const rect = event.target.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const y = event.clientY - rect.top;
+    if (clicks.length >= 5) {
+      return;
+    }
+
+    const x = event.nativeEvent.offsetX;
+    const y = event.nativeEvent.offsetY;
 
     setClicks([...clicks, { x, y, label: '' }]);
   };
@@ -42,6 +44,7 @@ function PointToTextImage() {
   };
 
   const clearSeeInputs = () => {
+    setClicks([]);
     setSeeLog(initialSeeValues);
   };
 
@@ -66,14 +69,16 @@ function PointToTextImage() {
   return (
     <div className="image-labeler">
       <form onSubmit={addSeeLog}>
-        <img src={imageUrl[imageUrl.length - 1]} onClick={handleImageClick} alt="Captured" />
-        {clicks.map((click, index) => (
-          <input
-            key={index}
-            style={{ position: 'absolute', left: click.x, top: click.y }}
-            onBlur={(event) => handleBlur(event, index)}
-          />
-        ))}
+        <div style={{ position: 'relative' }}>
+          <img src={imageUrl[imageUrl.length - 1]} onClick={handleImageClick} alt="Captured" />
+          {clicks.map((click, index) => (
+            <input
+              key={index}
+              style={{ position: 'absolute', left: click.x, top: click.y, backgroundColor: 'transparent' }}
+              onBlur={(event) => handleBlur(event, index)}
+            />
+          ))}
+        </div>
         <button type="submit">Submit</button>
       </form>
     </div>
@@ -81,6 +86,187 @@ function PointToTextImage() {
 };
 
 export default PointToTextImage;
+
+
+
+
+
+
+// ** WORKING VERSION THAT ADDS TEXT INPUT VALUES & SENDS TO DB - BUT WHITE BG **
+// import React, { useState, useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+
+// function PointToTextImage() {
+//   const [clicks, setClicks] = useState([]);
+//   const dispatch = useDispatch();
+
+//   const user = useSelector((store) => store.user);
+//   const imageUrl = useSelector(state => state.image.imageUrl);
+//   const currentEventId = useSelector((store) => store.currentEventId); 
+//   const eventEntry = useSelector((store) =>
+//     store.eventEntries.find((entry) => entry.id === currentEventId)
+//   ); 
+
+//   const initialSeeValues = {
+//     see_item_1: "",
+//     see_item_2: "",
+//     see_item_3: "",
+//     see_item_4: "",
+//     see_item_5: "",
+//   };
+
+//   const [seeLog, setSeeLog] = useState(initialSeeValues);
+
+//   const handleImageClick = (event) => {
+//     const x = event.nativeEvent.offsetX;
+//     const y = event.nativeEvent.offsetY;
+
+//     setClicks([...clicks, { x, y, label: '' }]);
+//   };
+
+//   const handleBlur = (event, index) => {
+//     const newClicks = [...clicks];
+//     newClicks[index].label = event.target.value;
+//     setClicks(newClicks);
+
+//     const updatedSeeLog = {...seeLog};
+//     updatedSeeLog[`see_item_${index + 1}`] = event.target.value;
+//     setSeeLog(updatedSeeLog);
+//   };
+
+//   const clearSeeInputs = () => {
+//     setSeeLog(initialSeeValues);
+//   };
+
+//   const addSeeLog = (event) => {
+//     event.preventDefault();
+//     if (eventEntry && eventEntry.id) {
+//       dispatch({
+//         type: "ADD_SEE_DATA",
+//         payload: { ...seeLog, userId: user.id, eventId: eventEntry.id },
+//       });
+//     } else {
+//       console.log("No event entry selected.");
+//     }
+//     clearSeeInputs();
+//     console.log("Call clearSeeInputs(): ", seeLog);
+//   };
+
+//   useEffect(() => {
+//     dispatch({ type: "FETCH_EVENT_ENTRIES" });
+//   }, [dispatch]);
+
+//   return (
+//     <div className="image-labeler">
+//       <form onSubmit={addSeeLog}>
+//         <div style={{ position: 'relative' }}>
+//           <img src={imageUrl[imageUrl.length - 1]} onClick={handleImageClick} alt="Captured" />
+//           {clicks.map((click, index) => (
+//             <input
+//               key={index}
+//               style={{ position: 'absolute', left: click.x, top: click.y }}
+//               onBlur={(event) => handleBlur(event, index)}
+//             />
+//           ))}
+//         </div>
+//         <button type="submit">Submit</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default PointToTextImage;
+
+
+// import React, { useState, useEffect } from "react";
+// import { useSelector, useDispatch } from "react-redux";
+
+// function PointToTextImage() {
+//   const [clicks, setClicks] = useState([]);
+//   const dispatch = useDispatch();
+
+//   const user = useSelector((store) => store.user);
+//   const imageUrl = useSelector(state => state.image.imageUrl);
+//   const currentEventId = useSelector((store) => store.currentEventId); 
+//   const eventEntry = useSelector((store) =>
+//     store.eventEntries.find((entry) => entry.id === currentEventId)
+//   ); 
+
+//   const initialSeeValues = {
+//     see_item_1: "",
+//     see_item_2: "",
+//     see_item_3: "",
+//     see_item_4: "",
+//     see_item_5: "",
+//   };
+
+//   const [seeLog, setSeeLog] = useState(initialSeeValues);
+
+// //   const handleImageClick = (event) => {
+// //     const rect = event.target.getBoundingClientRect();
+// //     const x = event.clientX - rect.left;
+// //     const y = event.clientY - rect.top;
+
+// //     setClicks([...clicks, { x, y, label: '' }]);
+// //   };
+
+// const handleImageClick = (event) => {
+//     const x = event.offsetX;
+//     const y = event.offsetY;
+  
+//     setClicks([...clicks, { x, y, label: '' }]);
+//   };
+
+//   const handleBlur = (event, index) => {
+//     const newClicks = [...clicks];
+//     newClicks[index].label = event.target.value;
+//     setClicks(newClicks);
+
+//     const updatedSeeLog = {...seeLog};
+//     updatedSeeLog[`see_item_${index + 1}`] = event.target.value;
+//     setSeeLog(updatedSeeLog);
+//   };
+
+//   const clearSeeInputs = () => {
+//     setSeeLog(initialSeeValues);
+//   };
+
+//   const addSeeLog = (event) => {
+//     event.preventDefault();
+//     if (eventEntry && eventEntry.id) {
+//       dispatch({
+//         type: "ADD_SEE_DATA",
+//         payload: { ...seeLog, userId: user.id, eventId: eventEntry.id },
+//       });
+//     } else {
+//       console.log("No event entry selected.");
+//     }
+//     clearSeeInputs();
+//     console.log("Call clearSeeInputs(): ", seeLog);
+//   };
+
+//   useEffect(() => {
+//     dispatch({ type: "FETCH_EVENT_ENTRIES" });
+//   }, [dispatch]);
+
+//   return (
+//     <div className="image-labeler">
+//       <form onSubmit={addSeeLog}>
+//         <img src={imageUrl[imageUrl.length - 1]} onClick={handleImageClick} alt="Captured" />
+//         {clicks.map((click, index) => (
+//           <input
+//             key={index}
+//             style={{ position: 'absolute', left: click.x, top: click.y }}
+//             onBlur={(event) => handleBlur(event, index)}
+//           />
+//         ))}
+//         <button type="submit">Submit</button>
+//       </form>
+//     </div>
+//   );
+// };
+
+// export default PointToTextImage;
 
 // ** VALUES DON'T WORK WHEN SUBMITTING
 // import React, { useState, useEffect } from "react";
