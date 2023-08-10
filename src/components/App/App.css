@@ -9,6 +9,10 @@ body {
   margin: 0px;
 }
 
+*, *::before, *::after {
+    box-sizing: inherit;
+}
+
 img {
   display: inline-block;
   max-width: 100%;
