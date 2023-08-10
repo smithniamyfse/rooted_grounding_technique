@@ -55,6 +55,9 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
+// Import capture image location
+import CaptureLocationPage from "../CaptureLocationPage/CaptureLocationPage";
+
 // Import each sensory step in the grounding process
 import SeePage from "../SeePage/SeePage";
 import TouchPage from "../TouchPage/TouchPage";
@@ -84,7 +87,10 @@ import NavSidebar from "../NavSidebar/NavSidebar";
 
 import SideNavUserInfo from "../SideNavUserInfo/SideNavUserInfo";
 
+import VerticalStepsSenses from "../VerticalStepsSenses/VerticalStepsSenses";
+
 import "./App.css";
+
 
 // import HeaderComponent from "../HeaderComponent/HeaderComponent";
 
@@ -143,9 +149,7 @@ function App() {
               <SidebarContent>
                 <NavSidebar />
               </SidebarContent>
-              <SideNavUserInfo
-                collapsed={state.leftEdgeSidebar?.collapsed}
-              />
+              <SideNavUserInfo collapsed={state.leftEdgeSidebar?.collapsed} />
               <EdgeTrigger target={{ anchor: "left", field: "collapsed" }}>
                 {(collapsed, setCollapsed) => (
                   <ButtonBase
@@ -188,6 +192,14 @@ function App() {
                 </ProtectedRoute>
 
                 <ProtectedRoute
+                  // logged in shows CaptureLocationPage else shows LoginPage
+                  exact
+                  path="/capture-location"
+                >
+                  <CaptureLocationPage />
+                </ProtectedRoute>
+
+                <ProtectedRoute
                   // logged in shows InfoPage else shows LoginPage
                   exact
                   path="/info"
@@ -209,6 +221,15 @@ function App() {
                   path="/first-see-point"
                 >
                   <SeePagePoint />
+                </ProtectedRoute>
+
+
+                <ProtectedRoute
+                  // logged in shows ViewAllPage
+                  exact
+                  path="/vertical-steps"
+                >
+                  <VerticalStepsSenses />
                 </ProtectedRoute>
 
                 <ProtectedRoute
@@ -310,7 +331,7 @@ function App() {
           </Container>
         </Content>
         {/* <Footer> */}
-          <FooterRooted />
+        <FooterRooted />
         {/* </Footer> */}
       </Router>
     </Root>

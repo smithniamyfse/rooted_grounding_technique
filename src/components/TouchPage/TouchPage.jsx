@@ -122,7 +122,7 @@ function TouchPage() {
         <button onClick={goToHear}>Go To Hear</button>
       </main>
       <footer className="touch-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

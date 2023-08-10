@@ -111,7 +111,7 @@ function HearPage() {
         <button onClick={goToSmell}>Go To Smell</button>
       </main>
       <footer className="hear-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

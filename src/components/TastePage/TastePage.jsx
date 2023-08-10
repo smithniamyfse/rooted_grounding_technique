@@ -89,7 +89,7 @@ function TastePage() {
         <button onClick={goToDistressRating}>Go To Distress Rating</button>
       </main>
       <footer className="taste-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

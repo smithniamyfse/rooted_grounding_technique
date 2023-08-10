@@ -136,7 +136,7 @@ function SeePage() {
         <button onClick={goToTouch}>Go To Touch</button>
       </main>
       <footer className="see-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

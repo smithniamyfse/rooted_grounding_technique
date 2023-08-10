@@ -36,7 +36,7 @@ function SeePagePoint() {
         <button onClick={goToTouch}>Go To Touch</button>
       </main>
       <footer className="see-point-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

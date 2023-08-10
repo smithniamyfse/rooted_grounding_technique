@@ -100,7 +100,7 @@ function SmellPage() {
         <button onClick={goToTaste}>Go To Taste</button>
       </main>
       <footer className="smell-footer-container">
-        <LogOutButton className="btn" />
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

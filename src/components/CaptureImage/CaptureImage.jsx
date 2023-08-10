@@ -55,7 +55,6 @@ function CaptureImage() {
       });
   };
 
-
   const toggleCameraAccess = (allowAccess) => {
     if (allowAccess) {
       getVideo(); // Enable camera
@@ -70,89 +69,6 @@ function CaptureImage() {
       }
     }
   };
-
-//   const AccessDevicePermission = ({ checked, onChange }) => {
-//     return (
-//       <div onClick={onChange} style={{ cursor: "pointer", display: "inline-block" }}>
-//         <div style={{ display: "inline-block", position: "relative" }}>
-//           {checked ? <CheckCircle /> : <Cancel />}
-//           <Switch
-//             checked={checked}
-//             onChange={onChange}
-//             style={{ position: "absolute", top: 0, left: 0, opacity: 0 }}
-//           />
-//         </div>
-//       </div>
-//     );
-//   };
-
-//   const MaterialUISwitch = styled(Switch)(({ theme }) => ({
-//     width: 62,
-//     height: 34,
-//     padding: 7,
-//     "& .MuiSwitch-switchBase": {
-//       margin: 1,
-//       padding: 0,
-//       transform: "translateX(6px)",
-//       "&.Mui-checked": {
-//         color: "#fff",
-//         transform: "translateX(22px)",
-//         "& .MuiSwitch-thumb:before": {
-//             CheckCircle,
-//         },
-//         "& + .MuiSwitch-track": {
-//           opacity: 1,
-//           backgroundColor:
-//             theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
-//         },
-//       },
-//     },
-//     "& .MuiSwitch-thumb": {
-//       backgroundColor: theme.palette.mode === "dark" ? "#003892" : "#001e3c",
-//       width: 32,
-//       height: 32,
-//       "&:before": {
-//         content: "''",
-//         position: "absolute",
-//         width: "100%",
-//         height: "100%",
-//         left: 0,
-//         top: 0,
-//         backgroundRepeat: "no-repeat",
-//         backgroundPosition: "center",
-//         Cancel,
-//       },
-//     },
-//     "& .MuiSwitch-track": {
-//       opacity: 1,
-//       backgroundColor: theme.palette.mode === "dark" ? "#8796A5" : "#aab4be",
-//       borderRadius: 20 / 2,
-//     },
-//   }));
-
-  // const getVideo = () => {
-  //     navigator.mediaDevices
-  //       .getUserMedia({
-  //         video: { width: 1920, height: 1080 },
-  //       })
-  //       .then((stream) => {
-  //         let video = videoRef.current;
-  //         if(video){
-  //           video.srcObject = stream;
-  //           video.oncanplay = function () {
-  //             video.play().catch((err) => {
-  //               console.log("The video could not be played:", err);
-  //             });
-  //           };
-  //         }
-  //         else {
-  //           console.error("Video element not ready");
-  //         }
-  //       })
-  //       .catch((err) => {
-  //         console.error(err);
-  //       });
-  // };
 
   const takePhoto = () => {
     return new Promise((resolve, reject) => {
@@ -233,7 +149,7 @@ function CaptureImage() {
               onChange={() => {
                 const newCameraAccess = !cameraAccess;
                 setCameraAccess(newCameraAccess);
-                toggleCameraAccess(newCameraAccess); // Toggle camera access
+                toggleCameraAccess(newCameraAccess);
               }}
             />
           }
@@ -253,17 +169,3 @@ function CaptureImage() {
   );
 }
 export default CaptureImage;
-
-/*
-const stopVideoFeed = () => {
-    const video = videoRef.current;
-    if (video && video.srcObject) {
-        const tracks = video.srcObject.getTracks();
-        tracks.forEach((track) => {
-            track.stop();
-        });
-        video.srcObject = null;
-    }
-};
-
-*/
