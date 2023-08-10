@@ -143,9 +143,6 @@ function App() {
               <SidebarContent>
                 <NavSidebar />
               </SidebarContent>
-              {/* <SideNavUserInfoMockup
-              collapsed={state.leftEdgeSidebar?.collapsed}
-            /> */}
               <SideNavUserInfo
                 collapsed={state.leftEdgeSidebar?.collapsed}
               />
@@ -312,9 +309,9 @@ function App() {
             </div>
           </Container>
         </Content>
-        <Footer>
+        {/* <Footer> */}
           <FooterRooted />
-        </Footer>
+        {/* </Footer> */}
       </Router>
     </Root>
   );
