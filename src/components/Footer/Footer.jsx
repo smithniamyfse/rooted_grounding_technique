@@ -1,4 +1,5 @@
 import React from 'react';
+import NaturePeopleIcon from "@mui/icons-material/NaturePeople";
 import './Footer.css';
 
 // This is one of our simplest components
@@ -7,7 +8,7 @@ import './Footer.css';
 // or even care what the redux state is, so it doesn't need 'connect()'
 
 function FooterRooted() {
-  return <footer>&copy; Prime Digital Academy</footer>;
+  return <footer><NaturePeopleIcon/>  &nbsp; Rooted From Within</footer>;
 }
 
 export default FooterRooted;
