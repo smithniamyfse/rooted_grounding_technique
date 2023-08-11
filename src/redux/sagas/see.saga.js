@@ -24,14 +24,17 @@ function* addSeeData(action) {
 }
 
 function* editSeeItem(action) {
-    // Update the selected see item in the database
     try {
-        yield axios.put(`/api/see-inputs/${action.payload.id}`, action.payload);
-        yield put({ type: "FETCH_SEE_ITEMS" });
-    } catch(error) {
-        console.log("Error in PUTting updated see_input data: ", error);
+      const seeItemId = action.payload.id;
+      const eventId = action.payload.user_event_id; // Ensure it's part of the payload
+      yield axios.put(`/api/see-inputs/${seeItemId}/${eventId}`, action.payload);
+      yield put({ type: "FETCH_SEE_ITEMS" });
+    } catch (error) {
+      console.log("Error in PUTting updated see_input data: ", error);
     }
-}
+  }
+  
+
 
 function* seeInputsSaga() {
   yield takeLatest("FETCH_SEE_ITEMS", fetchSeeItems);

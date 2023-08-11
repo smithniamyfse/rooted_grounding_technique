@@ -1,18 +1,20 @@
 import { useSelector } from "react-redux";
 import SeeItem from "./SeeItem";
 
-function SeeList() {
-    // Access the seeData from the seeReducer
-    const seeData = useSelector((store) => store.seeReducer.seeData);
-  
-    return (
-      <ul>
-        {seeData.map((seeItem, index) => (
-          <SeeItem key={index} seeItem={seeItem} />
-        ))}
-      </ul>
-    );
-  }
+
+
+function SeeList({ onEdit }) {
+  const seeData = useSelector((store) => store.seeReducer.seeData);
+
+  return (
+    <ul>
+      {seeData.map((seeItem, index) => (
+        <SeeItem key={index} seeItem={seeItem} onEdit={() => onEdit(seeItem)} />
+      ))}
+    </ul>
+  );
+}
+
   
   export default SeeList;
   

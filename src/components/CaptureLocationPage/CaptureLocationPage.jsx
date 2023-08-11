@@ -31,7 +31,8 @@ const goToPointImage = () => {
   return (
     <>
       <main className="capture-location-page-container">
-        <h1>Welcome, {user.username}!</h1>
+      <h1>Welcome, {user.username}</h1>
+        <h1>Take 2 deep breaths...</h1>
         <CaptureImage />
         <br />
         <div className="next-container">

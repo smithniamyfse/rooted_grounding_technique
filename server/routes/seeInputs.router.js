@@ -75,9 +75,12 @@ router.post("/", rejectUnauthenticated, (req, res) => {
 });
 
 
-router.put("/:id", rejectUnauthenticated, (req, res) => {
+router.put("/:id/:event_id", rejectUnauthenticated, (req, res) => {
   // Update this single see_item
-  const idToUpdate = req.params.id;
+    const seeItemId = req.params.id;
+    const userId = req.user.id;
+    const eventId = req.params.event_id; // Extract from URL
+
   const queryText = `
   UPDATE "see_inputs"
   SET 
@@ -86,7 +89,10 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
   "see_item_3" = $3, 
   "see_item_4" = $4, 
   "see_item_5" = $5 
-  WHERE "id" = $6;`;
+  WHERE "id" = $6
+  AND "user_id" = $7 
+  AND "user_event_id" = $8;
+  `;
   pool
     .query(queryText, [
       req.body.see_item_1,
@@ -94,7 +100,9 @@ router.put("/:id", rejectUnauthenticated, (req, res) => {
       req.body.see_item_3,
       req.body.see_item_4,
       req.body.see_item_5,
-      idToUpdate,
+      seeItemId,
+      userId,
+      eventId,
     ])
     .then((result) => {
       res.sendStatus(200);

@@ -48,10 +48,20 @@ function VerticalStepsSenses() {
   };
 
   const handleSaveClick = () => {
-    // dispatch an action that is being listened for by a saga
-    dispatch({ type: "SUBMIT_EDIT_SEE_ITEM", payload: seeItemToEdit });
+    console.log("seeItemToEdit:", seeItemToEdit);
+    dispatch({
+      type: "SUBMIT_EDIT_SEE_ITEM",
+      payload: {
+        ...seeItemToEdit,
+        id: seeItemToEdit.id,
+        user_id: seeItemToEdit.userId, 
+        user_event_id: seeItemToEdit.eventId,
+      },
+    });
     setIsEditingSee(false); // Switch back to view mode
   };
+  
+  
 
   const handleCancelClick = () => {
     setIsEditingSee(false); // Switch back to view mode
@@ -61,7 +71,10 @@ function VerticalStepsSenses() {
     {
       label: "What you Saw",
       description: isEditingSee ? (
-        <EditSeeItem seeItem={seeItemToEdit} setSeeItemToEdit={setSeeItemToEdit} />
+        <EditSeeItem
+          seeItem={seeItemToEdit}
+          setSeeItemToEdit={setSeeItemToEdit}
+        />
       ) : (
         <SeeList onEdit={handleEditClick} />
       ),
@@ -91,7 +104,7 @@ function VerticalStepsSenses() {
           <Step key={step.label}>
             <StepLabel>{step.label}</StepLabel>
             <StepContent>
-              <Typography>{step.description}</Typography>
+              <div>{step.description}</div>
               <Box sx={{ mb: 2 }}>
                 <div>
                   {isEditingSee && index === 0 ? (
@@ -115,7 +128,7 @@ function VerticalStepsSenses() {
                     <>
                       <Button
                         variant="contained"
-                        onClick={() => handleEditClick(someSeeItem)}
+                        onClick={handleEditClick}
                         sx={{ mt: 1, mr: 1 }}
                       >
                         Edit

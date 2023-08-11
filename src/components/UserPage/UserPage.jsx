@@ -22,7 +22,6 @@ function UserPage() {
     <>
       <main className="user-page-container">
         <section className="user-page-select-tab-container">
-          <h2>Welcome, {user.username}!</h2>
           <Box sx={{ width: "100%" }}>
             <Tabs value={value} onChange={handleChange} arial-label="userpage-icon-tabs">
               <Tab icon={<AddAPhotoIcon />} aria-label="add-photo" />

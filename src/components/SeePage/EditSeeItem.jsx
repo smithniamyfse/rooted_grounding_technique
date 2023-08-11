@@ -1,35 +1,28 @@
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import React from "react";
+import { useDispatch } from "react-redux";
 
-
-function EditSeeItem({ onSave, onCancel, seeItem, setSeeItemToEdit }) {
-    const dispatch = useDispatch();
-  
-    const handleChange = (event, propertyToChange) => {
-      // Update the seeItem directly in the parent component
-      setSeeItemToEdit({
-        ...seeItem,
-        [propertyToChange]: event.target.value,
-      });
+function EditSeeItem({ seeItem: originalSeeItem, setSeeItemToEdit }) {
+    const seeItem = {
+      see_item_1: originalSeeItem?.see_item_1 || "",
+      see_item_2: originalSeeItem?.see_item_2 || "",
+      see_item_3: originalSeeItem?.see_item_3 || "",
+      see_item_4: originalSeeItem?.see_item_4 || "",
+      see_item_5: originalSeeItem?.see_item_5 || "",
     };
+  const dispatch = useDispatch();
 
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-
-//     // dispatch an action that is being listened for by a saga
-//     dispatch({ type: "SUBMIT_EDIT_SEE_ITEM", payload: seeItemToEdit });
-
-//     history.push("/");
-//   };
-
-//   const cancelEdit = () => {
-//     history.push("/");
-//   };
+  const handleChange = (event, propertyToChange) => {
+    // Update the seeItem directly in the parent component
+    setSeeItemToEdit({
+      ...seeItem,
+      [propertyToChange]: event.target.value,
+    });
+  };
 
   return (
     <>
       <form>
-      <input
+        <input
           value={seeItem.see_item_1}
           placeholder="see_item_1"
           onChange={(event) => handleChange(event, "see_item_1")}
