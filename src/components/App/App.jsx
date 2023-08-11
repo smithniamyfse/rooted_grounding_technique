@@ -88,9 +88,9 @@ import NavSidebar from "../NavSidebar/NavSidebar";
 import SideNavUserInfo from "../SideNavUserInfo/SideNavUserInfo";
 
 import VerticalStepsSenses from "../VerticalStepsSenses/VerticalStepsSenses";
+import EditSeeItem from "../SeePage/EditSeeItem";
 
 import "./App.css";
-
 
 // import HeaderComponent from "../HeaderComponent/HeaderComponent";
 
@@ -223,14 +223,20 @@ function App() {
                   <SeePagePoint />
                 </ProtectedRoute>
 
-
                 <ProtectedRoute
-                  // logged in shows ViewAllPage
+                  // logged in shows VerticalStepsSenses
                   exact
                   path="/vertical-steps"
                 >
                   <VerticalStepsSenses />
                 </ProtectedRoute>
+
+                <ProtectedRoute
+                  // logged in shows EditSeeItem
+                  exact
+                  path="/edit-see-item"
+                  component={EditSeeItem}
+                ></ProtectedRoute>
 
                 <ProtectedRoute
                   // logged in shows TouchPage
