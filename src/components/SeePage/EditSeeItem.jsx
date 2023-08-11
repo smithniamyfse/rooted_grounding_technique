@@ -1,16 +1,15 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 
-function EditSeeItem({ onSave, onCancel, seeItem }) {
+
+function EditSeeItem({ onSave, onCancel, seeItem, setSeeItemToEdit }) {
     const dispatch = useDispatch();
   
     const handleChange = (event, propertyToChange) => {
-      dispatch({
-        type: "EDIT_SEE_ITEM",
-        payload: {
-          property: propertyToChange,
-          value: event.target.value,
-        },
+      // Update the seeItem directly in the parent component
+      setSeeItemToEdit({
+        ...seeItem,
+        [propertyToChange]: event.target.value,
       });
     };
 

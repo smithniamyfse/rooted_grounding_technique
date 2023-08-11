@@ -58,11 +58,10 @@ function VerticalStepsSenses() {
   };
 
   const steps = [
-    // { label: "What you Saw", description: <SeeList /> },
     {
       label: "What you Saw",
       description: isEditingSee ? (
-        <EditSeeItem seeItem={seeItemToEdit} />
+        <EditSeeItem seeItem={seeItemToEdit} setSeeItemToEdit={setSeeItemToEdit} />
       ) : (
         <SeeList onEdit={handleEditClick} />
       ),
@@ -116,11 +115,12 @@ function VerticalStepsSenses() {
                     <>
                       <Button
                         variant="contained"
-                        onClick={handleEditClick}
+                        onClick={() => handleEditClick(someSeeItem)}
                         sx={{ mt: 1, mr: 1 }}
                       >
                         Edit
                       </Button>
+
                       <Button
                         variant="contained"
                         onClick={handleNext}
