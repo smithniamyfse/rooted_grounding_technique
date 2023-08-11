@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import "./PointToTextImage.css";
 
 function PointToTextImage() {
   const [clicks, setClicks] = useState([]);
@@ -28,7 +29,6 @@ function PointToTextImage() {
     newClicks[index].label = event.target.value;
     setClicks(newClicks);
   };
-  
 
   const handleImageClick = (event) => {
     if (clicks.length >= 5) {
@@ -50,6 +50,13 @@ function PointToTextImage() {
     const updatedSeeLog = { ...seeLog };
     updatedSeeLog[`see_item_${index + 1}`] = event.target.value;
     setSeeLog(updatedSeeLog);
+  };
+
+  // Handle click event of the remove button
+  const handleRemoveClick = index => {
+    const newClicks = [...clicks];
+    newClicks.splice(index, 1);
+    setClicks(newClicks);
   };
 
   const clearSeeInputs = () => {
@@ -80,30 +87,33 @@ function PointToTextImage() {
       <form onSubmit={addSeeLog}>
         <div style={{ position: "relative" }}>
           <img
+            className="click-on-image"
             src={imageUrl[imageUrl.length - 1]}
             onClick={handleImageClick}
             alt="Captured"
           />
           {clicks.map((click, index) => (
-            <input
-              key={index}
-              style={{
-                position: "absolute",
-                left: click.x,
-                top: click.y,
-                backgroundColor: "rgba(255, 255, 255, 0.5)",
-                width: `${
-                  click.label.length > 0 ? click.label.length * 8 : 20
-                }px`,
-              }}
-              onBlur={(event) => handleBlur(event, index)}
-              value={click.label}
-              onChange={(event) => handleInputChange(event, index)}
-            />
+            <>
+              <input
+                className="point-to-text-input"
+                key={index}
+                style={{
+                  position: "absolute",
+                  left: click.x,
+                  top: click.y,
+                  backgroundColor: "rgba(255, 255, 255, 0.5)",
+                }}
+                onBlur={(event) => handleBlur(event, index)}
+                value={click.label}
+                onChange={(event) => handleInputChange(event, index)}
+              />
+              <div className="remove-button-container">
+                {}
+              </div>
+            </>
           ))}
-
           <span
-            style={{ visibility: "hidden", whiteSpace: "nowrap" }}
+            style={{ visibility: "visible", whiteSpace: "nowrap" }}
             ref={widthRef}
           >
             {clicks.length > 0 ? clicks[clicks.length - 1].label : ""}

@@ -23,8 +23,6 @@ function* addEventEntry(action) {
   try {
     const response = yield axios.post("/api/event-entries", action.payload);
     yield put({ type: "ADD_EVENT_ENTRY", payload: response.data });
-
-    // Assuming that the server response contains the new entry's id, dispatch an action to set the current event id
     yield put({ type: "SET_CURRENT_EVENT_ID", payload: response.data.id });
   } catch (error) {
     console.log("Error adding event entry:", error);

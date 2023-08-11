@@ -136,8 +136,8 @@ const submitDistressRating = (event) => {
         <br />
         <button onClick={goToUserProfile}>Go To User Profile</button>
       </main>
-      <footer className="taste-footer-container">
-        <LogOutButton className="btn" />
+      <footer className="distress-footer-container">
+        {/* <LogOutButton className="btn" /> */}
       </footer>
     </>
   );

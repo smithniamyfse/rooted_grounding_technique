@@ -15,8 +15,12 @@ function SeePagePoint() {
 
   const user = useSelector((store) => store.user);
 
-  const goToTouch = () => {
-    history.push("/second-touch");
+//   const goToTouch = () => {
+//     history.push("/second-touch");
+//   };
+
+  const goToVerticalSteps = () => {
+    history.push("/vertical-steps");
   };
 
   useEffect(() => {
@@ -33,9 +37,10 @@ function SeePagePoint() {
           <PointToTextImage />
         </div>
         <br />
-        <button onClick={goToTouch}>Go To Touch</button>
+        {/* <button onClick={goToTouch}>Go To Touch</button> */}
       </main>
       <footer className="see-point-footer-container">
+      <button onClick={goToVerticalSteps}>Go To Vertical Steps</button>
         <LogOutButton className="btn" />
       </footer>
     </>

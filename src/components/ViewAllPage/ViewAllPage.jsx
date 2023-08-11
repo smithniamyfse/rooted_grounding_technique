@@ -22,7 +22,7 @@ function ViewAllPage() {
   return (
     <>
     <div>
-        <FilterViewAll />
+        {/* <FilterViewAll /> */}
     </div>
     <div>
       {viewAllEntries &&
@@ -30,6 +30,9 @@ function ViewAllPage() {
           <EventEntryCard key={entry.id} entry={entry} />
         ))}
     </div>
+    <footer className="view-all-footer-container">
+    <LogOutButton className="btn" />
+    </footer>
     </>
   );
 }

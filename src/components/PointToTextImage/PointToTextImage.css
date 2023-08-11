@@ -1,0 +1,16 @@
+.click-on-image {
+  cursor: crosshair;
+}
+
+.point-to-text-input {
+  font: 1.4em/1.5em;
+  border: none;
+  padding: 10px;
+  margin: 0;
+  width: 25%;
+  background: none;
+  overflow-x: scroll;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+

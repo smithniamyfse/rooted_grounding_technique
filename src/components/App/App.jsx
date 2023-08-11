@@ -55,6 +55,9 @@ import LandingPage from "../LandingPage/LandingPage";
 import LoginPage from "../LoginPage/LoginPage";
 import RegisterPage from "../RegisterPage/RegisterPage";
 
+// Import capture image location
+import CaptureLocationPage from "../CaptureLocationPage/CaptureLocationPage";
+
 // Import each sensory step in the grounding process
 import SeePage from "../SeePage/SeePage";
 import TouchPage from "../TouchPage/TouchPage";
@@ -83,6 +86,9 @@ import HeaderRooted from "../HeaderRooted/HeaderRooted";
 import NavSidebar from "../NavSidebar/NavSidebar";
 
 import SideNavUserInfo from "../SideNavUserInfo/SideNavUserInfo";
+
+import VerticalStepsSenses from "../VerticalStepsSenses/VerticalStepsSenses";
+import EditSeeItem from "../SeePage/EditSeeItem";
 
 import "./App.css";
 
@@ -143,9 +149,7 @@ function App() {
               <SidebarContent>
                 <NavSidebar />
               </SidebarContent>
-              <SideNavUserInfo
-                collapsed={state.leftEdgeSidebar?.collapsed}
-              />
+              <SideNavUserInfo collapsed={state.leftEdgeSidebar?.collapsed} />
               <EdgeTrigger target={{ anchor: "left", field: "collapsed" }}>
                 {(collapsed, setCollapsed) => (
                   <ButtonBase
@@ -188,6 +192,14 @@ function App() {
                 </ProtectedRoute>
 
                 <ProtectedRoute
+                  // logged in shows CaptureLocationPage else shows LoginPage
+                  exact
+                  path="/capture-location"
+                >
+                  <CaptureLocationPage />
+                </ProtectedRoute>
+
+                <ProtectedRoute
                   // logged in shows InfoPage else shows LoginPage
                   exact
                   path="/info"
@@ -210,6 +222,21 @@ function App() {
                 >
                   <SeePagePoint />
                 </ProtectedRoute>
+
+                <ProtectedRoute
+                  // logged in shows VerticalStepsSenses
+                  exact
+                  path="/vertical-steps"
+                >
+                  <VerticalStepsSenses />
+                </ProtectedRoute>
+
+                <ProtectedRoute
+                  // logged in shows EditSeeItem
+                  exact
+                  path="/edit-see-item"
+                  component={EditSeeItem}
+                ></ProtectedRoute>
 
                 <ProtectedRoute
                   // logged in shows TouchPage
@@ -310,7 +337,7 @@ function App() {
           </Container>
         </Content>
         {/* <Footer> */}
-          <FooterRooted />
+        <FooterRooted />
         {/* </Footer> */}
       </Router>
     </Root>

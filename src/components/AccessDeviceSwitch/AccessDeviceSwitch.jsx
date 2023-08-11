@@ -28,34 +28,34 @@ const CancelSvg = (
 );
 
 const BaseSwitch = styled(Switch)({
-    width: 45,
-    height: 22,
-    padding: 0,
-    display: "flex",
-    "& .MuiSwitch-switchBase": {
-      padding: 2,
-      "&.Mui-checked": {
-        transform: "translateX(23px)",
-        "& + .MuiSwitch-track": {
-          opacity: 1,
-          backgroundColor: primaryPale,
-        },
+  width: 45,
+  height: 22,
+  padding: 0,
+  display: "flex",
+  "& .MuiSwitch-switchBase": {
+    padding: 2,
+    "&.Mui-checked": {
+      transform: "translateX(23px)",
+      "& + .MuiSwitch-track": {
+        opacity: 1,
+        backgroundColor: primaryPale,
       },
     },
-    "& .MuiSwitch-thumb": {
-      width: 18,
-      height: 18,
-      borderRadius: "25px",
-      backgroundColor: primaryDark,
-    },
-    "& .MuiSwitch-track": {
-      opacity: 1,
-      borderRadius: "25px",
-      border: `1px solid ${primaryLight}`,
-      backgroundColor: primaryPale,
-      boxSizing: "border-box",
-    },
-  });
+  },
+  "& .MuiSwitch-thumb": {
+    width: 18,
+    height: 18,
+    borderRadius: "25px",
+    backgroundColor: primaryDark,
+  },
+  "& .MuiSwitch-track": {
+    opacity: 1,
+    borderRadius: "25px",
+    border: `1px solid ${primaryLight}`,
+    backgroundColor: primaryPale,
+    boxSizing: "border-box",
+  },
+});
 
 const SwitchWithIcons = styled(BaseSwitch)({
   "& .MuiSwitch-track": {
@@ -79,8 +79,7 @@ const SwitchWithIcons = styled(BaseSwitch)({
 });
 
 function AccessDeviceSwitch(props) {
-    return <SwitchWithIcons {...props} />;
-  }
-  
+  return <SwitchWithIcons {...props} />;
+}
 
 export default AccessDeviceSwitch;
