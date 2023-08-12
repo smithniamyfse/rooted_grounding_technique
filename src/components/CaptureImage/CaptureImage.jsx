@@ -163,9 +163,10 @@ function CaptureImage() {
           <Button
             variant="outlined"
             onClick={handleSnap}
-            style={{
-              display: "flex",
-              justifyContent: "center",
+            sx={{
+              "& .MuiButton-startIcon": { margin: "0px" },
+              minWidth: 0,
+              backgroundColor: "#000000",
             }}
           >
             <PhotoCameraIcon />
@@ -179,6 +180,5 @@ function CaptureImage() {
       </div>
     </section>
   );
-  
 }
 export default CaptureImage;

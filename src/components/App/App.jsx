@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 import Box from "@mui/material/Box";
 import ButtonBase from "@mui/material/ButtonBase";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -17,7 +18,7 @@ import IconButton from "@mui/material/IconButton";
 
 import {
   Root,
-  Header,
+//   Header,
   EdgeTrigger,
   EdgeSidebar,
   SidebarContent,
@@ -29,14 +30,6 @@ import {
   getCozyScheme,
 } from "@mui-treasury/layout";
 
-// import {
-//     HeaderMockUp,
-//     ContentMockup,
-//     FooterMockup,
-//     NavSidebarMockup
-//   } from "@mui-treasury/mockup/layout";
-
-import { HeaderMockUp } from "@mui-treasury/mockup/layout";
 
 import Menu from "@mui/icons-material/Menu";
 import KeyboardArrowLeft from "@mui/icons-material/KeyboardArrowLeft";
@@ -92,9 +85,13 @@ import EditSeeItem from "../SeePage/EditSeeItem";
 
 import "./App.css";
 
-// import HeaderComponent from "../HeaderComponent/HeaderComponent";
-
-// const standardScheme = getStandardScheme();
+const theme = createTheme({
+    transitions: {
+      duration: {
+        standard: 700, // this value is in milliseconds, so 500 = 0.5 seconds
+      },
+    },
+  });
 
 function App() {
   const dispatch = useDispatch();
@@ -127,10 +124,10 @@ function App() {
   }, [dispatch]);
 
   return (
+    <ThemeProvider theme={theme}>
     <Root scheme={presets[preset]}>
       <Router>
         <CssBaseline />
-        <Header>
           <HeaderRooted
             trigger={
               <EdgeTrigger target={{ anchor: "left", field: "open" }}>
@@ -142,7 +139,6 @@ function App() {
               </EdgeTrigger>
             }
           />
-        </Header>
         <EdgeSidebar anchor="left">
           {({ state }) => (
             <>
@@ -341,6 +337,7 @@ function App() {
         {/* </Footer> */}
       </Router>
     </Root>
+    </ThemeProvider>
   );
 }
 
