@@ -4,11 +4,10 @@ import { useHistory } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import Switch, { SwitchProps } from "@mui/material/Switch";
-import CheckCircle from "@mui/icons-material/CheckCircle";
-import Cancel from "@mui/icons-material/Cancel";
-import Stack from "@mui/material/Stack";
+import Button from "@mui/material/Button";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import AccessDeviceSwitch from "../AccessDeviceSwitch/AccessDeviceSwitch";
 import "./CaptureImage.css";
 
@@ -138,33 +137,52 @@ function CaptureImage() {
       }
     };
   }, [dispatch]);
-
   return (
     <section className="capture-image-container">
-      <FormGroup>
-        <FormControlLabel
-          control={
-            <AccessDeviceSwitch
-              checked={cameraAccess}
-              onChange={() => {
-                const newCameraAccess = !cameraAccess;
-                setCameraAccess(newCameraAccess);
-                toggleCameraAccess(newCameraAccess);
-              }}
-            />
-          }
-          label="Camera Access"
-        />
-      </FormGroup>
-      <div className="camera">
-        <video ref={videoRef}></video>
-        <button onClick={handleSnap}>SNAP!</button>
+      <div className="capture-image-center">
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <AccessDeviceSwitch
+                checked={cameraAccess}
+                onChange={() => {
+                  const newCameraAccess = !cameraAccess;
+                  setCameraAccess(newCameraAccess);
+                  toggleCameraAccess(newCameraAccess);
+                }}
+              />
+            }
+            label="Camera Access"
+          />
+        </FormGroup>
+        <div className="camera">
+          <video ref={videoRef}></video>
+          {/* <Button
+            variant="outlined"
+            onClick={handleSnap}
+            sx={{
+              "& .MuiButton-startIcon": { margin: "0px" },
+              minWidth: 0,
+              backgroundColor: "#000000",
+            }}
+          > */}
+          <IconButton
+                variant="outlined"
+                onClick={handleSnap}
+                sx={{
+                    backgroundColor: "#32a852",
+                  }}
+                >
+            <PhotoCameraIcon />
+            </IconButton>
+         {/* </Button> */}
+          {/* <button onClick={handleSnap}>SNAP!</button> */}
+        </div>
+        <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
+          <canvas ref={photoRef}></canvas>
+          {/* <button onClick={closePhoto}>CLOSE!</button> */}
+        </div>
       </div>
-      <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
-        <canvas ref={photoRef}></canvas>
-        <button onClick={closePhoto}>CLOSE!</button>
-      </div>
-      <br />
     </section>
   );
 }

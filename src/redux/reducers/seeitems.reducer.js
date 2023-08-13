@@ -1,14 +1,4 @@
 
-// *** ORIGINAL
-// const seeItemsReducer = (state = [], action) => {
-//   switch (action.type) {
-//     case "SET_SEE_ITEMS":
-//       return action.payload;
-//     default:
-//       return state;
-//   }
-// };
-
 const seeItemsReducer = (state = [], action) => {
     switch (action.type) {
       case "SET_SEE_ITEMS":

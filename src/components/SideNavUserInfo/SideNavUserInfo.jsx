@@ -50,5 +50,5 @@ function SideNavUserInfo({ collapsed, ...props }) {
   );
 }
 
-// export { SideNavUserInfo };
+
 export default SideNavUserInfo;
