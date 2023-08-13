@@ -1,0 +1,62 @@
+@import url(https://fonts.googleapis.com/css?family=Lato:100,300,400|Playfair+Display:400,700,400italic|Libre+Baskerville:400,700,400italic|Muli:300,400|Open+Sans:400,300,700|Oswald:400,700|Raleway:400,100,300,700|Montserrat:400,700|Merriweather:400,300,300italic,400italic,700|Bree+Serif|Vollkorn:400italic,400,700|Abril+Fatface|Cardo:400,400italic);
+
+
+/* SeePage.css */
+.css-1k94av6-MuiContainer-root {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  
+/* Custom Classes */
+h1.see-h1 {
+  font-size: 2rem; /* 36 / 18 = 2 (gamma) */
+  font-family: "Lato"; /* lato */
+  font-weight: 100; /* thin */
+  text-transform: uppercase; /* uppercase */
+  letter-spacing: 12px; /* ls-xlarge */
+  /* margin-bottom: 0.825rem; */
+  padding: 25px;
+  color: aliceblue;
+}
+
+span.see-span1 {
+  font-family: "Open Sans"; /* open-sans */
+  font-size: 6.5rem; /* 117 / 18 = 6.5 (tera) */
+  letter-spacing: 12px; /* ls-xlarge */
+  font-weight: 700; /* bold */
+}
+
+span.see-span2 {
+  font-size: 1.16667rem; /* 21 / 18 = 1.1667 (epsilon) */
+  letter-spacing: 4px; /* ls-medium */
+}
+
+/* General styles */
+section.see-headings {
+  height: 325px;
+  position: relative;
+  margin-top: 25px;
+  bottom: 0px;
+  top: 0px;
+  margin-bottom: 25px;
+}
+
+.see-headings-wrapper {
+  max-width: 53.33rem;
+  margin: 5 auto;
+  position: relative;
+  z-index: 10;
+  transform: translateY(-50%);
+  top: 50%;
+  text-align: center;
+}
+
+section.see-headings.large-wrap {
+  max-width: 100%;
+}
+section.see-headings {
+  background-size: cover;
+}
+section.see-headings {
+  background-image: url(https://download.unsplash.com/photo-1429277096327-11ee3b761c93);
+}

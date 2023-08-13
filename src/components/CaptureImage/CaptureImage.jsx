@@ -5,10 +5,7 @@ import { styled } from "@mui/material/styles";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
-import Switch, { SwitchProps } from "@mui/material/Switch";
-import CheckCircle from "@mui/icons-material/CheckCircle";
-import Cancel from "@mui/icons-material/Cancel";
-import Stack from "@mui/material/Stack";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
 import AccessDeviceSwitch from "../AccessDeviceSwitch/AccessDeviceSwitch";
@@ -160,7 +157,7 @@ function CaptureImage() {
         </FormGroup>
         <div className="camera">
           <video ref={videoRef}></video>
-          <Button
+          {/* <Button
             variant="outlined"
             onClick={handleSnap}
             sx={{
@@ -168,9 +165,17 @@ function CaptureImage() {
               minWidth: 0,
               backgroundColor: "#000000",
             }}
-          >
+          > */}
+          <IconButton
+                variant="outlined"
+                onClick={handleSnap}
+                sx={{
+                    backgroundColor: "#32a852",
+                  }}
+                >
             <PhotoCameraIcon />
-          </Button>
+            </IconButton>
+         {/* </Button> */}
           {/* <button onClick={handleSnap}>SNAP!</button> */}
         </div>
         <div className={"result " + (hasPhoto ? "hasPhoto" : "")}>
