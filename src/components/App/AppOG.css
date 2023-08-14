@@ -1,13 +1,13 @@
-/* html, */
-/* body, */
+html,
+body,
 #react-root {
   height: 100%;
 }
 
-/* body {
+body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0px;
-} */
+}
 
 *, *::before, *::after {
     box-sizing: inherit;
@@ -22,15 +22,15 @@ img {
 Container
 -------------------------------------------------------------------------------- */
 
-/* .container {
+.container {
   padding: 20px;
-} */
+}
 
 /* --------------------------------------------------------------------------------
 Button
 -------------------------------------------------------------------------------- */
 
-/* .btn {
+.btn {
   display: inline-block;
   padding: 10px 20px;
   border-color: #014041;
@@ -41,9 +41,9 @@ Button
   font-size: 1.1rem;
   outline: 0;
   cursor: pointer;
-} */
+}
 
-/* .btn_sizeMin {
+.btn_sizeMin {
   min-height: 50px;
   min-width: 100px;
 }
@@ -61,10 +61,10 @@ Button
 .btn:hover {
   background-color: #008183;
   text-decoration: none;
-} */
+}
 
 /* This line makes the "Register" and "Login" buttons look like links */
-/* .btn_asLink {
+.btn_asLink {
   padding: 0;
   border-width: 0;
   border-bottom: 1px solid #444;
@@ -78,13 +78,13 @@ Button
   background-color: transparent;
   border-color: #008183;
   color: #008183;
-} */
+}
 
 /* --------------------------------------------------------------------------------
 Alert
 -------------------------------------------------------------------------------- */
 
-/* .alert {
+.alert {
   box-sizing: border-box;
   padding: 15px 10px;
   margin: 15px 0;
@@ -93,13 +93,13 @@ Alert
   border-radius: 3px;
   color: #e01616;
   font-size: 0.8rem;
-} */
+}
 
 /* --------------------------------------------------------------------------------
 Form Treatment
 -------------------------------------------------------------------------------- */
 
-/* .formPanel {
+.formPanel {
   box-sizing: border-box;
   width: 400px;
   max-width: 100%;
@@ -113,4 +113,4 @@ Form Treatment
 input {
   margin: 5px;
   margin-bottom: 10px;
-} */
+}

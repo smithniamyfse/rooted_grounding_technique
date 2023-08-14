@@ -3,13 +3,13 @@ import React from "react";
 function SeeDetail(props) {
   return (
     <>
-      <ul>
+      <ol>
         <li>{props.seeItem.see_item_1}</li>
         <li>{props.seeItem.see_item_2}</li>
         <li>{props.seeItem.see_item_3}</li>
         <li>{props.seeItem.see_item_4}</li>
         <li>{props.seeItem.see_item_5}</li>
-      </ul>
+      </ol>
     </>
   );
 }

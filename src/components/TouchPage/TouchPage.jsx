@@ -68,8 +68,9 @@ function TouchPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 1"
-              variant="outlined"
+              label="1"
+              variant="standard"
+              placeholder="First Touch Item"
               name="touch_item_1"
               value={touchLog.touch_item_1}
               onChange={handleInputChange}
@@ -78,8 +79,9 @@ function TouchPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 2"
-              variant="outlined"
+              label="2"
+              variant="standard"
+              placeholder="Second Touch Item"
               name="touch_item_2"
               value={touchLog.touch_item_2}
               onChange={handleInputChange}
@@ -88,8 +90,9 @@ function TouchPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 3"
-              variant="outlined"
+              label="3"
+              variant="standard"
+              placeholder="Third Touch Item"
               name="touch_item_3"
               value={touchLog.touch_item_3}
               onChange={handleInputChange}
@@ -98,8 +101,9 @@ function TouchPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 4"
-              variant="outlined"
+              label="4"
+              variant="standard"
+              placeholder="Fourth Touch Item"
               name="touch_item_4"
               value={touchLog.touch_item_4}
               onChange={handleInputChange}

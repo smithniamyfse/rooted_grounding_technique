@@ -19,6 +19,7 @@ import { useTheme } from "@mui/material/styles";
 import BreathingTimer from "../BreathingTimer/BreathingTimer";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
+
 import "./UserPage.css";
 
 function UserPage() {
@@ -55,6 +56,8 @@ function UserPage() {
 
     return () => clearTimeout(timer); // Clear the timer when component unmounts
   }, []);
+
+  const [slideRight, setSlideRight] = useState(true); 
 
   return (
     <>
@@ -127,6 +130,10 @@ function UserPage() {
 }
 
 export default UserPage;
+
+
+
+
 
 // import React, { useState, useEffect } from "react";
 // import { useSelector, useDispatch } from "react-redux";

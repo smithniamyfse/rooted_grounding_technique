@@ -1,14 +1,15 @@
 import React from "react";
 import { useDispatch } from "react-redux";
+import { Container, TextField, Box, Slide } from "@mui/material";
 
 function EditSeeItem({ seeItem: originalSeeItem, setSeeItemToEdit }) {
-    const seeItem = {
-      see_item_1: originalSeeItem?.see_item_1 || "",
-      see_item_2: originalSeeItem?.see_item_2 || "",
-      see_item_3: originalSeeItem?.see_item_3 || "",
-      see_item_4: originalSeeItem?.see_item_4 || "",
-      see_item_5: originalSeeItem?.see_item_5 || "",
-    };
+  const seeItem = {
+    see_item_1: originalSeeItem?.see_item_1 || "",
+    see_item_2: originalSeeItem?.see_item_2 || "",
+    see_item_3: originalSeeItem?.see_item_3 || "",
+    see_item_4: originalSeeItem?.see_item_4 || "",
+    see_item_5: originalSeeItem?.see_item_5 || "",
+  };
   const dispatch = useDispatch();
 
   const handleChange = (event, propertyToChange) => {
@@ -22,31 +23,57 @@ function EditSeeItem({ seeItem: originalSeeItem, setSeeItemToEdit }) {
   return (
     <>
       <form>
-        <input
-          value={seeItem.see_item_1}
-          placeholder="see_item_1"
-          onChange={(event) => handleChange(event, "see_item_1")}
-        />
-        <input
-          value={seeItem.see_item_2}
-          placeholder="see_item_2"
-          onChange={(event) => handleChange(event, "see_item_2")}
-        />
-        <input
-          value={seeItem.see_item_3}
-          placeholder="see_item_3"
-          onChange={(event) => handleChange(event, "see_item_3")}
-        />
-        <input
-          value={seeItem.see_item_4}
-          placeholder="see_item_4"
-          onChange={(event) => handleChange(event, "see_item_4")}
-        />
-        <input
+        <Box mb={3}>
+          <TextField
+            label="Update:"
+            variant="standard"
+            name="see_item_1"
+            value={seeItem.see_item_1}
+            placeholder="See 1"
+            onChange={(event) => handleChange(event, "see_item_1")}
+          />
+        </Box>
+
+        <Box mb={3}>
+          <TextField
+            label="Update:"
+            variant="standard"
+            name="see_item_2"
+            value={seeItem.see_item_2}
+            placeholder="See 2"
+            onChange={(event) => handleChange(event, "see_item_2")}
+          />
+        </Box>
+        <Box mb={3}>
+          <TextField
+            label="Update:"
+            variant="standard"
+            name="see_item_3"
+            value={seeItem.see_item_3}
+            placeholder="See 3"
+            onChange={(event) => handleChange(event, "see_item_3")}
+          />
+        </Box>
+        <Box mb={3}>
+          <TextField
+            label="Update:"
+            variant="standard"
+            name="see_item_4"
+            value={seeItem.see_item_4}
+            placeholder="See 4"
+            onChange={(event) => handleChange(event, "see_item_4")}
+          />
+        </Box>
+        <Box mb={3}>
+          <TextField
+            label="Update:"
+            variant="standard"
+            name="see_item_5"
           value={seeItem.see_item_5}
-          placeholder="see_item_5"
+          placeholder="See 5"
           onChange={(event) => handleChange(event, "see_item_5")}
         />
+        </Box>
       </form>
     </>
   );
