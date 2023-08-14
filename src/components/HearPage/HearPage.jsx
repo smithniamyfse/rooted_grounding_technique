@@ -63,8 +63,9 @@ function HearPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 1"
-              variant="outlined"
+              label="1"
+              variant="standard"
+              placeholder="First Hear Item"
               name="hear_item_1"
               value={hearLog.hear_item_1}
               onChange={handleInputChange}
@@ -73,8 +74,9 @@ function HearPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 2"
-              variant="outlined"
+              label="2"
+              variant="standard"
+              placeholder="Second Hear Item"
               name="hear_item_2"
               value={hearLog.hear_item_2}
               onChange={handleInputChange}
@@ -83,8 +85,9 @@ function HearPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 3"
-              variant="outlined"
+              label="3"
+              variant="standard"
+              placeholder="Third Hear Item"
               name="hear_item_3"
               value={hearLog.hear_item_3}
               onChange={handleInputChange}

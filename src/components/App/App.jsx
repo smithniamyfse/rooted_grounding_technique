@@ -9,7 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-
+import Slide from "@mui/material/Slide";
 import ButtonBase from "@mui/material/ButtonBase";
 import CssBaseline from "@mui/material/CssBaseline";
 import Container from "@mui/material/Container";

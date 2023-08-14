@@ -62,8 +62,9 @@ function SmellPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 1"
-              variant="outlined"
+              label="1"
+              variant="standard"
+              placeholder="First Smell Item"
               name="smell_item_1"
               value={smellLog.smell_item_1}
               onChange={handleInputChange}
@@ -72,8 +73,9 @@ function SmellPage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 2"
-              variant="outlined"
+              label="2"
+              variant="standard"
+              placeholder="Second Smell Item"
               name="smell_item_2"
               value={smellLog.smell_item_2}
               onChange={handleInputChange}

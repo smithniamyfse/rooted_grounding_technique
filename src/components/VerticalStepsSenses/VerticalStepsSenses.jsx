@@ -43,7 +43,7 @@ function VerticalStepsSenses() {
     }
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
     if (activeStep === steps.length - 1) {
-      history.push("/user-profile");
+      history.push("/distress-rating");
     }
   };
 

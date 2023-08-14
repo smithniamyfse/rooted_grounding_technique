@@ -61,8 +61,9 @@ function TastePage({ onContinue }) {
           <Box mb={3}>
             <TextField
               fullWidth
-              label="Item 1"
-              variant="outlined"
+              label="1"
+              variant="standard"
+              placeholder="Taste Item"
               name="taste_item_1"
               value={tasteLog.taste_item_1}
               onChange={handleInputChange}
